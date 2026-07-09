@@ -1008,7 +1008,6 @@ img {
 }
 
 .hb-split-band__mascot {
-	background: var(--hb-cream);
 	display: flex;
 	align-items: center;
 	justify-content: center;
