@@ -167,3 +167,10 @@ function hugginbutt_cart_count_fragment( $fragments ) {
 
 	return $fragments;
 }
+
+/**
+ * Disables WooCommerce's persistent cart (saving/restoring logged-in
+ * customers' carts as user meta), which otherwise writes to the database on
+ * every cart change.
+ */
+add_filter( 'woocommerce_persistent_cart_enabled', '__return_false' );
