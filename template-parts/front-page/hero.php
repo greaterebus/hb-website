@@ -1,6 +1,6 @@
 <?php
 /**
- * Hero section: full-bleed product banner photo with the "Shop Now" CTA
+ * Main shop image: full-bleed banner photo with the "Shop Now" CTA
  * overlaid on top.
  */
 
@@ -8,13 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$heading     = hugginbutt_get_content( 'hb_hero_heading' );
-$button_text = hugginbutt_get_content( 'hb_hero_button_text' );
+$heading     = hugginbutt_get_content( 'hb_shop_banner_heading' );
+$button_text = hugginbutt_get_content( 'hb_shop_banner_button_text' );
 $shop_url    = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$hero_image  = hugginbutt_get_content( 'hb_hero_image' );
+$hero_image  = hugginbutt_get_content( 'hb_shop_banner_image' );
 
 // Falls back to the original hardcoded banner (with its pre-generated
-// responsive sizes) until an editor picks a photo in Customizer > Hero.
+// responsive sizes) until an editor picks a photo in Customizer > Main Shop Image.
 if ( $hero_image ) {
 	$hero_src           = $hero_image;
 	$hero_attachment_id = attachment_url_to_postid( $hero_image );

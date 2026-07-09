@@ -30,33 +30,33 @@ function hugginbutt_customizer_fields() {
 			'default' => 'Handcrafted fantasy jewelry • Faire-ready treasures • Made with mischief',
 		),
 
-		// Hero.
+		// Main shop image (the full-bleed banner photo at the top of the homepage).
 		array(
-			'id'      => 'hb_hero_heading',
-			'section' => 'hb_hero',
+			'id'      => 'hb_shop_banner_heading',
+			'section' => 'hb_shop_banner',
 			'type'    => 'text',
-			'label'   => __( 'Hero heading', 'hugginbutt-child' ),
+			'label'   => __( 'Heading', 'hugginbutt-child' ),
 			'default' => 'Handcrafted Fantasy Jewelry',
 		),
 		array(
-			'id'      => 'hb_hero_subheading',
-			'section' => 'hb_hero',
+			'id'      => 'hb_shop_banner_subheading',
+			'section' => 'hb_shop_banner',
 			'type'    => 'textarea',
-			'label'   => __( 'Hero subheading', 'hugginbutt-child' ),
+			'label'   => __( 'Subheading', 'hugginbutt-child' ),
 			'default' => 'Inspired by nature, lore, and a little bit of mischief. Handcrafted with care for ren faire days and everyday adventures.',
 		),
 		array(
-			'id'      => 'hb_hero_button_text',
-			'section' => 'hb_hero',
+			'id'      => 'hb_shop_banner_button_text',
+			'section' => 'hb_shop_banner',
 			'type'    => 'text',
-			'label'   => __( 'Hero button text', 'hugginbutt-child' ),
+			'label'   => __( 'Button text', 'hugginbutt-child' ),
 			'default' => 'Shop Now',
 		),
 		array(
-			'id'      => 'hb_hero_image',
-			'section' => 'hb_hero',
+			'id'      => 'hb_shop_banner_image',
+			'section' => 'hb_shop_banner',
 			'type'    => 'image',
-			'label'   => __( 'Hero photo', 'hugginbutt-child' ),
+			'label'   => __( 'Photo', 'hugginbutt-child' ),
 			'default' => '',
 		),
 
@@ -241,7 +241,7 @@ function hugginbutt_customize_register( $wp_customize ) {
 
 	$sections = array(
 		'hb_announcement' => __( 'Announcement Bar', 'hugginbutt-child' ),
-		'hb_hero'         => __( 'Hero', 'hugginbutt-child' ),
+		'hb_shop_banner'  => __( 'Main Shop Image', 'hugginbutt-child' ),
 		'hb_category'     => __( 'Shop By Category', 'hugginbutt-child' ),
 		'hb_featured'     => __( 'Featured Products', 'hugginbutt-child' ),
 		'hb_about'        => __( 'About Us', 'hugginbutt-child' ),
