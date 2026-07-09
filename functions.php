@@ -20,3 +20,4 @@ require HUGGINBUTT_DIR . '/inc/events-cpt.php';
 require HUGGINBUTT_DIR . '/inc/woocommerce.php';
 require HUGGINBUTT_DIR . '/inc/template-tags.php';
 require HUGGINBUTT_DIR . '/inc/shop-sidebar.php';
+require HUGGINBUTT_DIR . '/inc/admin-guide.php';
