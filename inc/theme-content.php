@@ -121,11 +121,6 @@ function hugginbutt_get_about_features() {
 			'label' => __( 'Quality Materials', 'hugginbutt-child' ),
 			'sub'   => __( 'Made to last', 'hugginbutt-child' ),
 		),
-		array(
-			'icon'  => 'feature-shipping',
-			'label' => __( 'Ships Worldwide', 'hugginbutt-child' ),
-			'sub'   => __( 'We ship everywhere', 'hugginbutt-child' ),
-		),
 	);
 
 	return apply_filters( 'hugginbutt_about_features', $features );

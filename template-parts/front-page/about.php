@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $heading = hugginbutt_get_content( 'hb_about_heading' );
 $image_url = hugginbutt_get_content( 'hb_about_image' );
 ?>
-<section class="hb-about hb-paper hb-torn-bottom">
+<section class="hb-about hb-paper hb-torn-top hb-torn-bottom">
 	<div class="hb-about__inner">
 		<div class="hb-about__media">
 			<?php if ( $image_url ) : ?>
