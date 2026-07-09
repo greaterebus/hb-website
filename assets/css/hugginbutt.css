@@ -234,7 +234,7 @@ img {
 }
 .hb-button--outline:hover {
 	background: var(--hb-text);
-	color: var(--hb-cream) !important;
+	color: var(--hb-cream);
 }
 
 .hb-button--small {
