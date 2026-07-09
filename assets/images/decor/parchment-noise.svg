@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <filter id="paper" x="-15%" y="-15%" width="130%" height="130%">
+    <feTurbulence type="fractalNoise" baseFrequency=".018 .09" numOctaves="4" seed="23" stitchTiles="stitch" result="broad"/>
+    <feColorMatrix in="broad" values=".34 0 0 0 .28 0 .28 0 0 .20 0 0 .18 0 .10 0 0 0 .24 0" result="stains"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" seed="8" stitchTiles="stitch" result="grain"/>
+    <feColorMatrix in="grain" values=".25 0 0 0 .31 0 .20 0 0 .22 0 0 .12 0 .10 0 0 0 .16 0" result="fibers"/>
+    <feBlend in="stains" in2="fibers" mode="multiply"/>
+  </filter>
+  <rect width="320" height="320" fill="#b18a4e" opacity=".04"/>
+  <rect width="320" height="320" filter="url(#paper)" opacity=".72"/>
+  <g fill="none" stroke="#7c5d2e" stroke-width=".45" opacity=".16"><path d="M-10 43C58 37 112 51 177 44s111-4 158 3M-18 126c77-9 125 7 202-2s104 8 151-1M-4 247c69 8 122-5 189 1s99-3 144 4"/></g>
+</svg>

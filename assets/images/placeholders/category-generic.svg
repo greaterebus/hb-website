@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="Product category placeholder">
+	<rect width="500" height="500" fill="#ece0c8"/>
+	<circle cx="250" cy="250" r="248" fill="#e2d3ae"/>
+	<polygon points="250,150 320,230 250,350 180,230" fill="none" stroke="#a2582c" stroke-width="12"/>
+	<line x1="180" y1="230" x2="320" y2="230" stroke="#c9a227" stroke-width="6"/>
+</svg>

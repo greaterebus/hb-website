@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Product photo placeholder">
+	<rect width="800" height="800" fill="#f5ecd9"/>
+	<circle cx="400" cy="400" r="220" fill="#ece0c8"/>
+	<g stroke="#a2582c" stroke-width="14" fill="none">
+		<path d="M330,300 a18,18 0 1,1 0.1,0"/>
+		<line x1="330" y1="318" x2="330" y2="400"/>
+		<path d="M330,400 C285,440 285,490 330,505 C375,490 375,440 330,400 Z"/>
+
+		<path d="M470,300 a18,18 0 1,1 0.1,0"/>
+		<line x1="470" y1="318" x2="470" y2="400"/>
+		<path d="M470,400 C425,440 425,490 470,505 C515,490 515,440 470,400 Z"/>
+	</g>
+	<circle cx="330" cy="455" r="12" fill="#7a3f8f"/>
+	<circle cx="470" cy="455" r="12" fill="#7a3f8f"/>
+</svg>

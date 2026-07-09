@@ -1,0 +1,113 @@
+/**
+ * HugginButt front-end interactions: mobile nav toggle + submenu accordion,
+ * testimonial dot carousel. Vanilla JS, no dependencies.
+ */
+( function () {
+	'use strict';
+
+	document.addEventListener( 'DOMContentLoaded', function () {
+		initMobileNav();
+		initCategoryCarousels();
+		initTestimonialCarousel();
+	} );
+
+	function initCategoryCarousels() {
+		document.querySelectorAll( '[data-hb-category-carousel]' ).forEach( function ( carousel ) {
+			var viewport = carousel.querySelector( '[data-hb-category-viewport]' );
+			var previous = carousel.querySelector( '[data-hb-category-prev]' );
+			var next = carousel.querySelector( '[data-hb-category-next]' );
+			if ( ! viewport || ! previous || ! next ) { return; }
+
+			function scrollAmount() {
+				var card = viewport.querySelector( '.hb-category' );
+				var grid = viewport.querySelector( '.hb-categories__grid' );
+				var gap = grid ? parseFloat( window.getComputedStyle( grid ).columnGap ) || 0 : 0;
+				return card ? card.getBoundingClientRect().width + gap : viewport.clientWidth * 0.75;
+			}
+			function updateButtons() {
+				var maxScroll = Math.max( 0, viewport.scrollWidth - viewport.clientWidth );
+				previous.disabled = viewport.scrollLeft <= 2;
+				next.disabled = viewport.scrollLeft >= maxScroll - 2;
+				carousel.classList.toggle( 'has-overflow', maxScroll > 2 );
+			}
+
+			function fitWholeCards() {
+				var card = viewport.querySelector( '.hb-category' );
+				var grid = viewport.querySelector( '.hb-categories__grid' );
+				if ( ! card || ! grid ) { return; }
+
+				viewport.style.width = '100%';
+				var available = viewport.clientWidth;
+				var cardWidth = card.getBoundingClientRect().width;
+				var gap = parseFloat( window.getComputedStyle( grid ).columnGap ) || 0;
+				var visibleCards = Math.max( 1, Math.floor( ( available + gap ) / ( cardWidth + gap ) ) );
+				var fittedWidth = visibleCards * cardWidth + ( visibleCards - 1 ) * gap;
+				var currentIndex = Math.round( viewport.scrollLeft / ( cardWidth + gap ) );
+
+				viewport.style.width = Math.min( available, fittedWidth ) + 'px';
+				viewport.scrollLeft = currentIndex * ( cardWidth + gap );
+				updateButtons();
+			}
+
+			previous.addEventListener( 'click', function () { viewport.scrollBy( { left: -scrollAmount(), behavior: 'smooth' } ); } );
+			next.addEventListener( 'click', function () { viewport.scrollBy( { left: scrollAmount(), behavior: 'smooth' } ); } );
+			viewport.addEventListener( 'scroll', updateButtons, { passive: true } );
+			window.addEventListener( 'resize', fitWholeCards );
+			fitWholeCards();
+		} );
+	}
+	function initMobileNav() {
+		var toggle = document.querySelector( '.hb-header__menu-toggle' );
+		var nav = document.getElementById( 'hb-primary-nav' );
+
+		if ( ! toggle || ! nav ) {
+			return;
+		}
+
+		toggle.addEventListener( 'click', function () {
+			var isOpen = toggle.getAttribute( 'aria-expanded' ) === 'true';
+			toggle.setAttribute( 'aria-expanded', isOpen ? 'false' : 'true' );
+			nav.classList.toggle( 'is-open', ! isOpen );
+		} );
+
+		var parentLinks = nav.querySelectorAll( '.menu-item-has-children > a' );
+		parentLinks.forEach( function ( link ) {
+			link.addEventListener( 'click', function ( event ) {
+				if ( window.innerWidth > 782 ) {
+					return;
+				}
+				var parentItem = link.parentElement;
+				if ( ! parentItem.classList.contains( 'is-open' ) ) {
+					event.preventDefault();
+					parentItem.classList.add( 'is-open' );
+				}
+			} );
+		} );
+	}
+
+	function initTestimonialCarousel() {
+		var carousels = document.querySelectorAll( '[data-hb-carousel]' );
+
+		carousels.forEach( function ( carousel ) {
+			var slides = carousel.querySelectorAll( '.hb-testimonial-slide' );
+			var dots = carousel.querySelectorAll( '[data-hb-slide]' );
+
+			if ( slides.length < 2 ) {
+				return;
+			}
+
+			dots.forEach( function ( dot ) {
+				dot.addEventListener( 'click', function () {
+					var index = parseInt( dot.getAttribute( 'data-hb-slide' ), 10 );
+
+					slides.forEach( function ( slide, slideIndex ) {
+						slide.classList.toggle( 'is-active', slideIndex === index );
+					} );
+					dots.forEach( function ( otherDot ) {
+						otherDot.classList.toggle( 'is-active', otherDot === dot );
+					} );
+				} );
+			} );
+		} );
+	}
+} )();

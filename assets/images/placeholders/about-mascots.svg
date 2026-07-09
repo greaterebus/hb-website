@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 860" width="760" height="860" role="img" aria-label="Shop owners illustration placeholder">
+	<rect width="760" height="860" fill="#e2d3ae"/>
+	<rect width="760" height="860" fill="url(#hb-about-vignette)"/>
+	<defs>
+		<radialGradient id="hb-about-vignette" cx="50%" cy="35%" r="70%">
+			<stop offset="0%" stop-color="#ece0c8"/>
+			<stop offset="100%" stop-color="#d9c79c"/>
+		</radialGradient>
+	</defs>
+
+	<!-- goblin figure -->
+	<g transform="translate(260,560)">
+		<rect x="-70" y="0" width="140" height="220" rx="30" fill="#4a3524"/>
+		<circle cx="0" cy="-70" r="90" fill="#8a9a6a"/>
+		<path d="M-70,-120 Q0,-260 70,-120 Q40,-150 0,-140 Q-40,-150 -70,-120 Z" fill="#b3392c"/>
+		<circle cx="-30" cy="-75" r="8" fill="#2a2318"/>
+		<circle cx="30" cy="-75" r="8" fill="#2a2318"/>
+	</g>
+
+	<!-- fairy figure -->
+	<g transform="translate(500,540)">
+		<path d="M-120,-40 C-60,-120 60,-120 120,-40 L60,20 C20,-10 -20,-10 -60,20 Z" fill="#f1e8d0" opacity="0.6"/>
+		<rect x="-60" y="-20" width="120" height="240" rx="34" fill="#7a3f8f"/>
+		<circle cx="0" cy="-90" r="80" fill="#e8c9a0"/>
+		<path d="M-80,-140 Q0,-190 80,-140 Q40,-160 0,-155 Q-40,-160 -80,-140 Z" fill="#3a2a1a"/>
+		<circle cx="-25" cy="-92" r="7" fill="#2a2318"/>
+		<circle cx="25" cy="-92" r="7" fill="#2a2318"/>
+	</g>
+</svg>

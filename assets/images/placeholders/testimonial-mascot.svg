@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="220" height="220" role="img" aria-label="Mascot illustration placeholder">
+	<circle cx="110" cy="110" r="108" fill="#ece0c8"/>
+	<circle cx="110" cy="120" r="55" fill="#e8c9a0"/>
+	<path d="M55,90 Q110,20 165,90 Q135,65 110,72 Q85,65 55,90 Z" fill="#b3392c"/>
+	<circle cx="92" cy="118" r="6" fill="#2a2318"/>
+	<circle cx="128" cy="118" r="6" fill="#2a2318"/>
+	<path d="M95,140 Q110,150 125,140" fill="none" stroke="#2a2318" stroke-width="4" stroke-linecap="round"/>
+</svg>

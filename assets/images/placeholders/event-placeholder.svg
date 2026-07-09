@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Ren faire event photo placeholder">
+	<rect width="400" height="300" fill="#d9c79c"/>
+	<rect width="400" height="300" fill="url(#hb-event-sky)"/>
+	<defs>
+		<linearGradient id="hb-event-sky" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0%" stop-color="#c9b98a"/>
+			<stop offset="100%" stop-color="#a2582c" stop-opacity="0.15"/>
+		</linearGradient>
+	</defs>
+	<polygon points="200,60 260,180 140,180" fill="#a2582c"/>
+	<rect x="192" y="60" width="16" height="18" fill="#c9a227"/>
+	<polygon points="200,60 205,45 210,60" fill="#c9a227"/>
+	<polygon points="90,190 130,120 170,190" fill="#8a4623" opacity="0.85"/>
+	<polygon points="230,190 270,120 310,190" fill="#8a4623" opacity="0.85"/>
+	<rect x="0" y="188" width="400" height="112" fill="#4a5c3a" opacity="0.5"/>
+</svg>

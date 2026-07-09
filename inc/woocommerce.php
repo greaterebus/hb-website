@@ -1,0 +1,169 @@
+<?php
+/**
+ * Live WooCommerce data for the "Shop By Category" and "Featured Products"
+ * homepage sections. Every function here is safe to call even if
+ * WooCommerce is deactivated (returns an empty array).
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Up to 5 shop category tiles. Prefers real `product_cat` terms (with
+ * whatever "Thumbnail" image is set on the term in Products > Categories);
+ * pads with the fixed fallback labels from hugginbutt_get_fallback_categories()
+ * when fewer than 5 real categories exist yet, so the section never looks
+ * sparse on a brand-new store.
+ *
+ * Each returned row: name, link, image_id (real thumbnail attachment id, or
+ * 0), image (placeholder key fallback).
+ */
+function hugginbutt_get_shop_categories() {
+	$rows = array();
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return $rows;
+	}
+
+	$terms = get_terms(
+		array(
+			'taxonomy'   => 'product_cat',
+			'hide_empty' => true,
+			'number'     => 0,
+			'orderby'    => 'name',
+			'order'      => 'ASC',
+		)
+	);
+
+	if ( is_wp_error( $terms ) ) {
+		return $rows;
+	}
+
+	foreach ( $terms as $term ) {
+		if ( 'uncategorized' === $term->slug ) {
+			continue;
+		}
+
+		$link = get_term_link( $term );
+		if ( is_wp_error( $link ) ) {
+			continue;
+		}
+
+		$thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
+
+		// Prefer a real product photo when no category thumbnail was chosen.
+		// Products > Categories > Thumbnail remains the explicit override.
+		if ( ! $thumbnail_id ) {
+			$category_products = wc_get_products(
+				array(
+					'status'   => 'publish',
+					'category' => array( $term->slug ),
+					'limit'    => 12,
+					'orderby'  => 'date',
+					'order'    => 'DESC',
+				)
+			);
+
+			foreach ( $category_products as $category_product ) {
+				if ( $category_product->get_image_id() ) {
+					$thumbnail_id = $category_product->get_image_id();
+					break;
+				}
+			}
+		}
+		$rows[] = array(
+			'name'     => $term->name,
+			'link'     => $link,
+			'image_id' => $thumbnail_id ? absint( $thumbnail_id ) : 0,
+			'image'    => 'category-' . $term->slug,
+		);
+	}
+
+	return $rows;
+}
+
+/**
+ * Up to 6 featured products. Prefers products marked "Featured" in
+ * WooCommerce; tops up with the most recently published products when
+ * fewer than 6 are featured. Returns an empty array if the store has no
+ * published products at all, so the template can render its placeholder
+ * "coming soon" cards instead.
+ *
+ * @return \WC_Product[]
+ */
+function hugginbutt_get_featured_products() {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return array();
+	}
+
+	$featured = wc_get_products(
+		array(
+			'status'   => 'publish',
+			'featured' => true,
+			'limit'    => 6,
+			'orderby'  => 'date',
+			'order'    => 'DESC',
+		)
+	);
+
+	if ( count( $featured ) >= 6 ) {
+		return $featured;
+	}
+
+	$existing_ids = array();
+	foreach ( $featured as $product ) {
+		$existing_ids[] = $product->get_id();
+	}
+
+	$recent = wc_get_products(
+		array(
+			'status'  => 'publish',
+			'limit'   => 6 - count( $featured ),
+			'orderby' => 'date',
+			'order'   => 'DESC',
+			'exclude' => $existing_ids,
+		)
+	);
+
+	return array_merge( $featured, $recent );
+}
+
+add_filter( 'body_class', 'hugginbutt_coming_soon_body_class' );
+
+/**
+ * Tags <body> on the WooCommerce "coming soon" page so hugginbutt.css can
+ * override Kadence's default cream body background (`body{background:var(--global-palette8)}`)
+ * with the site's green fabric look, scoped to just this page.
+ */
+function hugginbutt_coming_soon_body_class( $classes ) {
+	if ( ! function_exists( 'wc_get_container' ) ) {
+		return $classes;
+	}
+
+	$helper = wc_get_container()->get( \Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper::class );
+
+	if ( $helper->is_current_page_coming_soon() ) {
+		$classes[] = 'hb-coming-soon-page';
+	}
+
+	return $classes;
+}
+
+add_filter( 'woocommerce_add_to_cart_fragments', 'hugginbutt_cart_count_fragment' );
+
+/**
+ * Keeps the header cart badge live-updated after an AJAX add-to-cart,
+ * without a full page reload (relies on wc-cart-fragments being enqueued).
+ */
+function hugginbutt_cart_count_fragment( $fragments ) {
+	if ( ! WC()->cart ) {
+		return $fragments;
+	}
+
+	$count = WC()->cart->get_cart_contents_count();
+
+	$fragments['.hugginbutt-cart-count'] = '<span class="hugginbutt-cart-count">' . intval( $count ) . '</span>';
+
+	return $fragments;
+}
