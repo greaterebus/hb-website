@@ -27,7 +27,7 @@ if ( '' === $button_url ) {
 		<?php if ( $events ) : ?>
 			<div class="hb-events__grid">
 				<?php foreach ( $events as $event ) : ?>
-					<div class="hb-event-card hb-paper hb-torn-top hb-torn-right hb-torn-bottom hb-torn-left">
+					<div class="hb-event-card hb-paper">
 						<span class="hb-event-card__media">
 							<?php if ( ! empty( $event['image_url'] ) ) : ?>
 								<img src="<?php echo esc_url( $event['image_url'] ); ?>" alt="<?php echo esc_attr( $event['name'] ); ?>" />

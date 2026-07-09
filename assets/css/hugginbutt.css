@@ -804,17 +804,16 @@ img {
 }
 .hb-events__grid {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 1.5rem;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
 }
 /* .hb-paper (background/bevel) is added via markup; this just layers the
-   card-specific shape + outer drop shadow on top. */
+   card-specific shape + outer drop shadow on top. Plain padded corners
+   (no torn-edge mask) - at this card size the torn-edge tears read as
+   oversized relative to the card, so it's a straightforward paper card. */
 .hb-event-card {
-	--hb-torn-top-padding: 1.85rem;
-	--hb-torn-right-padding: 1.65rem;
-	--hb-torn-bottom-padding: 1.85rem;
-	--hb-torn-left-padding: 1.65rem;
-	border-radius: 0;
+	padding: 1.75rem;
+	border-radius: var(--hb-radius);
 	box-shadow:
 		inset 0 1px rgba(255, 247, 218, .36),
 		inset 0 -1px rgba(92, 55, 21, .14),
@@ -826,7 +825,7 @@ img {
 	aspect-ratio: 4 / 3;
 	border-radius: var(--hb-radius);
 	overflow: hidden;
-	margin-bottom: 0.75rem;
+	margin-bottom: 1rem;
 }
 .hb-event-card__media img {
 	width: 100%;
@@ -840,17 +839,17 @@ img {
 	background: var(--hb-green-dark);
 	color: var(--hb-cream-lighter);
 	font-family: var(--hb-font-display);
-	font-size: 0.6rem;
+	font-size: 0.7rem;
 	letter-spacing: 0.06em;
-	padding: 0.3em 0.6em;
+	padding: 0.35em 0.7em;
 	border-radius: 3px;
 }
 .hb-event-card__name {
 	font-family: var(--hb-font-display);
-	font-size: 1.15rem;
+	font-size: 1.4rem;
 	letter-spacing: 0.02em;
 	color: var(--hb-green-dark);
-	margin: 0 0 0.3rem;
+	margin: 0 0 0.4rem;
 }
 .hb-event-card__date-long {
 	font-family: var(--hb-font-display);
@@ -861,7 +860,7 @@ img {
 	white-space: nowrap;
 }
 .hb-event-card__location {
-	font-size: 1rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 	font-style: italic;
 	letter-spacing: 0.03em;
@@ -1606,7 +1605,7 @@ body.hb-coming-soon-page {
 .hb-about__media img { aspect-ratio: 1.35 / 1; border-radius: 0; object-fit: contain; }
 
 .hb-events__inner { padding-block: 3rem; grid-template-columns: .75fr 2fr; gap: 2rem; }
-.hb-events__grid { gap: 1rem; }
+.hb-events__grid { gap: 2rem; }
 .hb-event-card__media { border: 2px solid rgba(63,49,28,.25); }
 .hb-split-band { grid-template-columns: 1fr 260px 1fr; }
 .hb-testimonials, .hb-newsletter { padding-block: 2.5rem; }
