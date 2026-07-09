@@ -32,7 +32,7 @@ function hugginbutt_enqueue_assets() {
 		true
 	);
 
-	if ( class_exists( '\\WooCommerce' ) ) {
+	if ( class_exists( '\\WooCommerce' ) && ( is_cart() || is_checkout() ) ) {
 		wp_enqueue_script( 'wc-cart-fragments' );
 	}
 }
