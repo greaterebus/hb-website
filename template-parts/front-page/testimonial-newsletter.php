@@ -13,7 +13,7 @@ $testimonials    = hugginbutt_get_testimonials();
 $testimonial_img = hugginbutt_get_content( 'hb_testimonial_image' );
 $form_action     = hugginbutt_get_content( 'hb_newsletter_form_action' );
 ?>
-<section class="hb-split-band hb-paper hb-torn-bottom">
+<section class="hb-split-band hb-paper hb-torn-top">
 
 	<div class="hb-testimonials">
 		<h2 class="hb-testimonials__heading"><?php echo esc_html( hugginbutt_get_content( 'hb_testimonial_heading' ) ); ?></h2>
