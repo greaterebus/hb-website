@@ -62,7 +62,7 @@ function hugginbutt_placeholder_url( $key ) {
 		'product-3'            => 'placeholders/product-placeholder-3.svg',
 		'about'                => 'generated/about-makers-v2.webp',
 		'event'                => 'generated/ren-faire-v2.webp',
-		'testimonial'          => 'generated/about-makers-v2.webp',
+		'testimonial'          => 'generated/testimonial-mascot.png',
 		'logo'                 => 'generated/logo-gnome-v2.webp',
 	);
 
