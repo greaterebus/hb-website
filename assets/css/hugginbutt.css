@@ -299,7 +299,8 @@ img {
    ========================================================================== */
 
 .hb-announcement {
-	color: var(--hb-text-on-green);
+	background: rgba(0, 0, 0, 0.25);
+	color: rgb(240, 223, 187);
 	padding: 0.5em 1em;
 }
 .hb-announcement__inner {
@@ -1658,15 +1659,15 @@ body.hb-coming-soon-page {
 /* Cohesive announcement and parchment masthead. */
 .hb-announcement {
 	min-height: 32px;
-	padding: .28rem 1rem;
+	padding: .55rem 1rem;
 	border-bottom: 1px solid rgba(167,133,61,.34);
 	box-shadow: inset 0 -1px rgba(0,0,0,.24);
 }
 .hb-announcement__inner {
 	gap: .85rem;
 	font-family: var(--hb-font-body);
-	font-size: .88rem;
-	font-weight: 500;
+	font-size: 1.05rem;
+	font-weight: 700;
 	line-height: 1.1;
 	letter-spacing: .045em;
 	text-transform: none !important;
@@ -1708,7 +1709,7 @@ body.hb-coming-soon-page {
 .hb-header__icon-link,
 .hb-nav-menu > li > a { color: #281e12; }
 @media (max-width: 782px) {
-	.hb-announcement__inner { font-size: .76rem; }
+	.hb-announcement__inner { font-size: .92rem; }
 	.hb-header__inner { min-height: 78px; }
 	.hb-header__logo,
 	.hb-header__logo .custom-logo-link,
