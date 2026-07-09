@@ -1584,7 +1584,12 @@ body.hb-coming-soon-page {
 .hb-nav-menu > li > a { font-size: .75rem; }
 .hb-hero__inner { padding: 0; grid-template-columns: 1fr; gap: 0; }
 .hb-hero__content { padding: 0; }
-.hb-hero__banner-image { display: block; width: 100%; height: auto; aspect-ratio: 1536 / 659; object-fit: cover; object-position: center top; }
+/* No fixed aspect-ratio/object-fit: those crop (or letterbox) to a box
+   sized for the original banner photo's proportions, which cuts off or
+   misplaces differently-shaped replacement photos. Sizing to the image's
+   own natural ratio means nothing is ever cropped, and the hero simply
+   takes whatever height the photo needs. */
+.hb-hero__banner-image { display: block; width: 100%; height: auto; }
 .hb-hero__cta { position: absolute; right: 2rem; bottom: 2rem; z-index: 2; }
 .hb-hero__heading { max-width: 100%; font-size: clamp(2.2rem, 3.2vw, 3.6rem); line-height: 1.1; text-transform: uppercase; overflow-wrap: break-word; }
 .hb-hero__media, .hb-hero__media img { height: 100%; }
