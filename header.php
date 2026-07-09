@@ -36,6 +36,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="hb-header__inner">
 
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-header__brand">
+				<span class="hb-header__logo">
+					<?php if ( has_custom_logo() ) : ?>
+						<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'alt' => get_bloginfo( 'name' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- WP-escaped image markup. ?>
+					<?php else : ?>
+						<?php hugginbutt_placeholder_image( 'logo', get_bloginfo( 'name' ) ); ?>
+					<?php endif; ?>
+				</span>
 				<span class="hb-header__wordmark-group">
 					<span class="hb-header__wordmark"><?php bloginfo( 'name' ); ?></span>
 					<?php if ( get_bloginfo( 'description' ) ) : ?>
