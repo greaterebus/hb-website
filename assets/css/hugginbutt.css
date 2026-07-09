@@ -1051,6 +1051,7 @@ img {
    ========================================================================== */
 
 .hb-footer {
+	background: rgba(0, 0, 0, 0.5);
 	color: var(--hb-text-on-green);
 }
 .hb-footer__inner {
