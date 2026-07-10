@@ -1558,13 +1558,17 @@ body.woocommerce-cart .site-main {
 	background-color: transparent;
 }
 body.woocommerce-cart .wp-block-woocommerce-cart {
-	background-color: var(--hb-cream-light);
-	padding: clamp(1.5rem, 3vw, 3rem);
-	border-radius: var(--hb-radius-lg);
-	box-shadow:
-		0 2px 5px rgba(20, 12, 4, .38),
-		0 10px 20px rgba(20, 12, 4, .35),
-		0 28px 48px rgba(20, 12, 4, .45);
+	background-color: transparent;
+	background-image: url("../images/generated/cart-scroll-bg.webp");
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding-inline: clamp(5rem, 9vw, 8.5rem);
+	padding-top: 24%;
+	padding-bottom: 24%;
+	min-height: 900px;
+	border-radius: var(--hb-radius-none);
+	box-shadow: none;
 	/* Most of the Cart block's text (product name, prices, totals labels)
 	   is set via this preset variable rather than a fixed font-size, so
 	   overriding it here bumps nearly everything at once. */
