@@ -50,8 +50,8 @@
 	   design intent - not the original 6px this token started at. */
 	--hb-radius-none: 0;
 	--hb-radius: 2px;
-	--hb-radius-sm: 3px;
-	--hb-radius-md: 4px;
+	--hb-radius-sm: 4px;
+	--hb-radius-md: 10px;
 	--hb-radius-lg: 18px;
 	--hb-radius-full: 50%;
 
@@ -962,9 +962,12 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	position: relative;
 	display: block;
 	aspect-ratio: 4 / 3;
-	border-radius: var(--hb-radius);
+	border-radius: var(--hb-radius-md);
 	overflow: hidden;
 	margin-bottom: 1rem;
+	box-shadow:
+		0 2px 5px rgba(20, 12, 4, .32),
+		0 8px 16px rgba(20, 12, 4, .28);
 }
 .hb-event-card__media img {
 	width: 100%;
@@ -2712,7 +2715,7 @@ body.hb-coming-soon-page {
 	background-position: center !important;
 	padding: clamp(0.7rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
 	border: 0;
-	border-radius: var(--hb-radius-md);
+	border-radius: var(--hb-radius-sm);
 	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
 	overflow: visible;
 	transition: transform 180ms ease, filter 180ms ease;
