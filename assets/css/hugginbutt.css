@@ -1303,56 +1303,117 @@ img {
 	outline: none;
 }
 
-/* Shop page main content column: same parchment surface as the filter
-   widgets, scoped to the shop archive only (other pages keep the site-wide
-   green fabric backdrop on .hb-main). */
-body.woocommerce-shop .site-main {
-	position: relative;
-	background-color: #e3c78f;
-	background-image:
-		linear-gradient(90deg, rgba(111, 69, 27, .08), transparent 8%, transparent 92%, rgba(111, 69, 27, .08)),
-		url("../images/decor/parchment-fill.webp");
-	background-repeat: no-repeat, repeat;
-	background-size: 100% 100%, 480px 480px;
-	background-blend-mode: multiply, normal;
-	box-shadow:
-		inset 0 1px rgba(255, 247, 218, .36),
-		inset 0 -1px rgba(92, 55, 21, .14);
-	border-radius: var(--hb-radius);
-	padding: 1.5rem;
-}
-
 .woocommerce ul.products li.product .price {
 	font-size: 1.15em;
 	font-weight: 700;
 }
 
-/* Experiment: oak-slab texture behind each whole product card on the shop
-   grid, with cream text over it for contrast. */
-body.woocommerce-shop ul.products li.product {
-	background-image: url("../images/decor/oak-slab.webp");
-	background-size: cover;
-	background-position: center;
+/* Tarot-inspired product tiles: generated antique card stock underneath,
+   with live WooCommerce title, photo, price, and action arranged like a card. */
+body.woocommerce-shop ul.products li.product,
+body.tax-product_cat ul.products li.product {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	padding: clamp(1.15rem, 2vw, 1.55rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
+	background-color: transparent !important;
+	background-image: url("../images/decor/tarot-card.webp") !important;
+	background-repeat: no-repeat !important;
+	background-size: 100% 100% !important;
+	background-position: center !important;
+	border: 0;
+	border-radius: 4px;
+	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
+	overflow: visible;
+	transition: transform 180ms ease, filter 180ms ease;
 }
-body.woocommerce-shop ul.products li.product .entry-content-wrap {
-	background-image: url("../images/decor/oak-slab.webp");
-	background-size: cover;
-	background-position: center;
-	color: var(--hb-cream-lighter);
-	margin-left: 0;
-	margin-right: 0;
+body.woocommerce-shop ul.products li.product:hover,
+body.tax-product_cat ul.products li.product:hover {
+	transform: translateY(-3px) rotate(-0.2deg);
+	filter: brightness(1.02);
+}
+body.woocommerce-shop ul.products li.product .entry-content-wrap,
+body.tax-product_cat ul.products li.product .entry-content-wrap {
+	display: contents;
+	background: transparent !important;
+	box-shadow: none !important;
+	color: var(--hb-text);
 }
 body.woocommerce-shop ul.products li.product .woocommerce-loop-product__title,
-body.woocommerce-shop ul.products li.product .price {
-	color: var(--hb-cream-lighter) !important;
-	font-weight: 800;
-	text-shadow:
-		-1px -1px 0 var(--hb-text),
-		 1px -1px 0 var(--hb-text),
-		-1px  1px 0 var(--hb-text),
-		 1px  1px 0 var(--hb-text);
+body.tax-product_cat ul.products li.product .woocommerce-loop-product__title {
+	order: 1;
+	min-height: 3.25rem;
+	margin: 0.2rem 0.65rem 0.85rem;
+	color: #2b2116 !important;
+	font-family: var(--hb-font-display);
+	font-size: clamp(1.05rem, 1.45vw, 1.32rem);
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	line-height: 1.15;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
 }
-
+body.woocommerce-shop ul.products li.product .woocommerce-loop-product__title a,
+body.tax-product_cat ul.products li.product .woocommerce-loop-product__title a {
+	color: inherit !important;
+	text-decoration: none;
+}
+body.woocommerce-shop ul.products li.product .woocommerce-loop-image-link,
+body.tax-product_cat ul.products li.product .woocommerce-loop-image-link,
+body.woocommerce-shop ul.products li.product > a:first-child,
+body.tax-product_cat ul.products li.product > a:first-child {
+	order: 2;
+	display: block;
+	margin: 0 0.85rem 0.9rem;
+	background: rgba(42, 35, 24, 0.1);
+	border: 2px solid rgba(45, 34, 21, 0.72);
+	box-shadow:
+		0 0 0 1px rgba(239, 219, 170, 0.42),
+		0 8px 13px rgba(44, 31, 17, 0.18);
+	overflow: hidden;
+}
+body.woocommerce-shop ul.products li.product .woocommerce-loop-image-link img,
+body.tax-product_cat ul.products li.product .woocommerce-loop-image-link img,
+body.woocommerce-shop ul.products li.product > a:first-child img,
+body.tax-product_cat ul.products li.product > a:first-child img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 0.78 / 1;
+	object-fit: cover;
+	margin: 0;
+}
+body.woocommerce-shop ul.products li.product .price,
+body.tax-product_cat ul.products li.product .price {
+	order: 3;
+	margin: auto 0.8rem 0.15rem;
+	color: #2b2116 !important;
+	font-family: var(--hb-font-body);
+	font-size: 1.18rem;
+	font-weight: 800;
+	line-height: 1.1;
+	text-align: center;
+	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
+}
+body.woocommerce-shop ul.products li.product .button,
+body.tax-product_cat ul.products li.product .button {
+	order: 4;
+	align-self: center;
+	margin: 0.45rem 0 0.15rem;
+	padding: 0;
+	background: transparent !important;
+	border: 0;
+	border-bottom: 1px solid rgba(43, 33, 22, 0.55);
+	border-radius: 0;
+	box-shadow: none;
+	color: #2b2116 !important;
+	font-family: var(--hb-font-body);
+	font-size: 1rem;
+	font-weight: 800;
+	line-height: 1.1;
+	text-transform: none;
+}
 /* Widens just the shop page's content column (sidebar + product grid),
    which otherwise shares the site's global 1290px container width with
    every other page - cramped once a sidebar is taking a chunk of it. */
