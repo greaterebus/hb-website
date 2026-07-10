@@ -18,7 +18,7 @@ if ( '' === $button_url ) {
 	<div class="hb-events__inner">
 		<div class="hb-events__intro">
 			<h2 class="hb-events__heading"><?php echo esc_html( hugginbutt_get_content( 'hb_events_heading' ) ); ?></h2>
-			<a href="<?php echo esc_url( $button_url ); ?>" class="hb-button hb-button--outline">
+			<a href="<?php echo esc_url( $button_url ); ?>" class="hb-button hb-button--outline hb-events__cta">
 				<?php echo esc_html( hugginbutt_get_content( 'hb_events_button_text' ) ); ?>
 			</a>
 		</div>
