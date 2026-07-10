@@ -1614,20 +1614,33 @@ body.woocommerce-account article.entry {
 	background-color: var(--hb-cream-light);
 }
 
-/* About page (page-id-24): same cream card treatment as the Cart/Checkout/
-   My Account pages. */
+/* About page (page-id-24): paper-leafs textured background instead of a
+   flat cream card, same rounded/shadowed treatment as the Cart/Checkout/
+   My Account pages otherwise. Kadence's own "boxed content" styling puts a
+   beige background/padding/rounded corners on .site-main itself, behind
+   our .content-wrap card - zero that out so it doesn't show through. */
+body.page-id-24 .site-main {
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
 body.page-id-24 .content-wrap {
-	background-color: var(--hb-cream-light);
-	padding: clamp(1.5rem, 3vw, 3rem);
-	border-radius: var(--hb-radius-lg);
-	box-shadow:
-		0 2px 5px rgba(20, 12, 4, .38),
-		0 10px 20px rgba(20, 12, 4, .35),
-		0 28px 48px rgba(20, 12, 4, .45);
+	background-color: transparent;
+	background-image: url("../images/generated/about-paper-leafs.webp");
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 10%;
+	margin: 0;
+	min-height: 1276px;
+	border-radius: var(--hb-radius-none);
+	box-shadow: none;
 }
 body.page-id-24 .entry-content-wrap,
 body.page-id-24 article.entry {
-	background-color: var(--hb-cream-light);
+	background-color: transparent;
 }
 body.page-id-24 article.entry {
 	box-shadow: none;
