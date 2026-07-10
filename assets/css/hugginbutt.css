@@ -6,8 +6,9 @@
    ========================================================================== */
 
 :root {
-	--global-palette1: #a2582c;  /* Accent (rust/copper) */
-	--global-palette2: #c9a227;  /* Accent - alt (gold) */
+	--global-palette1: #6B7246;  /* Accent (sage green) */
+	--global-palette2: #565B38;  /* Accent - alt (darker sage - this is Kadence's
+	                                 default link/button hover color site-wide) */
 	--global-palette3: #2a2318;  /* Strongest text */
 	--global-palette4: #3a3226;  /* Strong text */
 	--global-palette5: #5c5240;  /* Medium text */
@@ -315,15 +316,15 @@ img {
 .hb-body a.button,
 .hb-body button.button,
 .hb-body input[type="submit"] {
-	background: var(--hb-rust);
+	background: var(--global-palette1);
 	color: var(--hb-cream-lighter) !important;
-	border-color: var(--hb-rust);
+	border-color: var(--global-palette1);
 }
 .hb-button--primary:hover,
 .hb-body a.button:hover,
 .hb-body button.button:hover {
-	background: var(--hb-rust-dark);
-	border-color: var(--hb-rust-dark);
+	background: var(--global-palette2);
+	border-color: var(--global-palette2);
 }
 
 .hb-button--outline {
@@ -501,7 +502,7 @@ img {
 	color: var(--hb-text);
 }
 .hb-nav-menu > li > a:hover {
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 .hb-nav-menu .sub-menu {
 	list-style: none;
@@ -539,7 +540,7 @@ img {
 }
 .hb-nav-menu .sub-menu a:hover {
 	background: var(--hb-cream);
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 .hb-nav-menu .menu-item-has-children > a::after {
 	content: '';
@@ -571,7 +572,7 @@ img {
 	height: 22px;
 }
 .hb-header__icon-link:hover {
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 .hb-header__cart {
 	position: relative;
@@ -755,7 +756,7 @@ img {
 }
 .hb-category__cta {
 	font-size: var(--hb-fs-xs);
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 
 /* ==========================================================================
@@ -815,7 +816,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 }
 .hb-product-card__price {
 	font-family: var(--hb-font-display);
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 	margin-bottom: 0.9rem;
 }
 .hb-product-card__cta,
@@ -834,11 +835,11 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	text-decoration: none;
 	padding: 0.7em 1.4em;
 	border-radius: var(--hb-radius);
-	background: var(--hb-rust);
+	background: var(--global-palette1);
 	color: var(--hb-cream-lighter) !important;
 }
 .hb-product-card .add_to_cart_button:hover {
-	background: var(--hb-rust-dark);
+	background: var(--global-palette2);
 }
 .hb-product-card--placeholder {
 	opacity: 0.9;
@@ -887,7 +888,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 .hb-about-feature__icon {
 	width: 34px;
 	height: 34px;
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 .hb-about-feature__label {
 	font-family: var(--hb-font-display);
@@ -1400,14 +1401,14 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	font-weight: 700;
 }
 .primary-sidebar .product-categories a:hover {
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 .primary-sidebar .product-categories .count {
 	display: none !important;
 }
 .primary-sidebar .product-categories .current-cat > a,
 .primary-sidebar .product-categories a.hb-cat-active {
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 	font-weight: 700;
 }
 
@@ -1430,12 +1431,12 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	text-transform: uppercase;
 	padding: 0.5em 1em;
 	border-radius: var(--hb-radius);
-	background: var(--hb-rust);
+	background: var(--global-palette1);
 	color: var(--hb-cream-lighter) !important;
 	border: none;
 }
 .primary-sidebar .price_slider_amount .button:hover {
-	background: var(--hb-rust-dark);
+	background: var(--global-palette2);
 }
 .primary-sidebar .ui-slider {
 	position: relative;
@@ -1448,7 +1449,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	position: absolute;
 	top: 0;
 	height: 100%;
-	background: var(--hb-rust);
+	background: var(--global-palette1);
 	border-radius: var(--hb-radius-sm);
 }
 .primary-sidebar .ui-slider-handle {
@@ -1552,7 +1553,7 @@ body.single-product .woocommerce-tabs {
    darken its own rust background instead, matching .hb-button--primary's
    hover treatment elsewhere on the site. */
 body.single-product .single_add_to_cart_button:hover {
-	background-color: var(--hb-rust-dark) !important;
+	background-color: var(--global-palette2) !important;
 	color: var(--hb-cream-lighter) !important;
 }
 
@@ -1670,6 +1671,82 @@ body.woocommerce-account article.entry {
 }
 body.woocommerce-account article.entry {
 	box-shadow: none;
+}
+
+/* My Account: the nav tabs and avatar/name block sit directly on the
+   paper-leafs texture, so give them a translucent glass panel for contrast
+   and legible link colors instead of Kadence's low-contrast defaults. */
+body.woocommerce-account .account-navigation-wrap {
+	background: rgba(255, 255, 255, 0.03);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	border-radius: var(--hb-radius-md);
+	padding: 1.5rem 1.25rem;
+	margin-bottom: 2rem;
+}
+body.woocommerce-account .kadence-account-avatar {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+	margin-bottom: 1.25rem;
+	padding-bottom: 1.25rem;
+	border-bottom: 1px solid rgba(58, 44, 24, 0.18);
+}
+body.woocommerce-account .kadence-customer-image img {
+	border-radius: var(--hb-radius-full);
+	border: 2px solid var(--hb-gold);
+}
+body.woocommerce-account .kadence-customer-name {
+	font-family: var(--hb-font-display);
+	font-size: var(--hb-fs-md);
+	color: var(--hb-green-dark);
+	letter-spacing: 0.03em;
+}
+body.woocommerce-account .woocommerce-MyAccount-navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+body.woocommerce-account .woocommerce-MyAccount-navigation-link a {
+	display: block;
+	padding: 0.65em 0.9em;
+	border-radius: var(--hb-radius-sm);
+	font-family: var(--hb-font-body);
+	font-size: var(--hb-fs-base);
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: var(--hb-green-dark);
+	text-decoration: none;
+	transition: background-color 150ms ease, color 150ms ease;
+}
+body.woocommerce-account .woocommerce-MyAccount-navigation-link a:hover {
+	background: rgba(255, 255, 255, 0.4);
+	color: var(--global-palette1);
+}
+body.woocommerce-account .woocommerce-MyAccount-navigation-link.is-active a {
+	background: var(--global-palette1);
+	color: var(--hb-cream-lighter);
+}
+
+/* Glassy panel behind the actual account content (dashboard text, order
+   tables, forms) so it reads clearly above the paper-leafs background
+   instead of floating unstyled on top of it. */
+body.woocommerce-account .woocommerce-MyAccount-content {
+	background: rgba(255, 255, 255, 0.03);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	border-radius: var(--hb-radius-md);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	box-shadow: none;
+	padding: clamp(1.5rem, 3vw, 2.5rem);
+	color: var(--hb-text);
+}
+body.woocommerce-account .woocommerce-MyAccount-content h2 {
+	font-size: var(--hb-fs-lg);
 }
 
 /* About page (page-id-24): paper-leafs textured background instead of a
@@ -2398,7 +2475,7 @@ body.hb-coming-soon-page {
 .hb-categories__carousel { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; align-items: center; gap: 1rem; }
 .hb-categories__viewport { min-width: 0; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-inline: contain; }
 .hb-categories__viewport::-webkit-scrollbar { display: none; }
-.hb-categories__viewport:focus-visible { outline: 2px dashed var(--hb-rust); outline-offset: 6px; }
+.hb-categories__viewport:focus-visible { outline: 2px dashed var(--global-palette1); outline-offset: 6px; }
 .hb-categories__grid { display: flex !important; flex-wrap: nowrap !important; justify-content: flex-start; gap: clamp(1.25rem, 2vw, 2rem); width: max-content; }
 .hb-categories__grid .hb-category { flex: 0 0 clamp(140px, 12vw, 190px); scroll-snap-align: start; }
 .hb-categories__arrow { position: relative; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; padding: 0 0 4px; border: 2px solid #76511f; border-radius: var(--hb-radius-full); background: radial-gradient(circle at 35% 28%, #f4d17e 0 8%, transparent 9%), linear-gradient(145deg, #c99339, #80551e 72%); box-shadow: inset 0 0 0 3px rgba(255,224,144,.32), 0 4px 0 #4f3215, 0 7px 14px rgba(42,27,11,.28); color: #23170c; cursor: pointer; transition: transform .18s ease, filter .18s ease, opacity .18s ease; }
@@ -2406,7 +2483,7 @@ body.hb-coming-soon-page {
 .hb-categories__arrow span { font-family: Georgia, serif; font-size: 2.45rem; font-weight: 700; line-height: .8; }
 .hb-categories__arrow:hover:not(:disabled) { transform: translateY(-2px) rotate(-3deg); filter: brightness(1.08); }
 .hb-categories__arrow--next:hover:not(:disabled) { transform: translateY(-2px) rotate(3deg); }
-.hb-categories__arrow:focus-visible { outline: 3px solid var(--hb-rust); outline-offset: 4px; }
+.hb-categories__arrow:focus-visible { outline: 3px solid var(--global-palette1); outline-offset: 4px; }
 .hb-categories__arrow:disabled { opacity: .28; cursor: default; box-shadow: inset 0 0 0 3px rgba(255,224,144,.2), 0 2px 0 #4f3215; }
 .hb-categories__carousel:not(.has-overflow) .hb-categories__arrow { visibility: hidden; }
 @media (max-width: 782px) {
@@ -2463,7 +2540,7 @@ body.hb-coming-soon-page {
 }
 
 .hb-testimonial-slide__author {
-	color: var(--hb-rust);
+	color: var(--global-palette1);
 }
 
 .hb-testimonial-carousel__dot {
@@ -2561,7 +2638,7 @@ body.hb-coming-soon-page {
 	transform: translateY(-2px) rotate(183deg);
 }
 .hb-categories__arrow:focus-visible {
-	outline: 3px solid var(--hb-rust);
+	outline: 3px solid var(--global-palette1);
 	outline-offset: 5px;
 }
 .hb-categories__arrow:disabled {
