@@ -38,7 +38,22 @@
 	--hb-font-body: var(--hb-font-display);
 
 	--hb-container: 1280px;
-	--hb-radius: 6px;
+
+	/* Rounding scale - every border-radius in this file should reference
+	   one of these instead of a one-off value. --hb-radius is the base/
+	   default (buttons, inputs, small UI elements); the others cover the
+	   handful of deliberately different contexts found when auditing the
+	   file (badges/pills, the tarot product card, the bigger "content
+	   card" pattern used on Cart/Checkout/My Account/About/Events, and
+	   circles). Its value (2px, quite sharp/square) reflects the later
+	   "2026 visual refinement" pass below, which is the actual current
+	   design intent - not the original 6px this token started at. */
+	--hb-radius-none: 0;
+	--hb-radius: 2px;
+	--hb-radius-sm: 3px;
+	--hb-radius-md: 4px;
+	--hb-radius-lg: 18px;
+	--hb-radius-full: 50%;
 
 	/* Kadence/WooCommerce-rendered elements (including block-based pages
 	   like the Cart) use this variable directly rather than our own
@@ -568,7 +583,7 @@ img {
 	min-width: 18px;
 	height: 18px;
 	padding: 0 4px;
-	border-radius: 50%;
+	border-radius: var(--hb-radius-full);
 	background: var(--hb-rust);
 	color: var(--hb-cream-lighter);
 	font-family: var(--hb-font-body);
@@ -695,7 +710,7 @@ img {
 	display: block;
 	width: 140px;
 	height: 140px;
-	border-radius: 50%;
+	border-radius: var(--hb-radius-full);
 	overflow: hidden;
 	margin-bottom: 1rem;
 	background: var(--hb-cream-light);
@@ -918,7 +933,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	font-size: var(--hb-fs-2xs);
 	letter-spacing: 0.06em;
 	padding: 0.35em 0.7em;
-	border-radius: 3px;
+	border-radius: var(--hb-radius-sm);
 }
 .hb-event-card__name {
 	font-family: var(--hb-font-display);
@@ -1001,7 +1016,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	align-items: start;
 	background-color: var(--hb-cream);
 	background-image: none;
-	border-radius: 18px;
+	border-radius: var(--hb-radius-lg);
 	box-shadow:
 		inset 0 1px rgba(255, 247, 218, .36),
 		inset 0 -1px rgba(92, 55, 21, .14),
@@ -1097,7 +1112,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 .hb-testimonial-carousel__dot {
 	width: 9px;
 	height: 9px;
-	border-radius: 50%;
+	border-radius: var(--hb-radius-full);
 	border: none;
 	background: rgba(241, 232, 208, 0.35);
 	padding: 0;
@@ -1171,7 +1186,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 .hb-footer__logo img {
 	width: 40px;
 	height: 40px;
-	border-radius: 50%;
+	border-radius: var(--hb-radius-full);
 	object-fit: cover;
 }
 .hb-footer__wordmark {
@@ -1194,7 +1209,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	height: 30px;
 	align-items: center;
 	justify-content: center;
-	border-radius: 50%;
+	border-radius: var(--hb-radius-full);
 	border: 1px solid rgba(241, 232, 208, 0.35);
 	color: var(--hb-text-on-green);
 }
@@ -1361,7 +1376,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	position: relative;
 	height: 4px;
 	background: rgba(42, 35, 24, 0.15);
-	border-radius: 3px;
+	border-radius: var(--hb-radius-sm);
 	margin: 1rem 0.5rem 1.5rem;
 }
 .primary-sidebar .ui-slider-range {
@@ -1369,7 +1384,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	top: 0;
 	height: 100%;
 	background: var(--hb-rust);
-	border-radius: 3px;
+	border-radius: var(--hb-radius-sm);
 }
 .primary-sidebar .ui-slider-handle {
 	position: absolute;
@@ -1380,7 +1395,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	transform: translateY(-50%);
 	background: var(--hb-gold);
 	border: 2px solid var(--hb-cream-lighter);
-	border-radius: 50%;
+	border-radius: var(--hb-radius-full);
 	cursor: pointer;
 	outline: none;
 }
@@ -1405,12 +1420,15 @@ body.woocommerce-shop.has-sidebar.has-left-sidebar .content-container {
 }
 
 /* Single product page: plain cream background behind the whole content
-   column. */
+   column. Same rounding as the Cart/Checkout/My Account/About/Events
+   "content card" pattern - this had drifted to a leftover 4px from an
+   earlier iteration that used tarot-card art here (border-radius wasn't
+   updated when it switched to flat cream). */
 body.single-product .content-container.site-container {
 	position: relative;
 	background-color: var(--hb-cream);
 	background-image: none;
-	border-radius: 4px;
+	border-radius: var(--hb-radius-lg);
 	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
 	padding: clamp(2.5rem, 5vw, 5rem);
 	color: var(--hb-green);
@@ -1448,7 +1466,7 @@ body.woocommerce-cart .site-main {
 body.woocommerce-cart .wp-block-woocommerce-cart {
 	background-color: var(--hb-cream-light);
 	padding: clamp(1.5rem, 3vw, 3rem);
-	border-radius: 18px;
+	border-radius: var(--hb-radius-lg);
 	box-shadow:
 		0 2px 5px rgba(20, 12, 4, .38),
 		0 10px 20px rgba(20, 12, 4, .35),
@@ -1461,7 +1479,7 @@ body.woocommerce-cart .wp-block-woocommerce-cart {
 }
 body.woocommerce-cart article.entry {
 	background-color: transparent;
-	border-radius: 0;
+	border-radius: var(--hb-radius-none);
 	box-shadow: none;
 }
 
@@ -1469,7 +1487,7 @@ body.woocommerce-cart article.entry {
 body.woocommerce-checkout .content-wrap {
 	background-color: var(--hb-cream-light);
 	padding: clamp(1.5rem, 3vw, 3rem);
-	border-radius: 18px;
+	border-radius: var(--hb-radius-lg);
 	box-shadow:
 		0 2px 5px rgba(20, 12, 4, .38),
 		0 10px 20px rgba(20, 12, 4, .35),
@@ -1487,7 +1505,7 @@ body.woocommerce-checkout article.entry {
 body.woocommerce-account .content-wrap {
 	background-color: var(--hb-cream-light);
 	padding: clamp(1.5rem, 3vw, 3rem);
-	border-radius: 18px;
+	border-radius: var(--hb-radius-lg);
 	box-shadow:
 		0 2px 5px rgba(20, 12, 4, .38),
 		0 10px 20px rgba(20, 12, 4, .35),
@@ -1503,7 +1521,7 @@ body.woocommerce-account article.entry {
 body.page-id-24 .content-wrap {
 	background-color: var(--hb-cream-light);
 	padding: clamp(1.5rem, 3vw, 3rem);
-	border-radius: 18px;
+	border-radius: var(--hb-radius-lg);
 	box-shadow:
 		0 2px 5px rgba(20, 12, 4, .38),
 		0 10px 20px rgba(20, 12, 4, .35),
@@ -1710,7 +1728,7 @@ body.tax-product_cat .hb-products__grid {
 	--hb-cream: #e8d4ac; --hb-cream-light: #f0dfba; --hb-cream-lighter: #f4e8cd;
 	--hb-text: #251f16; --hb-text-on-green: #e8d8b4;
 	--hb-rust: #71401f; --hb-rust-dark: #553018; --hb-gold: #9b7729;
-	--hb-container: 1440px; --hb-radius: 2px;
+	--hb-container: 1440px;
 }
 .hb-body {
 	background-color: var(--hb-green);
@@ -1906,7 +1924,7 @@ body.hb-coming-soon-page {
 .hb-hero__cta { position: absolute; right: 2rem; bottom: 2rem; z-index: 2; }
 .hb-hero__heading { max-width: 100%; font-size: var(--hb-fs-display-md); line-height: 1.1; text-transform: uppercase; overflow-wrap: break-word; }
 .hb-hero__media, .hb-hero__media img { height: 100%; }
-.hb-hero__media img { min-height: 440px; border-radius: 0; aspect-ratio: 1.65 / 1; }
+.hb-hero__media img { min-height: 440px; border-radius: var(--hb-radius-none); aspect-ratio: 1.65 / 1; }
 .hb-categories__inner { padding-block: 2.4rem 3rem; }
 .hb-section-heading { margin-bottom: 1.6rem; }
 .hb-categories__grid { gap: 1.4rem; }
@@ -1920,7 +1938,7 @@ body.hb-coming-soon-page {
 .hb-product-card__price { font-size: var(--hb-fs-xs); margin-bottom: .45rem; }
 .hb-product-card .add_to_cart_button, .hb-product-card .ajax_add_to_cart, .hb-product-card .hb-button { font-size: var(--hb-fs-2xs); padding: .55em .8em; }
 .hb-about__inner { padding-block: 3rem; grid-template-columns: 46% 54%; gap: 2.5rem; }
-.hb-about__media img { aspect-ratio: 1.35 / 1; border-radius: 0; object-fit: contain; }
+.hb-about__media img { aspect-ratio: 1.35 / 1; border-radius: var(--hb-radius-none); object-fit: contain; }
 
 .hb-events__inner { padding-block: 3rem; grid-template-columns: .75fr 2fr; gap: 2rem; }
 .hb-events__grid { gap: 2rem; }
@@ -1930,7 +1948,7 @@ body.hb-coming-soon-page {
 
 .hb-footer__inner { padding-block: 2.5rem 1.5rem; }
 .hb-split-band__mascot { padding: 1.5rem; overflow: hidden; }
-.hb-split-band__mascot img { display: block; width: 100%; height: 100%; min-height: 260px; object-fit: contain; object-position: center; border-radius: 0; }
+.hb-split-band__mascot img { display: block; width: 100%; height: 100%; min-height: 260px; object-fit: contain; object-position: center; border-radius: var(--hb-radius-none); }
 @media (max-width: 1180px) {
 	.hb-products__grid { grid-template-columns: repeat(3, 1fr); }
 	.hb-header__wordmark { font-size: 1.65rem; }
@@ -2062,7 +2080,7 @@ body.hb-coming-soon-page {
 .hb-categories__viewport:focus-visible { outline: 2px dashed var(--hb-rust); outline-offset: 6px; }
 .hb-categories__grid { display: flex !important; flex-wrap: nowrap !important; justify-content: flex-start; gap: clamp(1.25rem, 2vw, 2rem); width: max-content; }
 .hb-categories__grid .hb-category { flex: 0 0 clamp(140px, 12vw, 190px); scroll-snap-align: start; }
-.hb-categories__arrow { position: relative; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; padding: 0 0 4px; border: 2px solid #76511f; border-radius: 50%; background: radial-gradient(circle at 35% 28%, #f4d17e 0 8%, transparent 9%), linear-gradient(145deg, #c99339, #80551e 72%); box-shadow: inset 0 0 0 3px rgba(255,224,144,.32), 0 4px 0 #4f3215, 0 7px 14px rgba(42,27,11,.28); color: #23170c; cursor: pointer; transition: transform .18s ease, filter .18s ease, opacity .18s ease; }
+.hb-categories__arrow { position: relative; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; padding: 0 0 4px; border: 2px solid #76511f; border-radius: var(--hb-radius-full); background: radial-gradient(circle at 35% 28%, #f4d17e 0 8%, transparent 9%), linear-gradient(145deg, #c99339, #80551e 72%); box-shadow: inset 0 0 0 3px rgba(255,224,144,.32), 0 4px 0 #4f3215, 0 7px 14px rgba(42,27,11,.28); color: #23170c; cursor: pointer; transition: transform .18s ease, filter .18s ease, opacity .18s ease; }
 .hb-categories__arrow::after { content: '\2726'; position: absolute; bottom: 2px; font-size: .5rem; color: #3f2912; }
 .hb-categories__arrow span { font-family: Georgia, serif; font-size: 2.45rem; font-weight: 700; line-height: .8; }
 .hb-categories__arrow:hover:not(:disabled) { transform: translateY(-2px) rotate(-3deg); filter: brightness(1.08); }
@@ -2168,7 +2186,7 @@ body.hb-coming-soon-page {
 	height: 42px;
 	padding: 0;
 	border: 0;
-	border-radius: 0;
+	border-radius: var(--hb-radius-none);
 	background: url("../images/generated/category-arrow-leaf.png") center / contain no-repeat;
 	box-shadow: none;
 	color: transparent;
@@ -2342,7 +2360,7 @@ body.hb-coming-soon-page {
 	background-position: center !important;
 	padding: clamp(0.7rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
 	border: 0;
-	border-radius: 4px;
+	border-radius: var(--hb-radius-md);
 	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
 	overflow: visible;
 	transition: transform 180ms ease, filter 180ms ease;
@@ -2433,7 +2451,7 @@ body.hb-coming-soon-page {
 	background-size: contain !important;
 	background-position: center !important;
 	border: 0;
-	border-radius: 0;
+	border-radius: var(--hb-radius-none);
 	box-shadow: none;
 	font-size: 0;
 	line-height: 0;
