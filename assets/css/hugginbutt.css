@@ -1551,6 +1551,39 @@ body.tax-product_cat .hb-products__grid {
 	gap: 1.5rem;
 }
 
+/* Tarot-style shuffle: when the shop grid re-filters via AJAX
+   (initShopAjaxFilters in hugginbutt.js), the outgoing cards flip away
+   like a dealer sweeping a hand off the table, then the new set deals
+   back in with a stagger. */
+.hb-products__grid {
+	perspective: 1400px;
+}
+.hb-product-card {
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+}
+.hb-product-card.hb-card-out {
+	animation: hb-card-flip-out 280ms cubic-bezier(.55, 0, .85, .35) forwards;
+	pointer-events: none;
+}
+.hb-product-card.hb-card-in {
+	animation: hb-card-flip-in 420ms cubic-bezier(.2, .8, .3, 1) both;
+}
+@keyframes hb-card-flip-out {
+	0% { transform: rotateY(0deg) scale(1); opacity: 1; }
+	100% { transform: rotateY(-100deg) scale(.82); opacity: 0; }
+}
+@keyframes hb-card-flip-in {
+	0% { transform: rotateY(100deg) scale(.82); opacity: 0; }
+	100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.hb-product-card.hb-card-out,
+	.hb-product-card.hb-card-in {
+		animation: none !important;
+	}
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */

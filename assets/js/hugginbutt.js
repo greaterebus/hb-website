@@ -89,12 +89,16 @@
 
 		main.setAttribute( 'aria-busy', 'true' );
 
-		window.fetch( url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } } )
+		var shuffleOut = playCardShuffleOut( main );
+		var request = window.fetch( url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } } )
 			.then( function ( response ) {
 				if ( ! response.ok ) { throw new Error( 'Shop filter request failed' ); }
 				return response.text();
-			} )
-			.then( function ( html ) {
+			} );
+
+		Promise.all( [ request, shuffleOut ] )
+			.then( function ( results ) {
+				var html = results[0];
 				var newMain = new window.DOMParser().parseFromString( html, 'text/html' )
 					.querySelector( 'body.woocommerce-shop .site-main' );
 
@@ -108,10 +112,61 @@
 				}
 
 				initShopFilterHighlight();
+				playCardShuffleIn( main );
 			} )
 			.catch( function () {
 				window.location.href = url;
 			} );
+	}
+
+	/**
+	 * Flips the current product cards away like a dealer sweeping a hand off
+	 * the table, staggered slightly per card. Resolves once the longest
+	 * stagger + animation has finished, so the swap always waits for at
+	 * least this flourish even when the response comes back instantly.
+	 * Skips straight to resolved for prefers-reduced-motion.
+	 */
+	function playCardShuffleOut( main ) {
+		var cards = main.querySelectorAll( '.hb-product-card' );
+		var prefersReduced = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+
+		if ( ! cards.length || prefersReduced ) {
+			return Promise.resolve();
+		}
+
+		var stagger = 25;
+		var duration = 280;
+
+		cards.forEach( function ( card, index ) {
+			card.style.animationDelay = Math.min( index * stagger, 200 ) + 'ms';
+			card.classList.add( 'hb-card-out' );
+		} );
+
+		var totalTime = Math.min( ( cards.length - 1 ) * stagger, 200 ) + duration;
+		return new Promise( function ( resolve ) { setTimeout( resolve, totalTime ); } );
+	}
+
+	/**
+	 * Deals the new cards back in, staggered like they're being dealt from
+	 * a deck.
+	 */
+	function playCardShuffleIn( main ) {
+		var cards = main.querySelectorAll( '.hb-product-card' );
+		var prefersReduced = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+
+		if ( ! cards.length || prefersReduced ) { return; }
+
+		var stagger = 35;
+
+		cards.forEach( function ( card, index ) {
+			card.style.animationDelay = Math.min( index * stagger, 260 ) + 'ms';
+			card.classList.add( 'hb-card-in' );
+			card.addEventListener( 'animationend', function handler() {
+				card.classList.remove( 'hb-card-in' );
+				card.style.animationDelay = '';
+				card.removeEventListener( 'animationend', handler );
+			} );
+		} );
 	}
 
 	function initCategoryCarousels() {
