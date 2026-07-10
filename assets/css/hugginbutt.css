@@ -371,10 +371,9 @@ img {
 }
 .hb-header__logo,
 .hb-header__logo img {
-	width: 52px;
-	height: 52px;
-	border-radius: 50%;
-	object-fit: cover;
+	width: auto;
+	height: 64px;
+	object-fit: contain;
 	display: block;
 }
 .hb-header__wordmark-group {
@@ -1577,7 +1576,6 @@ body.hb-coming-soon-page {
 .hb-announcement__inner { font-size: .8rem; letter-spacing: .035em; text-transform: none; }
 .hb-header { box-shadow: 0 2px 10px rgba(25,20,12,.22); }
 .hb-header__inner { padding-block: .65rem; }
-.hb-header__logo, .hb-header__logo img { width: 72px; height: 72px; border-radius: 0; }
 .hb-header__wordmark { font-size: 2rem; letter-spacing: -.035em; }
 .hb-header__tagline { font-size: .58rem; }
 .hb-nav-menu { gap: 2.4rem; }
@@ -1624,7 +1622,6 @@ body.hb-coming-soon-page {
 	.hb-nav-menu { gap: 1.2rem; }
 }
 @media (max-width: 782px) {
-	.hb-header__logo, .hb-header__logo img { width: 54px; height: 54px; }
 	.hb-header__wordmark { font-size: 1.4rem; }
 	.hb-hero__inner { grid-template-columns: 1fr; }
 	.hb-hero__cta { right: 1rem; bottom: 1rem; }
@@ -1712,21 +1709,6 @@ body.hb-coming-soon-page {
 }
 .hb-header__inner { background: transparent !important; }
 .hb-header__inner { min-height: 98px; padding-block: .7rem; }
-.hb-header__logo,
-.hb-header__logo .custom-logo-link,
-.hb-header__logo img {
-	display: block;
-	width: 76px;
-	height: 76px;
-	border-radius: 50%;
-}
-.hb-header__logo {
-	flex: 0 0 76px;
-	overflow: hidden;
-	border: 2px solid #9b7729;
-	box-shadow: 0 2px 8px rgba(40,27,13,.30), inset 0 0 0 2px rgba(245,224,177,.22);
-}
-.hb-header__logo img { object-fit: cover; }
 .hb-header__wordmark { color: #281e12; text-shadow: 0 1px rgba(255,244,210,.48); }
 .hb-header__tagline { color: #5a4827; }
 .hb-header__icon-link,
@@ -1734,10 +1716,6 @@ body.hb-coming-soon-page {
 @media (max-width: 782px) {
 	.hb-announcement__inner { font-size: .92rem; }
 	.hb-header__inner { min-height: 78px; }
-	.hb-header__logo,
-	.hb-header__logo .custom-logo-link,
-	.hb-header__logo img { width: 58px; height: 58px; }
-	.hb-header__logo { flex-basis: 58px; }
 }
 
 /* One continuous paper surface: body and torn extension share one recipe. */
