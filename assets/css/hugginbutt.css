@@ -117,8 +117,25 @@
 	letter-spacing: 0.02em;
 }
 
+/* Sticky footer: on pages without enough content to fill the viewport,
+   keeps the footer pinned to the bottom of the screen instead of floating
+   up right under a short page. Not "always visible while scrolling" -
+   just never leaves a gap below it on a short page.
+   .hb-site's own top edge is pushed down by the WP admin bar's
+   margin-top hack on <html> while logged in (32px desktop, 46px on
+   mobile) - growing a plain 100vh from that already-lower starting point
+   overflows the true viewport by that same amount. WP core exposes the
+   current admin bar height as --wp-admin--admin-bar--height precisely for
+   this; subtracting it keeps this exact for both logged-in and
+   logged-out visitors instead of hardcoding 32px. */
 .hb-site {
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
 	overflow-x: hidden;
+}
+.hb-main {
+	flex: 1 0 auto;
 }
 
 .hb-icon svg {
