@@ -226,25 +226,6 @@ function hugginbutt_shop_columns() {
 }
 
 /**
- * Markup for the "View product" icon link. Called directly by
- * hugginbutt_render_product_card() below - every product loop on the site
- * (shop, category/tag archives, related products, homepage Featured
- * Products) now renders through that one function, so this no longer needs
- * its own woocommerce_after_shop_loop_item hook.
- */
-function hugginbutt_render_view_product_icon( $product ) {
-	if ( ! $product instanceof WC_Product ) {
-		return;
-	}
-
-	printf(
-		'<a href="%1$s" class="hb-card-view-product" aria-label="%2$s"><span class="screen-reader-text">%2$s</span></a>',
-		esc_url( get_permalink( $product->get_id() ) ),
-		esc_attr__( 'View product', 'hugginbutt-child' )
-	);
-}
-
-/**
  * Renders one .hb-product-card - the homepage Featured Products markup,
  * shared with hugginbutt_related_products() below so a product looks
  * identical everywhere it's featured in a hand-rolled grid rather than a
@@ -270,10 +251,7 @@ function hugginbutt_render_product_card( $card_product ) {
 		</h6>
 		<div class="hb-product-card__price"><?php echo wp_kses_post( $card_product->get_price_html() ); ?></div>
 		<div class="hb-product-card__cta">
-			<?php
-			hugginbutt_render_view_product_icon( $card_product );
-			woocommerce_template_loop_add_to_cart();
-			?>
+			<?php woocommerce_template_loop_add_to_cart(); ?>
 		</div>
 	</div>
 	<?php

@@ -2683,18 +2683,18 @@ body.hb-coming-soon-page {
 	order: 4;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	margin: 0.45rem 0 0 !important;
-	padding: 0 0.4rem;
+	justify-content: center;
+	width: auto;
+	margin: 0.45rem calc(-1 * clamp(1rem, 1.8vw, 1.35rem)) 0 !important;
+	padding: 0;
 }
-.hb-product-card__cta .hb-card-view-product,
 .hb-product-card__cta .button {
 	position: relative;
 	display: block;
 	flex: 0 0 auto;
-	width: 64px;
-	height: 64px;
+	width: 80%;
+	height: auto;
+	aspect-ratio: 1199 / 509;
 	margin: 0;
 	padding: 0;
 	background-color: transparent !important;
@@ -2709,25 +2709,19 @@ body.hb-coming-soon-page {
 	color: transparent !important;
 	transition: transform 150ms ease;
 }
-.hb-product-card__cta .hb-card-view-product:hover,
 .hb-product-card__cta .button:hover {
 	transform: scale(1.08);
 }
-.hb-product-card__cta .hb-card-view-product {
-	background-image: url("../images/icons/view-product.webp") !important;
-}
-.hb-product-card__cta .hb-card-view-product:hover {
-	background-image: url("../images/icons/view-product-hover.webp") !important;
-}
 .hb-product-card__cta .button {
-	background-image: url("../images/icons/add-to-cart.webp") !important;
+	background-image: url("../images/icons/feed-the-mimic.webp") !important;
 }
 .hb-product-card__cta .button:hover {
-	background-image: url("../images/icons/add-to-cart-hover.webp") !important;
+	background-image: url("../images/icons/feed-the-mimic-hover.webp") !important;
 }
 .hb-product-card__cta .button.added {
-	height: 64px !important;
-	width: 64px !important;
+	height: auto !important;
+	width: 80% !important;
+	aspect-ratio: 1199 / 509;
 	padding: 0 !important;
 	overflow: visible !important;
 	border: 0 !important;
