@@ -21,6 +21,29 @@ add_action( 'customize_register', 'hugginbutt_customize_register' );
  */
 function hugginbutt_customizer_fields() {
 	return array(
+		// Navbar (logo, site name, and tagline shown in the header).
+		array(
+			'id'      => 'hb_navbar_site_name',
+			'section' => 'hb_navbar',
+			'type'    => 'text',
+			'label'   => __( 'Name (leave blank to use Settings > General > Site Title)', 'hugginbutt-child' ),
+			'default' => '',
+		),
+		array(
+			'id'      => 'hb_navbar_tagline',
+			'section' => 'hb_navbar',
+			'type'    => 'text',
+			'label'   => __( 'Tagline (leave blank to use Settings > General > Tagline)', 'hugginbutt-child' ),
+			'default' => '',
+		),
+		array(
+			'id'      => 'hb_navbar_logo',
+			'section' => 'hb_navbar',
+			'type'    => 'image',
+			'label'   => __( 'Logo image (leave blank to use Site Identity > Logo)', 'hugginbutt-child' ),
+			'default' => '',
+		),
+
 		// Announcement bar.
 		array(
 			'id'      => 'hb_announcement_text',
@@ -226,6 +249,7 @@ function hugginbutt_customize_register( $wp_customize ) {
 	);
 
 	$sections = array(
+		'hb_navbar'       => __( 'Navbar', 'hugginbutt-child' ),
 		'hb_announcement' => __( 'Announcement Bar', 'hugginbutt-child' ),
 		'hb_shop_banner'  => __( 'Main Shop Image', 'hugginbutt-child' ),
 		'hb_category'     => __( 'Shop By Category', 'hugginbutt-child' ),

@@ -79,7 +79,18 @@ function hugginbutt_render_guide_page() {
 
 		<div class="hugginbutt-guide__card">
 			<h2><?php esc_html_e( '4. Edit homepage text, headings, and images', 'hugginbutt-child' ); ?></h2>
-			<p><?php echo wp_kses_post( sprintf( __( 'Go to %s. It opens a live preview of the site - click any section on the left (Hero, About, Events, Newsletter, etc.) to edit its text or image, and see the change before saving.', 'hugginbutt-child' ), '<a href="' . esc_url( $customizer_url ) . '">' . esc_html__( 'Appearance &rsaquo; Customize', 'hugginbutt-child' ) . '</a>' ) ); ?></p>
+			<p><?php echo wp_kses_post( sprintf( __( 'Go to %s. It opens a live preview of the site - click any section on the left (Navbar, Main Shop Image, About, Events, Newsletter, etc.) to edit its text or image, and see the change before saving.', 'hugginbutt-child' ), '<a href="' . esc_url( $customizer_url ) . '">' . esc_html__( 'Appearance &rsaquo; Customize', 'hugginbutt-child' ) . '</a>' ) ); ?></p>
+			<p class="description"><?php esc_html_e( 'The "Navbar" section there also lets you change the name, tagline, and logo shown next to it in the header.', 'hugginbutt-child' ); ?></p>
+		</div>
+
+		<div class="hugginbutt-guide__card">
+			<h2><?php esc_html_e( '5. Add a new page (About Us, FAQ, Contact, etc.)', 'hugginbutt-child' ); ?></h2>
+			<ol>
+				<li><?php echo wp_kses_post( sprintf( __( 'Go to %s.', 'hugginbutt-child' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=page' ) ) . '">' . esc_html__( 'Pages &rsaquo; Add New', 'hugginbutt-child' ) . '</a>' ) ); ?></li>
+				<li><?php esc_html_e( 'Give it a title and write the page content.', 'hugginbutt-child' ); ?></li>
+				<li><?php esc_html_e( 'Click "Publish".', 'hugginbutt-child' ); ?></li>
+			</ol>
+			<p class="description"><?php esc_html_e( 'That\'s it - new pages are automatically added to the navbar at the top of the site, no extra setup needed.', 'hugginbutt-child' ); ?></p>
 		</div>
 	</div>
 	<?php

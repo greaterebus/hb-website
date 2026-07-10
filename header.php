@@ -35,18 +35,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<header id="masthead" class="hb-header">
 		<div class="hb-header__inner">
 
+			<?php
+			$navbar_site_name = hugginbutt_get_content( 'hb_navbar_site_name' );
+			$navbar_site_name = $navbar_site_name ? $navbar_site_name : get_bloginfo( 'name' );
+
+			$navbar_tagline = hugginbutt_get_content( 'hb_navbar_tagline' );
+			$navbar_tagline = $navbar_tagline ? $navbar_tagline : get_bloginfo( 'description' );
+
+			$navbar_logo_url = hugginbutt_get_content( 'hb_navbar_logo' );
+			?>
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-header__brand">
 				<span class="hb-header__logo">
-					<?php if ( has_custom_logo() ) : ?>
-						<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'alt' => get_bloginfo( 'name' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- WP-escaped image markup. ?>
+					<?php if ( $navbar_logo_url ) : ?>
+						<img src="<?php echo esc_url( $navbar_logo_url ); ?>" alt="<?php echo esc_attr( $navbar_site_name ); ?>" />
+					<?php elseif ( has_custom_logo() ) : ?>
+						<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'alt' => $navbar_site_name ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- WP-escaped image markup. ?>
 					<?php else : ?>
-						<?php hugginbutt_placeholder_image( 'logo', get_bloginfo( 'name' ) ); ?>
+						<?php hugginbutt_placeholder_image( 'logo', $navbar_site_name ); ?>
 					<?php endif; ?>
 				</span>
 				<span class="hb-header__wordmark-group">
-					<span class="hb-header__wordmark"><?php bloginfo( 'name' ); ?></span>
-					<?php if ( get_bloginfo( 'description' ) ) : ?>
-						<span class="hb-header__tagline"><?php bloginfo( 'description' ); ?></span>
+					<span class="hb-header__wordmark"><?php echo esc_html( $navbar_site_name ); ?></span>
+					<?php if ( $navbar_tagline ) : ?>
+						<span class="hb-header__tagline"><?php echo esc_html( $navbar_tagline ); ?></span>
 					<?php endif; ?>
 				</span>
 			</a>
@@ -64,7 +75,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'theme_location' => 'primary',
 						'container'      => false,
 						'menu_class'     => 'hb-nav-menu',
-						'fallback_cb'    => false,
 						'depth'          => 2,
 					)
 				);
