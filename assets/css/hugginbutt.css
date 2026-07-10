@@ -488,6 +488,9 @@ img {
 .hb-nav-menu li {
 	position: relative;
 }
+.hb-nav-menu--account {
+	display: none;
+}
 .hb-nav-menu > li > a {
 	display: inline-block;
 	padding: 0.5em 0;
@@ -1994,6 +1997,15 @@ body.woocommerce-cart .hb-products__grid {
 	}
 	.hb-nav-menu li.is-open > .sub-menu {
 		display: block;
+	}
+	.hb-header__icons {
+		display: none;
+	}
+	.hb-nav-menu--account {
+		display: flex;
+		border-top: 1px solid rgba(58, 44, 24, 0.15);
+		margin-top: 0.5rem;
+		padding-top: 0.5rem;
 	}
 
 	.hb-hero__inner,

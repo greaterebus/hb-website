@@ -79,6 +79,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					)
 				);
 				?>
+				<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+					<ul class="hb-nav-menu hb-nav-menu--account">
+						<li><a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>"><?php esc_html_e( 'My Account', 'hugginbutt-child' ); ?></a></li>
+						<li><a href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'My Loot', 'hugginbutt-child' ); ?></a></li>
+					</ul>
+				<?php endif; ?>
 			</nav>
 
 			<div class="hb-header__icons">
