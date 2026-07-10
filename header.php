@@ -86,11 +86,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php hugginbutt_the_icon( 'search' ); ?>
 				</a>
 				<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-					<a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="hb-header__icon-link" aria-label="<?php esc_attr_e( 'Account', 'hugginbutt-child' ); ?>">
-						<?php hugginbutt_the_icon( 'account' ); ?>
+					<a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="hb-header__icon-link hb-header__account" aria-label="<?php esc_attr_e( 'Account', 'hugginbutt-child' ); ?>">
+						<span class="hb-icon hb-icon--account" aria-hidden="true"></span>
 					</a>
 					<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="hb-header__icon-link hb-header__cart" aria-label="<?php esc_attr_e( 'Cart', 'hugginbutt-child' ); ?>">
-						<?php hugginbutt_the_icon( 'cart' ); ?>
+						<span class="hb-icon hb-icon--cart" aria-hidden="true"></span>
 						<span class="hugginbutt-cart-count"><?php echo intval( WC()->cart ? WC()->cart->get_cart_contents_count() : 0 ); ?></span>
 					</a>
 				<?php endif; ?>

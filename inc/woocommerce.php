@@ -342,6 +342,30 @@ function hugginbutt_rename_new_in_store_heading( $block_content, $block ) {
 }
 
 /**
+ * Replaces the "Your cart is currently empty!" heading (with its built-in
+ * sad-face icon) on the empty-cart page with our own "feed me" artwork.
+ * This heading does have a distinguishing class, wc-block-cart__empty-cart__title,
+ * unlike the "New in store" heading above.
+ */
+add_filter( 'render_block_core/heading', 'hugginbutt_replace_empty_cart_title', 10, 2 );
+
+function hugginbutt_replace_empty_cart_title( $block_content, $block ) {
+	if ( false === strpos( $block_content, 'wc-block-cart__empty-cart__title' ) ) {
+		return $block_content;
+	}
+
+	ob_start();
+	?>
+	<img
+		class="hb-empty-cart-feed-me"
+		src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/generated/empty-cart-feed-me.png' ); ?>"
+		alt="<?php esc_attr_e( 'Your cart is empty - feed me!', 'hugginbutt-child' ); ?>"
+	/>
+	<?php
+	return ob_get_clean();
+}
+
+/**
  * Replaces the "New in Store" grid on the empty-cart page (the
  * woocommerce/product-new block, part of WooCommerce's built-in empty-cart
  * block pattern) with the same .hb-product-card grid used everywhere else,

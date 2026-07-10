@@ -576,20 +576,45 @@ img {
 .hb-header__cart {
 	position: relative;
 }
+.hb-icon--cart {
+	display: inline-block;
+	background: url("../images/icons/cart-chest.png") center / contain no-repeat;
+}
+.hb-header__cart:hover .hb-icon--cart {
+	background-image: url("../images/icons/cart-mimic.png");
+}
+.hb-icon--account {
+	display: inline-block;
+	background: url("../images/icons/account-gnome-hat.png") center / contain no-repeat;
+}
+.hb-header__account:hover .hb-icon--account {
+	background-image: url("../images/icons/account-gnome-bald.png");
+}
 .hugginbutt-cart-count {
 	position: absolute;
-	top: -8px;
-	right: -10px;
-	min-width: 18px;
-	height: 18px;
-	padding: 0 4px;
-	border-radius: var(--hb-radius-full);
-	background: var(--hb-rust);
-	color: var(--hb-cream-lighter);
+	top: -6px;
+	right: -8px;
+	width: 24px;
+	height: 24px;
+	min-width: 24px;
+	padding: 0;
+	border-radius: 50%;
+	background:
+		radial-gradient(circle at 35% 28%, #fff3c4 0%, #f0cd5a 22%, #d9a52c 55%, #a9791c 100%);
+	border: 2px solid #8a6415;
+	outline: 1px solid #f5da85;
+	outline-offset: -4px;
+	box-shadow:
+		0 2px 4px rgba(24, 20, 12, .5),
+		inset 0 1px 1px rgba(255, 255, 255, .8),
+		inset 0 -2px 2px rgba(122, 84, 12, .55);
+	color: #5c3f0c;
 	font-family: var(--hb-font-body);
-	font-size: var(--hb-fs-2xs);
-	line-height: 18px;
+	font-weight: 800;
+	font-size: var(--hb-fs-xs);
+	line-height: 20px;
 	text-align: center;
+	text-shadow: 0 1px 0 rgba(255, 244, 210, .6);
 }
 
 /* Mobile menu toggle (hidden on desktop) */
@@ -1692,11 +1717,20 @@ body.tax-product_cat .hb-products__grid {
    Empty cart page
    ========================================================================== */
 
-/* "Your cart is currently empty!" heading + its icon - the icon is a
-   ::before with background-color: currentColor masked into shape, so
-   setting color here recolors both it and the text at once. */
-body.woocommerce-cart .wc-block-cart__empty-cart__title {
-	color: var(--hb-green) !important;
+/* "Your cart is currently empty!" heading is replaced entirely with our
+   own "feed me" artwork - see hugginbutt_replace_empty_cart_title(). */
+.hb-empty-cart-feed-me {
+	display: block;
+	width: 420px;
+	max-width: 85%;
+	height: auto;
+	margin: 0 auto;
+}
+
+/* The empty-cart pattern's decorative dotted <hr> between the feed-me
+   image and the Fresh Loot heading - just adds unwanted vertical space. */
+body.woocommerce-cart .wp-block-separator {
+	display: none;
 }
 
 /* Our "Fresh Loot" replacement for the pattern's plain "New in store"
@@ -2518,6 +2552,28 @@ body.hb-coming-soon-page {
 	.hb-header__icon-link .hb-icon {
 		width: 22px;
 		height: 22px;
+	}
+}
+
+/* Chest/mimic cart icon and gnome account icon read better bigger than
+   the plain line icons. */
+.hb-header__icon-link .hb-icon--cart,
+.hb-header__icon-link .hb-icon--account {
+	width: 64px;
+	height: 64px;
+}
+@media (max-width: 1100px) {
+	.hb-header__icon-link .hb-icon--cart,
+	.hb-header__icon-link .hb-icon--account {
+		width: 54px;
+		height: 54px;
+	}
+}
+@media (max-width: 782px) {
+	.hb-header__icon-link .hb-icon--cart,
+	.hb-header__icon-link .hb-icon--account {
+		width: 46px;
+		height: 46px;
 	}
 }
 
