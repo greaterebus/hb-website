@@ -8,7 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$heading     = hugginbutt_get_content( 'hb_shop_banner_heading' );
 $button_text = hugginbutt_get_content( 'hb_shop_banner_button_text' );
 $shop_url    = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
 $hero_image  = hugginbutt_get_content( 'hb_shop_banner_image' );
@@ -32,7 +31,7 @@ if ( $hero_image ) {
 				src="<?php echo esc_url( $hero_src ); ?>"
 				<?php if ( $hero_srcset ) : ?>srcset="<?php echo esc_attr( $hero_srcset ); ?>"<?php endif; ?>
 				sizes="100vw"
-				alt="<?php echo esc_attr( $heading ); ?>"
+				alt="<?php echo esc_attr( sprintf( __( '%s shop banner', 'hugginbutt-child' ), get_bloginfo( 'name' ) ) ); ?>"
 				class="hb-hero__banner-image"
 			/>
 			<a href="<?php echo esc_url( $shop_url ); ?>" class="hb-button hb-button--primary hb-hero__cta">

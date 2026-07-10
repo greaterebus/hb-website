@@ -32,20 +32,6 @@ function hugginbutt_customizer_fields() {
 
 		// Main shop image (the full-bleed banner photo at the top of the homepage).
 		array(
-			'id'      => 'hb_shop_banner_heading',
-			'section' => 'hb_shop_banner',
-			'type'    => 'text',
-			'label'   => __( 'Heading', 'hugginbutt-child' ),
-			'default' => 'Handcrafted Fantasy Jewelry',
-		),
-		array(
-			'id'      => 'hb_shop_banner_subheading',
-			'section' => 'hb_shop_banner',
-			'type'    => 'textarea',
-			'label'   => __( 'Subheading', 'hugginbutt-child' ),
-			'default' => 'Inspired by nature, lore, and a little bit of mischief. Handcrafted with care for ren faire days and everyday adventures.',
-		),
-		array(
 			'id'      => 'hb_shop_banner_button_text',
 			'section' => 'hb_shop_banner',
 			'type'    => 'text',
