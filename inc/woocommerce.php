@@ -175,12 +175,16 @@ add_filter( 'woocommerce_persistent_cart_enabled', '__return_false' );
 add_filter( 'kadence_post_layout', 'hugginbutt_hide_shop_archive_hero' );
 
 /**
- * Removes Kadence's "product-archive-hero-section" banner (the entry-hero
- * with the "Shop" title) from the main Shop page, which duplicated the
- * page's own header content.
+ * Removes Kadence's entry-hero banner (the "Shop" title on the Shop page's
+ * product-archive-hero-section, and the "Cart" title on the Cart page's
+ * page-hero-section), which duplicated the page's own header content.
  */
 function hugginbutt_hide_shop_archive_hero( $layout ) {
 	if ( function_exists( 'is_shop' ) && is_shop() && ! is_search() ) {
+		$layout['title'] = 'hide';
+	}
+
+	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		$layout['title'] = 'hide';
 	}
 
@@ -188,11 +192,37 @@ function hugginbutt_hide_shop_archive_hero( $layout ) {
 }
 
 /**
- * Shows 3 products per row on the shop/category/tag archives, instead of
- * Kadence's default of 4.
+ * Sets products per row on the shop/category/tag archives.
  */
 add_filter( 'loop_shop_columns', 'hugginbutt_shop_columns' );
 
 function hugginbutt_shop_columns() {
-	return 3;
+	return 4;
+}
+
+/**
+ * Adds a "View product" icon link into each shop/category card, alongside
+ * the existing Add to Cart button. Kadence opens .product-action-wrap on
+ * this same hook at priority 5 and closes it at priority 20, with
+ * WooCommerce's own add-to-cart button rendering at the default priority
+ * 10 - priority 7 lands us inside that wrap, before the cart button.
+ */
+add_action( 'woocommerce_after_shop_loop_item', 'hugginbutt_view_product_icon', 7 );
+
+function hugginbutt_view_product_icon() {
+	if ( ! ( is_shop() || is_product_category() || is_product_tag() ) ) {
+		return;
+	}
+
+	global $product;
+
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+
+	printf(
+		'<a href="%1$s" class="hb-card-view-product" aria-label="%2$s"><span class="screen-reader-text">%2$s</span></a>',
+		esc_url( get_permalink( $product->get_id() ) ),
+		esc_attr__( 'View product', 'hugginbutt-child' )
+	);
 }

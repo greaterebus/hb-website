@@ -35,10 +35,16 @@
 	--hb-gold: #c9a227;
 
 	--hb-font-display: 'Cinzel', Georgia, serif;
-	--hb-font-body: 'Cormorant Garamond', Georgia, serif;
+	--hb-font-body: var(--hb-font-display);
 
 	--hb-container: 1280px;
 	--hb-radius: 6px;
+
+	/* Kadence/WooCommerce-rendered elements (including block-based pages
+	   like the Cart) use this variable directly rather than our own
+	   --hb-font-* tokens - overriding it here makes Cinzel the site-wide
+	   font everywhere, not just within our own .hb-* rules. */
+	--global-body-font-family: var(--hb-font-display);
 }
 
 /* ==========================================================================
@@ -914,18 +920,23 @@ img {
 	flex-direction: column;
 	gap: 2.5rem;
 }
-/* .hb-paper (background/bevel) is added via markup; this just layers the
-   card-specific shape + outer drop shadow on top. */
+/* Flat cream background instead of the .hb-paper texture added via markup,
+   with a rounder shape and layered shadow (soft ambient + tighter contact
+   shadow) for a raised, 3D card feel. */
 .hb-events-page__item {
 	display: grid;
 	grid-template-columns: 320px 1fr;
 	gap: 2rem;
 	align-items: start;
-	border-radius: var(--hb-radius);
+	background-color: var(--hb-cream);
+	background-image: none;
+	border-radius: 18px;
 	box-shadow:
 		inset 0 1px rgba(255, 247, 218, .36),
 		inset 0 -1px rgba(92, 55, 21, .14),
-		0 10px 24px rgba(42, 27, 11, .25);
+		0 2px 5px rgba(20, 12, 4, .38),
+		0 10px 20px rgba(20, 12, 4, .35),
+		0 28px 48px rgba(20, 12, 4, .45);
 	padding: 1.5rem;
 }
 .hb-events-page__media {
@@ -1308,6 +1319,16 @@ img {
 	font-weight: 700;
 }
 
+/* Fluid product grid: Kadence's column classes (grid-lg-col-4 etc.) snap
+   between a handful of fixed breakpoints, so every card - and the product
+   photo inside it, being the largest element - visibly jumps in size each
+   time a breakpoint is crossed while resizing. auto-fill + minmax lets the
+   column count adjust continuously instead. */
+body.woocommerce-shop ul.products.grid-cols,
+body.tax-product_cat ul.products.grid-cols {
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+}
+
 /* Tarot-inspired product tiles: generated antique card stock underneath,
    with live WooCommerce title, photo, price, and action arranged like a card. */
 body.woocommerce-shop ul.products li.product,
@@ -1343,7 +1364,11 @@ body.tax-product_cat ul.products li.product .entry-content-wrap {
 body.woocommerce-shop ul.products li.product .woocommerce-loop-product__title,
 body.tax-product_cat ul.products li.product .woocommerce-loop-product__title {
 	order: 1;
-	min-height: 3.25rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	height: 3.25rem;
 	margin: 0.2rem 0.65rem 0.85rem;
 	color: #2b2116 !important;
 	font-family: var(--hb-font-display);
@@ -1366,7 +1391,8 @@ body.woocommerce-shop ul.products li.product > a:first-child,
 body.tax-product_cat ul.products li.product > a:first-child {
 	order: 2;
 	display: block;
-	margin: 0 0.85rem 0.9rem;
+	width: 100%;
+	margin: 0 0 0.9rem;
 	background: rgba(42, 35, 24, 0.1);
 	border: 2px solid rgba(45, 34, 21, 0.72);
 	box-shadow:
@@ -1390,29 +1416,92 @@ body.tax-product_cat ul.products li.product .price {
 	margin: auto 0.8rem 0.15rem;
 	color: #2b2116 !important;
 	font-family: var(--hb-font-body);
-	font-size: 1.18rem;
+	font-size: 1.55rem;
 	font-weight: 800;
 	line-height: 1.1;
 	text-align: center;
 	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
 }
+body.woocommerce-shop ul.products li.product .product-action-wrap,
+body.tax-product_cat ul.products li.product .product-action-wrap {
+	order: 4;
+	width: 100%;
+	position: static !important;
+	opacity: 1 !important;
+	display: flex !important;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 0.45rem !important;
+	padding: 0 0.4rem !important;
+}
+/* Icon-badge actions: view-product (left) / add-to-cart (right), swapping
+   to the gold "hover" art on hover instead of a text label + underline. */
+body.woocommerce-shop ul.products li.product .hb-card-view-product,
+body.tax-product_cat ul.products li.product .hb-card-view-product,
 body.woocommerce-shop ul.products li.product .button,
 body.tax-product_cat ul.products li.product .button {
-	order: 4;
-	align-self: center;
-	margin: 0.45rem 0 0.15rem;
+	position: relative;
+	display: block;
+	flex: 0 0 auto;
+	width: 64px;
+	height: 64px;
+	margin: 0;
 	padding: 0;
-	background: transparent !important;
+	background-color: transparent !important;
+	background-repeat: no-repeat !important;
+	background-size: contain !important;
+	background-position: center !important;
 	border: 0;
-	border-bottom: 1px solid rgba(43, 33, 22, 0.55);
 	border-radius: 0;
 	box-shadow: none;
-	color: #2b2116 !important;
-	font-family: var(--hb-font-body);
-	font-size: 1rem;
-	font-weight: 800;
-	line-height: 1.1;
-	text-transform: none;
+	font-size: 0;
+	line-height: 0;
+	color: transparent !important;
+	transition: transform 150ms ease;
+}
+body.woocommerce-shop ul.products li.product .hb-card-view-product:hover,
+body.tax-product_cat ul.products li.product .hb-card-view-product:hover,
+body.woocommerce-shop ul.products li.product .button:hover,
+body.tax-product_cat ul.products li.product .button:hover {
+	transform: scale(1.08);
+}
+/* WooCommerce's AJAX add-to-cart JS inserts a "View cart" text link right
+   after the button on success (add-to-cart.js: $button.after(anchor)).
+   That's a 3rd, unstyled flex child in .product-action-wrap, which throws
+   off the space-between layout - we already have a permanent View Product
+   icon, so just hide it rather than styling a redundant second link. */
+body.woocommerce-shop ul.products li.product .added_to_cart,
+body.tax-product_cat ul.products li.product .added_to_cart {
+	display: none !important;
+}
+body.woocommerce-shop ul.products li.product .hb-card-view-product,
+body.tax-product_cat ul.products li.product .hb-card-view-product {
+	background-image: url("../images/icons/view-product.webp") !important;
+}
+body.woocommerce-shop ul.products li.product .hb-card-view-product:hover,
+body.tax-product_cat ul.products li.product .hb-card-view-product:hover {
+	background-image: url("../images/icons/view-product-hover.webp") !important;
+}
+body.woocommerce-shop ul.products li.product .button,
+body.tax-product_cat ul.products li.product .button {
+	background-image: url("../images/icons/add-to-cart.webp") !important;
+}
+body.woocommerce-shop ul.products li.product .button:hover,
+body.tax-product_cat ul.products li.product .button:hover {
+	background-image: url("../images/icons/add-to-cart-hover.webp") !important;
+}
+/* Kadence's "button" archive style collapses .button.added to zero height
+   once WooCommerce marks a successful add (it normally swaps in a separate
+   "View cart" link instead) - that's what was making our icon vanish after
+   clicking, not opacity or the link we hid above. Keep the icon's own box
+   intact regardless of that state. */
+body.woocommerce-shop ul.products li.product .button.added,
+body.tax-product_cat ul.products li.product .button.added {
+	height: 64px !important;
+	width: 64px !important;
+	padding: 0 !important;
+	overflow: visible !important;
+	border: 0 !important;
 }
 /* Widens just the shop page's content column (sidebar + product grid),
    which otherwise shares the site's global 1290px container width with
@@ -1426,6 +1515,102 @@ body.woocommerce-shop .content-container.site-container {
    proportion. */
 body.woocommerce-shop.has-sidebar.has-left-sidebar .content-container {
 	grid-template-columns: 220px 1fr;
+}
+
+/* Single product page: plain cream background behind the whole content
+   column. */
+body.single-product .content-container.site-container {
+	position: relative;
+	background-color: var(--hb-cream);
+	background-image: none;
+	border-radius: 4px;
+	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
+	padding: clamp(2.5rem, 5vw, 5rem);
+	color: var(--hb-green);
+}
+
+/* Description / Reviews tab nav buttons: dark green with cream text,
+   matching the green-fabric sections used elsewhere on the site. */
+body.single-product .woocommerce-tabs ul.tabs li.description_tab,
+body.single-product .woocommerce-tabs ul.tabs li.reviews_tab {
+	background: var(--hb-green);
+	border-radius: var(--hb-radius);
+}
+body.single-product .woocommerce-tabs ul.tabs li.description_tab a,
+body.single-product .woocommerce-tabs ul.tabs li.reviews_tab a {
+	color: var(--hb-cream-lighter);
+}
+
+/* Description tab content: bigger, bolder, higher-contrast text for
+   easier reading. */
+body.single-product #tab-description {
+	font-size: 1.15rem;
+	font-weight: 600;
+	line-height: 1.6;
+	color: var(--hb-text);
+}
+
+/* Cart page: light cream background behind the main content column, with
+   some breathing room around the cart table/totals. Targets the
+   WooCommerce Cart block's own wrapper (.wp-block-woocommerce-cart)
+   directly, since this page renders that block rather than relying on the
+   classic .site-main container. */
+body.woocommerce-cart .site-main {
+	background-color: transparent;
+}
+body.woocommerce-cart .wp-block-woocommerce-cart {
+	background-color: var(--hb-cream-light);
+	padding: clamp(1.5rem, 3vw, 3rem);
+	border-radius: 18px;
+	box-shadow:
+		0 2px 5px rgba(20, 12, 4, .38),
+		0 10px 20px rgba(20, 12, 4, .35),
+		0 28px 48px rgba(20, 12, 4, .45);
+	/* Most of the Cart block's text (product name, prices, totals labels)
+	   is set via this preset variable rather than a fixed font-size, so
+	   overriding it here bumps nearly everything at once. */
+	--wp--preset--font-size--small: 16px;
+	font-size: 1.05rem;
+}
+body.woocommerce-cart article.entry {
+	background-color: transparent;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* The Cart block's notice/snackbar placeholders (coupon errors, "item
+   removed", etc.) render a styled white bar even when empty. Let them
+   blend into the cream background when there's nothing in them; an active
+   notice's own .is-error/.is-success/etc background still wins since
+   those are more specific. */
+body.woocommerce-cart .wc-block-components-notices,
+body.woocommerce-cart .wc-block-components-notices__snackbar {
+	background: transparent;
+}
+body.woocommerce-cart .wc-block-components-notices:empty,
+body.woocommerce-cart .wc-block-components-notices__snackbar:empty {
+	min-height: 0;
+	padding: 0;
+	margin: 0;
+}
+/* The snackbar wrapper always contains a nested (empty) div even with no
+   active notice, so it never matches :empty itself - collapse it whenever
+   that inner div has nothing in it either. */
+body.woocommerce-cart .wc-block-components-notices__snackbar:has(> div:empty:only-child) {
+	min-height: 0;
+	padding: 0;
+	margin: 0;
+}
+
+/* Breadcrumbs: bigger and bolder than Kadence's default (85% size, normal
+   weight), black instead of the muted grey. */
+.kadence-breadcrumbs {
+	font-size: 1.3rem;
+	font-weight: 900;
+	color: #000;
+}
+.kadence-breadcrumbs a {
+	color: #000;
 }
 
 /* ==========================================================================
