@@ -248,8 +248,17 @@ function hugginbutt_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Navbar lives site-wide (every page, not just the homepage), so it's a
+	// standalone top-level section - not nested inside the homepage panel.
+	$wp_customize->add_section(
+		'hb_navbar',
+		array(
+			'title'    => __( 'Navbar', 'hugginbutt-child' ),
+			'priority' => 30,
+		)
+	);
+
 	$sections = array(
-		'hb_navbar'       => __( 'Navbar', 'hugginbutt-child' ),
 		'hb_announcement' => __( 'Announcement Bar', 'hugginbutt-child' ),
 		'hb_shop_banner'  => __( 'Main Shop Image', 'hugginbutt-child' ),
 		'hb_category'     => __( 'Shop By Category', 'hugginbutt-child' ),
