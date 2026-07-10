@@ -920,7 +920,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 }
 .hb-events__grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 	gap: 2rem;
 }
 /* .hb-paper (background/bevel) is added via markup; this just layers the
@@ -934,6 +934,29 @@ body.single-product .hb-related-products .hb-section-heading__text {
 		inset 0 1px rgba(255, 247, 218, .36),
 		inset 0 -1px rgba(92, 55, 21, .14),
 		0 8px 20px rgba(42, 27, 11, .25);
+}
+
+/* Homepage Upcoming Events cards use the event-note artwork instead of
+   the shared .hb-paper parchment texture (the full /events/ schedule
+   page still uses .hb-paper). */
+.hb-events .hb-event-card.hb-paper {
+	background-color: transparent;
+	background-image: url("../images/generated/event-note-small.webp");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	box-shadow: none;
+	box-sizing: content-box;
+	padding: 14% 10%;
+	display: block;
+	color: inherit;
+	text-decoration: none;
+	transition: transform 150ms ease;
+}
+.hb-events .hb-event-card.hb-paper:hover,
+.hb-events .hb-event-card.hb-paper:focus-visible {
+	transform: rotate(-2deg);
+	transform-origin: top center;
 }
 .hb-event-card__media {
 	position: relative;

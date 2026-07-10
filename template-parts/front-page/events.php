@@ -27,7 +27,7 @@ if ( '' === $button_url ) {
 		<?php if ( $events ) : ?>
 			<div class="hb-events__grid">
 				<?php foreach ( $events as $event ) : ?>
-					<div class="hb-event-card hb-paper">
+					<a href="<?php echo esc_url( $event['permalink'] ); ?>" class="hb-event-card hb-paper">
 						<span class="hb-event-card__media">
 							<?php if ( ! empty( $event['image_url'] ) ) : ?>
 								<img src="<?php echo esc_url( $event['image_url'] ); ?>" alt="<?php echo esc_attr( $event['name'] ); ?>" />
@@ -38,7 +38,7 @@ if ( '' === $button_url ) {
 						</span>
 						<h3 class="hb-event-card__name"><?php echo esc_html( $event['name'] ); ?><?php if ( ! empty( $event['date_long'] ) ) : ?> <span class="hb-event-card__date-long">- <?php echo esc_html( $event['date_long'] ); ?></span><?php endif; ?></h3>
 						<p class="hb-event-card__location"><?php echo esc_html( $event['location'] ); ?></p>
-					</div>
+					</a>
 				<?php endforeach; ?>
 			</div>
 		<?php else : ?>

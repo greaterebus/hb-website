@@ -68,6 +68,7 @@ function hugginbutt_get_events( $when = 'upcoming', $limit = -1 ) {
 			'image_url'   => $image_url ? $image_url : '',
 			'image'       => 'event',
 			'description' => $description ? apply_filters( 'the_content', $description ) : '',
+			'permalink'   => get_permalink( $event_post ),
 		);
 	}
 

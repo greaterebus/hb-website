@@ -12,6 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'init', 'hugginbutt_register_event_post_type' );
 
+/**
+ * hb_event just switched from a private post type to a public one with its
+ * own /event/ permalink, so the rewrite rules WordPress cached before this
+ * change need to be regenerated once. Runs at most once (guarded by the
+ * option flag) rather than on every request, since flushing is expensive.
+ */
+add_action( 'init', 'hugginbutt_flush_event_rewrite_rules', 20 );
+
+function hugginbutt_flush_event_rewrite_rules() {
+	if ( get_option( 'hugginbutt_event_rewrite_flushed' ) ) {
+		return;
+	}
+	flush_rewrite_rules();
+	update_option( 'hugginbutt_event_rewrite_flushed', 1 );
+}
+
 // Force the classic editor for events. The "Event Details" meta box below
 // renders fine there; in the block editor, classic meta boxes go through a
 // fragile AJAX compatibility layer that silently disappears if anything
@@ -39,10 +55,12 @@ function hugginbutt_register_event_post_type() {
 				'search_items'  => __( 'Search Events', 'hugginbutt-child' ),
 				'not_found'     => __( 'No events found', 'hugginbutt-child' ),
 			),
-			'public'        => false,
+			'public'        => true,
 			'show_ui'       => true,
 			'show_in_menu'  => true,
 			'show_in_rest'  => true,
+			'has_archive'   => false,
+			'rewrite'       => array( 'slug' => 'event' ),
 			'menu_icon'     => 'dashicons-calendar-alt',
 			'menu_position' => 25,
 			'supports'      => array( 'title', 'editor', 'thumbnail' ),
