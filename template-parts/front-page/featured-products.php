@@ -19,25 +19,9 @@ $shop_url = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : ho
 			<?php if ( ! empty( $products ) ) : ?>
 				<?php
 				foreach ( $products as $loop_product ) :
-					global $product; // woocommerce_template_loop_add_to_cart() reads this global.
-					$product = $loop_product;
-					?>
-					<div class="hb-product-card">
-						<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="hb-product-card__media">
-							<?php echo $product->get_image( 'hugginbutt-product' ); // phpcs:ignore WordPress.Security.EscapeOutput -- WC-escaped image markup. ?>
-						</a>
-						<h6 class="hb-product-card__name">
-							<a href="<?php echo esc_url( $product->get_permalink() ); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
-						</h6>
-						<div class="hb-product-card__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
-						<div class="hb-product-card__cta">
-							<?php
-							hugginbutt_render_view_product_icon( $product );
-							woocommerce_template_loop_add_to_cart();
-							?>
-						</div>
-					</div>
-				<?php endforeach; ?>
+					hugginbutt_render_product_card( $loop_product );
+				endforeach;
+				?>
 			<?php else : ?>
 				<?php for ( $i = 1; $i <= 6; $i++ ) : ?>
 					<div class="hb-product-card hb-product-card--placeholder">

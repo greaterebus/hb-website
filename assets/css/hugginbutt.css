@@ -711,6 +711,15 @@ img {
 .hb-products .hb-section-heading__text {
 	color: var(--hb-cream-lighter);
 }
+/* Related products on the single product page sit inside the page's cream
+   content card (not the homepage's dark-green fabric background), so the
+   text needs the opposite contrast direction from the homepage version. */
+body.single-product .hb-related-products {
+	color: var(--hb-text);
+}
+body.single-product .hb-related-products .hb-section-heading__text {
+	color: var(--hb-green);
+}
 .hb-products__inner {
 	max-width: var(--hb-container);
 	margin: 0 auto;
@@ -1359,195 +1368,11 @@ img {
 	outline: none;
 }
 
-.woocommerce ul.products li.product .price {
-	font-size: 1.15em;
-	font-weight: 700;
-}
-
-/* Fluid product grid: Kadence's column classes (grid-lg-col-4 etc.) snap
-   between a handful of fixed breakpoints, so every card - and the product
-   photo inside it, being the largest element - visibly jumps in size each
-   time a breakpoint is crossed while resizing. auto-fill + minmax lets the
-   column count adjust continuously instead. */
-body.woocommerce-shop ul.products.grid-cols,
-body.tax-product_cat ul.products.grid-cols {
-	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
-}
-
-/* Tarot-inspired product tiles: generated antique card stock underneath,
-   with live WooCommerce title, photo, price, and action arranged like a card. */
-body.woocommerce-shop ul.products li.product,
-body.tax-product_cat ul.products li.product {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	min-height: 100%;
-	padding: clamp(0.7rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
-	background-color: transparent !important;
-	background-image: url("../images/decor/tarot-card.webp") !important;
-	background-repeat: no-repeat !important;
-	background-size: 100% 100% !important;
-	background-position: center !important;
-	border: 0;
-	border-radius: 4px;
-	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
-	overflow: visible;
-	transition: transform 180ms ease, filter 180ms ease;
-}
-body.woocommerce-shop ul.products li.product:hover,
-body.tax-product_cat ul.products li.product:hover {
-	transform: translateY(-3px) rotate(-0.2deg);
-	filter: brightness(1.02);
-}
-body.woocommerce-shop ul.products li.product .entry-content-wrap,
-body.tax-product_cat ul.products li.product .entry-content-wrap {
-	display: contents;
-	background: transparent !important;
-	box-shadow: none !important;
-	color: var(--hb-text);
-}
-body.woocommerce-shop ul.products li.product .woocommerce-loop-product__title,
-body.tax-product_cat ul.products li.product .woocommerce-loop-product__title {
-	order: 1;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	overflow: hidden;
-	height: 2.85rem;
-	margin: 0.2rem 0.65rem 0.85rem;
-	color: #2b2116 !important;
-	font-family: var(--hb-font-display);
-	font-size: var(--hb-fs-card-title);
-	font-weight: 700;
-	letter-spacing: 0.03em;
-	line-height: 1.15;
-	text-align: center;
-	text-transform: uppercase;
-	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
-}
-body.woocommerce-shop ul.products li.product .woocommerce-loop-product__title a,
-body.tax-product_cat ul.products li.product .woocommerce-loop-product__title a {
-	color: inherit !important;
-	text-decoration: none;
-}
-body.woocommerce-shop ul.products li.product .woocommerce-loop-image-link,
-body.tax-product_cat ul.products li.product .woocommerce-loop-image-link,
-body.woocommerce-shop ul.products li.product > a:first-child,
-body.tax-product_cat ul.products li.product > a:first-child {
-	order: 2;
-	display: block;
-	width: 100%;
-	margin: 0 0 0.9rem;
-	background: rgba(42, 35, 24, 0.1);
-	border: 2px solid rgba(45, 34, 21, 0.72);
-	box-shadow:
-		0 0 0 1px rgba(239, 219, 170, 0.42),
-		0 8px 13px rgba(44, 31, 17, 0.18);
-	overflow: hidden;
-}
-body.woocommerce-shop ul.products li.product .woocommerce-loop-image-link img,
-body.tax-product_cat ul.products li.product .woocommerce-loop-image-link img,
-body.woocommerce-shop ul.products li.product > a:first-child img,
-body.tax-product_cat ul.products li.product > a:first-child img {
-	display: block;
-	width: 100%;
-	aspect-ratio: 0.78 / 1;
-	object-fit: cover;
-	margin: 0;
-}
-body.woocommerce-shop ul.products li.product .price,
-body.tax-product_cat ul.products li.product .price {
-	order: 3;
-	margin: auto 0.8rem 0.15rem;
-	color: #2b2116 !important;
-	font-family: var(--hb-font-body);
-	font-size: var(--hb-fs-card-price);
-	font-weight: 800;
-	line-height: 1.1;
-	text-align: center;
-	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
-}
-body.woocommerce-shop ul.products li.product .product-action-wrap,
-body.tax-product_cat ul.products li.product .product-action-wrap {
-	order: 4;
-	width: 100%;
-	position: static !important;
-	opacity: 1 !important;
-	display: flex !important;
-	align-items: center;
-	justify-content: space-between;
-	margin-top: 0.45rem !important;
-	padding: 0 0.4rem !important;
-}
-/* Icon-badge actions: view-product (left) / add-to-cart (right), swapping
-   to the gold "hover" art on hover instead of a text label + underline. */
-body.woocommerce-shop ul.products li.product .hb-card-view-product,
-body.tax-product_cat ul.products li.product .hb-card-view-product,
-body.woocommerce-shop ul.products li.product .button,
-body.tax-product_cat ul.products li.product .button {
-	position: relative;
-	display: block;
-	flex: 0 0 auto;
-	width: 64px;
-	height: 64px;
-	margin: 0;
-	padding: 0;
-	background-color: transparent !important;
-	background-repeat: no-repeat !important;
-	background-size: contain !important;
-	background-position: center !important;
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
-	font-size: 0;
-	line-height: 0;
-	color: transparent !important;
-	transition: transform 150ms ease;
-}
-body.woocommerce-shop ul.products li.product .hb-card-view-product:hover,
-body.tax-product_cat ul.products li.product .hb-card-view-product:hover,
-body.woocommerce-shop ul.products li.product .button:hover,
-body.tax-product_cat ul.products li.product .button:hover {
-	transform: scale(1.08);
-}
-/* WooCommerce's AJAX add-to-cart JS inserts a "View cart" text link right
-   after the button on success (add-to-cart.js: $button.after(anchor)).
-   That's a 3rd, unstyled flex child in .product-action-wrap, which throws
-   off the space-between layout - we already have a permanent View Product
-   icon, so just hide it rather than styling a redundant second link. */
-body.woocommerce-shop ul.products li.product .added_to_cart,
-body.tax-product_cat ul.products li.product .added_to_cart {
-	display: none !important;
-}
-body.woocommerce-shop ul.products li.product .hb-card-view-product,
-body.tax-product_cat ul.products li.product .hb-card-view-product {
-	background-image: url("../images/icons/view-product.webp") !important;
-}
-body.woocommerce-shop ul.products li.product .hb-card-view-product:hover,
-body.tax-product_cat ul.products li.product .hb-card-view-product:hover {
-	background-image: url("../images/icons/view-product-hover.webp") !important;
-}
-body.woocommerce-shop ul.products li.product .button,
-body.tax-product_cat ul.products li.product .button {
-	background-image: url("../images/icons/add-to-cart.webp") !important;
-}
-body.woocommerce-shop ul.products li.product .button:hover,
-body.tax-product_cat ul.products li.product .button:hover {
-	background-image: url("../images/icons/add-to-cart-hover.webp") !important;
-}
-/* Kadence's "button" archive style collapses .button.added to zero height
-   once WooCommerce marks a successful add (it normally swaps in a separate
-   "View cart" link instead) - that's what was making our icon vanish after
-   clicking, not opacity or the link we hid above. Keep the icon's own box
-   intact regardless of that state. */
-body.woocommerce-shop ul.products li.product .button.added,
-body.tax-product_cat ul.products li.product .button.added {
-	height: 64px !important;
-	width: 64px !important;
-	padding: 0 !important;
-	overflow: visible !important;
-	border: 0 !important;
-}
+/* The classic .woocommerce ul.products li.product loop markup is no longer
+   rendered anywhere on the site - woocommerce/content-product.php (shop,
+   category/tag archives) and hugginbutt_related_products() (single product
+   page) both render .hb-product-card via hugginbutt_render_product_card()
+   instead, sharing the Featured Products styling below. */
 /* Widens just the shop page's content column (sidebar + product grid),
    which otherwise shares the site's global 1290px container width with
    every other page - cramped once a sidebar is taking a chunk of it. */

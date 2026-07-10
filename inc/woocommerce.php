@@ -215,29 +215,11 @@ function hugginbutt_shop_columns() {
 }
 
 /**
- * Adds a "View product" icon link into each shop/category card, alongside
- * the existing Add to Cart button. Kadence opens .product-action-wrap on
- * this same hook at priority 5 and closes it at priority 20, with
- * WooCommerce's own add-to-cart button rendering at the default priority
- * 10 - priority 7 lands us inside that wrap, before the cart button.
- */
-add_action( 'woocommerce_after_shop_loop_item', 'hugginbutt_view_product_icon', 7 );
-
-function hugginbutt_view_product_icon() {
-	if ( ! ( is_shop() || is_product_category() || is_product_tag() ) ) {
-		return;
-	}
-
-	global $product;
-
-	hugginbutt_render_view_product_icon( $product );
-}
-
-/**
- * Markup for the "View product" icon link, shared by the shop/category
- * loop (via the hook above) and the homepage Featured Products section
- * (called directly, since that section doesn't run through the WooCommerce
- * shop loop hooks).
+ * Markup for the "View product" icon link. Called directly by
+ * hugginbutt_render_product_card() below - every product loop on the site
+ * (shop, category/tag archives, related products, homepage Featured
+ * Products) now renders through that one function, so this no longer needs
+ * its own woocommerce_after_shop_loop_item hook.
  */
 function hugginbutt_render_view_product_icon( $product ) {
 	if ( ! $product instanceof WC_Product ) {
@@ -249,4 +231,98 @@ function hugginbutt_render_view_product_icon( $product ) {
 		esc_url( get_permalink( $product->get_id() ) ),
 		esc_attr__( 'View product', 'hugginbutt-child' )
 	);
+}
+
+/**
+ * Renders one .hb-product-card - the homepage Featured Products markup,
+ * shared with hugginbutt_related_products() below so a product looks
+ * identical everywhere it's featured in a hand-rolled grid rather than a
+ * WooCommerce shop loop.
+ */
+function hugginbutt_render_product_card( $card_product ) {
+	if ( ! $card_product instanceof WC_Product ) {
+		return;
+	}
+
+	// woocommerce_template_loop_add_to_cart() reads this global rather than
+	// taking the product as an argument.
+	global $product;
+	$outer_product = $product;
+	$product        = $card_product;
+	?>
+	<div class="hb-product-card">
+		<a href="<?php echo esc_url( $card_product->get_permalink() ); ?>" class="hb-product-card__media">
+			<?php echo $card_product->get_image( 'hugginbutt-product' ); // phpcs:ignore WordPress.Security.EscapeOutput -- WC-escaped image markup. ?>
+		</a>
+		<h6 class="hb-product-card__name">
+			<a href="<?php echo esc_url( $card_product->get_permalink() ); ?>"><?php echo esc_html( $card_product->get_name() ); ?></a>
+		</h6>
+		<div class="hb-product-card__price"><?php echo wp_kses_post( $card_product->get_price_html() ); ?></div>
+		<div class="hb-product-card__cta">
+			<?php
+			hugginbutt_render_view_product_icon( $card_product );
+			woocommerce_template_loop_add_to_cart();
+			?>
+		</div>
+	</div>
+	<?php
+	$product = $outer_product;
+}
+
+/**
+ * Replaces WooCommerce's default related-products loop (plain ul.products
+ * markup) with the same .hb-product-card grid used on the homepage, so
+ * related products look identical to Featured Products instead of the
+ * generic shop-loop styling.
+ */
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+add_action( 'woocommerce_after_single_product_summary', 'hugginbutt_related_products', 20 );
+
+function hugginbutt_related_products() {
+	global $product;
+
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+
+	$related_ids = wc_get_related_products( $product->get_id(), 4, array() );
+
+	if ( empty( $related_ids ) ) {
+		return;
+	}
+	?>
+	<section class="hb-products hb-related-products">
+		<div class="hb-products__inner">
+			<?php hugginbutt_section_heading( __( 'You May Also Like', 'hugginbutt-child' ) ); ?>
+			<div class="hb-products__grid">
+				<?php
+				foreach ( $related_ids as $related_id ) {
+					hugginbutt_render_product_card( wc_get_product( $related_id ) );
+				}
+				?>
+			</div>
+		</div>
+	</section>
+	<?php
+}
+
+/**
+ * Swaps the shop/category loop's outer wrapper from Kadence's
+ * <ul class="content-wrap product-archive grid-cols ..."> to the same plain
+ * <div class="hb-products__grid"> the homepage/related-products grids use,
+ * now that woocommerce/content-product.php renders .hb-product-card items
+ * (divs, not <li>s) instead of Kadence's default loop markup. Priority 20
+ * so it runs after Kadence's own woocommerce_product_loop_start filter
+ * (priority 5) and replaces its output outright.
+ */
+add_filter( 'woocommerce_product_loop_start', 'hugginbutt_product_loop_start', 20 );
+
+function hugginbutt_product_loop_start() {
+	return '<div class="hb-products__grid">';
+}
+
+add_filter( 'woocommerce_product_loop_end', 'hugginbutt_product_loop_end', 20 );
+
+function hugginbutt_product_loop_end() {
+	return '</div>';
 }
