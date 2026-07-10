@@ -177,8 +177,9 @@ add_filter( 'kadence_post_layout', 'hugginbutt_hide_shop_archive_hero' );
 /**
  * Removes Kadence's entry-hero banner (the "Shop" title on the Shop page's
  * product-archive-hero-section, the "Cart" title on the Cart page's
- * page-hero-section, and the "Checkout" title on the Checkout page), which
- * duplicated the page's own header content.
+ * page-hero-section, the "Checkout" title on the Checkout page, the
+ * "My Account" title on the My Account page, and the "About" title on the
+ * About page), which duplicated the page's own header content.
  */
 function hugginbutt_hide_shop_archive_hero( $layout ) {
 	if ( function_exists( 'is_shop' ) && is_shop() && ! is_search() ) {
@@ -190,6 +191,14 @@ function hugginbutt_hide_shop_archive_hero( $layout ) {
 	}
 
 	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+		$layout['title'] = 'hide';
+	}
+
+	if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+		$layout['title'] = 'hide';
+	}
+
+	if ( is_page( 'about' ) ) {
 		$layout['title'] = 'hide';
 	}
 
@@ -221,6 +230,16 @@ function hugginbutt_view_product_icon() {
 
 	global $product;
 
+	hugginbutt_render_view_product_icon( $product );
+}
+
+/**
+ * Markup for the "View product" icon link, shared by the shop/category
+ * loop (via the hook above) and the homepage Featured Products section
+ * (called directly, since that section doesn't run through the WooCommerce
+ * shop loop hooks).
+ */
+function hugginbutt_render_view_product_icon( $product ) {
 	if ( ! $product instanceof WC_Product ) {
 		return;
 	}

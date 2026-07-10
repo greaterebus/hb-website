@@ -489,6 +489,9 @@ img {
 	display: inline-flex;
 	color: var(--hb-text);
 }
+.hb-header__search {
+	display: none;
+}
 .hb-header__icon-link .hb-icon {
 	width: 22px;
 	height: 22px;
@@ -1596,6 +1599,40 @@ body.woocommerce-checkout article.entry {
 	background-color: var(--hb-cream-light);
 }
 
+/* My Account page: same cream card treatment as the Cart/Checkout pages. */
+body.woocommerce-account .content-wrap {
+	background-color: var(--hb-cream-light);
+	padding: clamp(1.5rem, 3vw, 3rem);
+	border-radius: 18px;
+	box-shadow:
+		0 2px 5px rgba(20, 12, 4, .38),
+		0 10px 20px rgba(20, 12, 4, .35),
+		0 28px 48px rgba(20, 12, 4, .45);
+}
+body.woocommerce-account .entry-content-wrap,
+body.woocommerce-account article.entry {
+	background-color: var(--hb-cream-light);
+}
+
+/* About page (page-id-24): same cream card treatment as the Cart/Checkout/
+   My Account pages. */
+body.page-id-24 .content-wrap {
+	background-color: var(--hb-cream-light);
+	padding: clamp(1.5rem, 3vw, 3rem);
+	border-radius: 18px;
+	box-shadow:
+		0 2px 5px rgba(20, 12, 4, .38),
+		0 10px 20px rgba(20, 12, 4, .35),
+		0 28px 48px rgba(20, 12, 4, .45);
+}
+body.page-id-24 .entry-content-wrap,
+body.page-id-24 article.entry {
+	background-color: var(--hb-cream-light);
+}
+body.page-id-24 article.entry {
+	box-shadow: none;
+}
+
 /* The Cart block's notice/snackbar placeholders (coupon errors, "item
    removed", etc.) render a styled white bar even when empty. Let them
    blend into the cream background when there's nothing in them; an active
@@ -2355,4 +2392,149 @@ body.hb-coming-soon-page {
 		width: 22px;
 		height: 22px;
 	}
+}
+
+/* ==========================================================================
+   Homepage Featured Products - matches the shop page's tarot-card design
+   (see the .woocommerce-shop/.tax-product_cat product card rules above).
+   Placed last so it wins over the older .hb-product-card rules earlier in
+   this file without needing to hunt those down individually.
+   ========================================================================== */
+.hb-product-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background-color: transparent !important;
+	background-image: url("../images/decor/tarot-card.webp") !important;
+	background-repeat: no-repeat !important;
+	background-size: 100% 100% !important;
+	background-position: center !important;
+	padding: clamp(1.15rem, 2vw, 1.55rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
+	border: 0;
+	border-radius: 4px;
+	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
+	overflow: visible;
+	transition: transform 180ms ease, filter 180ms ease;
+}
+.hb-product-card:hover {
+	transform: translateY(-3px) rotate(-0.2deg);
+	filter: brightness(1.02);
+}
+.hb-product-card__name {
+	order: 1;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	height: 3.25rem;
+	margin: 0.2rem 0.65rem 0.85rem;
+	font-family: var(--hb-font-display);
+	font-size: clamp(1.05rem, 1.45vw, 1.32rem);
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	line-height: 1.15;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
+}
+.hb-product-card__name,
+.hb-product-card__name a {
+	color: #2b2116 !important;
+}
+.hb-product-card__name a {
+	text-decoration: none;
+}
+.hb-product-card__media {
+	order: 2;
+	display: block;
+	width: 100%;
+	margin: 0 0 0.9rem;
+	background: rgba(42, 35, 24, 0.1);
+	border: 2px solid rgba(45, 34, 21, 0.72);
+	box-shadow:
+		0 0 0 1px rgba(239, 219, 170, 0.42),
+		0 8px 13px rgba(44, 31, 17, 0.18);
+	overflow: hidden;
+}
+.hb-product-card__media img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 0.78 / 1;
+	object-fit: cover;
+	margin: 0;
+}
+.hb-product-card__price {
+	order: 3;
+	margin: auto 0.8rem 0.15rem;
+	font-family: var(--hb-font-body);
+	font-size: 1.55rem;
+	font-weight: 800;
+	line-height: 1.1;
+	text-align: center;
+	text-shadow: 0 1px rgba(255, 244, 210, 0.45);
+}
+.hb-product-card__price,
+.hb-product-card__price ins,
+.hb-product-card__price del {
+	color: #2b2116 !important;
+}
+.hb-product-card__cta {
+	order: 4;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	margin: 0.45rem 0 0 !important;
+	padding: 0 0.4rem;
+}
+.hb-product-card__cta .hb-card-view-product,
+.hb-product-card__cta .button {
+	position: relative;
+	display: block;
+	flex: 0 0 auto;
+	width: 64px;
+	height: 64px;
+	margin: 0;
+	padding: 0;
+	background-color: transparent !important;
+	background-repeat: no-repeat !important;
+	background-size: contain !important;
+	background-position: center !important;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	font-size: 0;
+	line-height: 0;
+	color: transparent !important;
+	transition: transform 150ms ease;
+}
+.hb-product-card__cta .hb-card-view-product:hover,
+.hb-product-card__cta .button:hover {
+	transform: scale(1.08);
+}
+.hb-product-card__cta .hb-card-view-product {
+	background-image: url("../images/icons/view-product.webp") !important;
+}
+.hb-product-card__cta .hb-card-view-product:hover {
+	background-image: url("../images/icons/view-product-hover.webp") !important;
+}
+.hb-product-card__cta .button {
+	background-image: url("../images/icons/add-to-cart.webp") !important;
+}
+.hb-product-card__cta .button:hover {
+	background-image: url("../images/icons/add-to-cart-hover.webp") !important;
+}
+.hb-product-card__cta .button.added {
+	height: 64px !important;
+	width: 64px !important;
+	padding: 0 !important;
+	overflow: visible !important;
+	border: 0 !important;
+}
+.hb-product-card__cta .added_to_cart {
+	display: none !important;
+}
+.hb-product-card--placeholder .hb-product-card__cta {
+	justify-content: center;
 }

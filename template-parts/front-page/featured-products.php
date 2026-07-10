@@ -31,7 +31,10 @@ $shop_url = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : ho
 						</h3>
 						<div class="hb-product-card__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
 						<div class="hb-product-card__cta">
-							<?php woocommerce_template_loop_add_to_cart(); ?>
+							<?php
+							hugginbutt_render_view_product_icon( $product );
+							woocommerce_template_loop_add_to_cart();
+							?>
 						</div>
 					</div>
 				<?php endforeach; ?>
