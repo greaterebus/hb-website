@@ -11,7 +11,110 @@
 		initTestimonialCarousel();
 		initShopFilterHighlight();
 		initShopAjaxFilters();
+		initAddToCartToast();
 	} );
+
+	/**
+	 * Parchment-styled toast confirming an item was added to the cart.
+	 * WooCommerce's AJAX add-to-cart (wc-add-to-cart.js) triggers
+	 * "added_to_cart" on document.body via jQuery, not as a native DOM
+	 * event, so this has to listen through jQuery rather than
+	 * addEventListener - jQuery is always present wherever WooCommerce's
+	 * own add-to-cart script is (both are enqueued together).
+	 */
+	function initAddToCartToast() {
+		if ( ! window.jQuery ) { return; }
+
+		var region = null;
+		var hideTimer = null;
+		var lastClick = null;
+
+		// Capture phase, so this still records the click position even if
+		// something else stops the event from bubbling further.
+		document.addEventListener( 'click', function ( event ) {
+			if ( event.target.closest( '.add_to_cart_button' ) ) {
+				lastClick = { x: event.clientX, y: event.clientY };
+			}
+		}, true );
+
+		window.jQuery( document.body ).on( 'added_to_cart', function ( event, fragments, cartHash, $button ) {
+			var message = $button && $button.attr ? $button.attr( 'data-success_message' ) : '';
+			showToast( message || 'Added to your loot.', lastClick );
+		} );
+
+		function getRegion() {
+			if ( region ) { return region; }
+
+			region = document.createElement( 'div' );
+			region.className = 'hb-toast-region';
+			region.setAttribute( 'role', 'status' );
+			region.setAttribute( 'aria-live', 'polite' );
+			document.body.appendChild( region );
+			return region;
+		}
+
+		function showToast( message, atPoint ) {
+			var toastRegion = getRegion();
+			var existing = toastRegion.querySelector( '.hb-toast' );
+			if ( existing ) { existing.remove(); }
+
+			var toast = document.createElement( 'div' );
+			toast.className = 'hb-toast';
+			toast.innerHTML =
+				'<span class="hb-toast__icon" aria-hidden="true"></span>' +
+				'<span class="hb-toast__message"></span>';
+			toast.querySelector( '.hb-toast__message' ).textContent = message;
+			toastRegion.appendChild( toast );
+
+			positionNearPoint( toast, atPoint );
+
+			// Force layout so the "is-visible" transition actually runs
+			// instead of jumping straight to its end state.
+			toast.getBoundingClientRect();
+			toast.classList.add( 'is-visible' );
+
+			clearTimeout( hideTimer );
+			hideTimer = setTimeout( function () {
+				toast.classList.remove( 'is-visible' );
+				toast.addEventListener( 'transitionend', function handler() {
+					toast.remove();
+					toast.removeEventListener( 'transitionend', handler );
+				} );
+			}, 3200 );
+		}
+
+		/**
+		 * Places the toast just above and to the right of where the Add to
+		 * Cart button was clicked, clamped so it never runs off the edge of
+		 * the viewport. Falls back to the bottom-right corner (the region's
+		 * own default CSS position) if we somehow have no click point, e.g.
+		 * "added_to_cart" fired from something other than a real click.
+		 */
+		function positionNearPoint( toast, point ) {
+			if ( ! point ) { return; }
+
+			var margin = 16;
+			var offsetX = 20;
+			var offsetY = 20;
+			var rect = toast.getBoundingClientRect();
+			var width = rect.width || 320;
+			var height = rect.height || 60;
+
+			var left = point.x + offsetX;
+			var top = point.y - height - offsetY;
+
+			left = Math.min( left, window.innerWidth - width - margin );
+			left = Math.max( left, margin );
+			top = Math.max( top, margin );
+			top = Math.min( top, window.innerHeight - height - margin );
+
+			toast.style.position = 'fixed';
+			toast.style.left = left + 'px';
+			toast.style.top = top + 'px';
+			toast.style.right = 'auto';
+			toast.style.bottom = 'auto';
+		}
+	}
 
 	/**
 	 * Marks the active category link in the Shop Filters sidebar. The

@@ -1689,6 +1689,115 @@ body.tax-product_cat .hb-products__grid {
 }
 
 /* ==========================================================================
+   Empty cart page
+   ========================================================================== */
+
+/* "Your cart is currently empty!" heading + its icon - the icon is a
+   ::before with background-color: currentColor masked into shape, so
+   setting color here recolors both it and the text at once. */
+body.woocommerce-cart .wc-block-cart__empty-cart__title {
+	color: var(--hb-green) !important;
+}
+
+/* Our "Fresh Loot" replacement for the pattern's plain "New in store"
+   heading - reuses .hb-section-heading (leaf ornaments), which has no
+   color of its own outside the themed homepage sections it's normally
+   used in. */
+.hb-empty-cart-heading {
+	display: flex;
+	justify-content: center;
+}
+.hb-empty-cart-heading .hb-section-heading {
+	align-items: center;
+}
+.hb-empty-cart-heading .hb-section-heading__text {
+	color: var(--hb-green);
+	margin: 0;
+}
+.hb-empty-cart-heading .hb-section-heading__ornament {
+	align-self: center;
+	background-image: url("../images/generated/ornament-leaf-sprig-green-v2.png");
+	opacity: .96;
+}
+
+/* Centers the "Fresh Loot" cards as a group instead of left-aligning
+   with empty trailing columns when there are fewer products than the
+   grid's usual column count. */
+body.woocommerce-cart .hb-products__grid {
+	grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+	justify-content: center;
+	gap: 1.5rem;
+}
+
+/* ==========================================================================
+   Add to cart toast
+   ========================================================================== */
+
+.hb-toast-region {
+	position: fixed;
+	right: 1.25rem;
+	bottom: 1.25rem;
+	z-index: 9999;
+	pointer-events: none;
+}
+.hb-toast {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	max-width: min(360px, calc(100vw - 2.5rem));
+	padding: 0.9em 1.3em;
+	background-color: #e3c78f;
+	background-image:
+		linear-gradient(90deg, rgba(111, 69, 27, .08), transparent 8%, transparent 92%, rgba(111, 69, 27, .08)),
+		url("../images/decor/parchment-fill.webp");
+	background-repeat: no-repeat, repeat;
+	background-size: 100% 100%, 480px 480px;
+	background-blend-mode: multiply, normal;
+	border: 1px solid var(--hb-gold);
+	border-radius: var(--hb-radius);
+	box-shadow:
+		inset 0 1px rgba(255, 247, 218, .36),
+		inset 0 -1px rgba(92, 55, 21, .14),
+		0 10px 24px rgba(20, 12, 4, .35);
+	color: var(--hb-text);
+	font-family: var(--hb-font-body);
+	font-size: var(--hb-fs-base);
+	font-weight: 600;
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 220ms ease, transform 220ms ease;
+}
+.hb-toast.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+.hb-toast__icon {
+	flex: 0 0 auto;
+	width: 32px;
+	height: 32px;
+	background: url("../images/icons/add-to-cart.webp") center / contain no-repeat;
+}
+.hb-toast__message {
+	line-height: 1.35;
+}
+@media (prefers-reduced-motion: reduce) {
+	.hb-toast {
+		transition: opacity 220ms ease;
+		transform: none !important;
+	}
+}
+@media (max-width: 480px) {
+	.hb-toast-region {
+		right: 0.75rem;
+		bottom: 0.75rem;
+		left: 0.75rem;
+	}
+	.hb-toast {
+		max-width: none;
+	}
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 

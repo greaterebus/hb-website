@@ -9,6 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_filter( 'woocommerce_product_add_to_cart_success_message', 'hugginbutt_add_to_cart_success_message' );
+
+/**
+ * Renames "cart" to "loot" in the add-to-cart success message (used both
+ * as the classic WooCommerce notice and as the text in our own
+ * add-to-cart toast, via each button's data-success_message attribute).
+ */
+function hugginbutt_add_to_cart_success_message( $message ) {
+	return str_ireplace( 'your cart', 'your loot', $message );
+}
+
 /**
  * Up to 5 shop category tiles. Prefers real `product_cat` terms (with
  * whatever "Thumbnail" image is set on the term in Products > Categories);
@@ -304,6 +315,73 @@ function hugginbutt_related_products() {
 		</div>
 	</section>
 	<?php
+}
+
+/**
+ * Renames the empty-cart pattern's "New in store" heading to "Fresh Loot"
+ * and swaps it for our own themed section-heading component (leaf
+ * ornaments on each side), instead of a plain core/heading block. This
+ * heading has no distinguishing class in WooCommerce's pattern, so this
+ * matches on its text content and leaves every other core/heading block
+ * on the site untouched.
+ */
+add_filter( 'render_block_core/heading', 'hugginbutt_rename_new_in_store_heading', 10, 2 );
+
+function hugginbutt_rename_new_in_store_heading( $block_content, $block ) {
+	if ( false === strpos( $block_content, 'New in store' ) ) {
+		return $block_content;
+	}
+
+	ob_start();
+	?>
+	<div class="hb-empty-cart-heading">
+		<?php hugginbutt_section_heading( __( 'Fresh Loot', 'hugginbutt-child' ) ); ?>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+/**
+ * Replaces the "New in Store" grid on the empty-cart page (the
+ * woocommerce/product-new block, part of WooCommerce's built-in empty-cart
+ * block pattern) with the same .hb-product-card grid used everywhere else,
+ * instead of that block's own default product-grid markup. render_block_*
+ * fires for every block regardless of how it renders, so this works
+ * whether the block is server- or client-hydrated.
+ */
+add_filter( 'render_block_woocommerce/product-new', 'hugginbutt_render_product_new_block', 10, 2 );
+
+function hugginbutt_render_product_new_block( $block_content, $block ) {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return $block_content;
+	}
+
+	$attrs   = isset( $block['attrs'] ) ? $block['attrs'] : array();
+	$columns = ! empty( $attrs['columns'] ) ? absint( $attrs['columns'] ) : 4;
+	$rows    = ! empty( $attrs['rows'] ) ? absint( $attrs['rows'] ) : 1;
+
+	$products = wc_get_products(
+		array(
+			'status'  => 'publish',
+			'limit'   => max( 1, $columns * $rows ),
+			'orderby' => 'date',
+			'order'   => 'DESC',
+		)
+	);
+
+	if ( empty( $products ) ) {
+		return $block_content;
+	}
+
+	ob_start();
+	?>
+	<div class="hb-products__grid">
+		<?php foreach ( $products as $new_product ) : ?>
+			<?php hugginbutt_render_product_card( $new_product ); ?>
+		<?php endforeach; ?>
+	</div>
+	<?php
+	return ob_get_clean();
 }
 
 /**
