@@ -45,6 +45,29 @@
 	   --hb-font-* tokens - overriding it here makes Cinzel the site-wide
 	   font everywhere, not just within our own .hb-* rules. */
 	--global-body-font-family: var(--hb-font-display);
+
+	/* Type scale - every font-size in this file should reference one of
+	   these instead of inventing a one-off value. Values sit near the
+	   median of what was previously scattered across the file. */
+	--hb-fs-2xs: 0.7rem;    /* ~11px - tiny ornaments/badges */
+	--hb-fs-xs: 0.8rem;     /* ~13px - meta text, small buttons, nav links */
+	--hb-fs-sm: 0.9rem;     /* ~14px - secondary/supporting text */
+	--hb-fs-base: 1.05rem;  /* ~17px - body copy default */
+	--hb-fs-md: 1.2rem;     /* ~19px - emphasized text, card titles */
+	--hb-fs-lg: 1.4rem;     /* ~22px - subheadings */
+	--hb-fs-xl: 1.85rem;    /* ~30px - h3-scale headings */
+	--hb-fs-2xl: 2.4rem;    /* ~38px - h2-scale headings */
+	--hb-fs-3xl: 3rem;      /* ~48px - h1-scale headings */
+
+	--hb-fs-display-sm: clamp(1.6rem, 2.5vw, 2.2rem);  /* section headings */
+	--hb-fs-display-md: clamp(2.2rem, 4vw, 3.4rem);    /* large banners */
+	--hb-fs-display-lg: clamp(2.5rem, 5vw, 4rem);      /* hero heading */
+
+	/* Product card tiles (shop grid + homepage featured products) reuse
+	   these two exact sizes in more than one place, so they get their own
+	   tokens instead of snapping to the general scale above. */
+	--hb-fs-card-title: clamp(1.05rem, 1.45vw, 1.32rem);
+	--hb-fs-card-price: 1.55rem;
 }
 
 /* ==========================================================================
@@ -62,13 +85,27 @@
 .hb-body {
 	font-family: var(--hb-font-body);
 	color: var(--hb-text);
-	font-size: 1.15rem;
+	font-size: var(--hb-fs-base);
 	line-height: 1.6;
 }
+
+/* Base heading scale, so individual components can inherit a size instead
+   of inventing their own. Components with a good reason to differ (hero
+   heading, section headings, card titles, etc.) still override below -
+   this just gives everything else a sane default. */
+.hb-body h1 { font-size: var(--hb-fs-3xl); }
+.hb-body h2 { font-size: var(--hb-fs-2xl); }
+.hb-body h3 { font-size: var(--hb-fs-xl); }
+.hb-body h4 { font-size: var(--hb-fs-lg); }
+.hb-body h5 { font-size: var(--hb-fs-md); }
+.hb-body h6 { font-size: var(--hb-fs-base); font-weight: 700; }
 
 .hb-body h1,
 .hb-body h2,
 .hb-body h3,
+.hb-body h4,
+.hb-body h5,
+.hb-body h6,
 .hb-body .hb-header__wordmark,
 .hb-body .hb-footer__wordmark {
 	font-family: var(--hb-font-display);
@@ -222,7 +259,7 @@ img {
 	align-items: center;
 	gap: 0.5em;
 	font-family: var(--hb-font-display);
-	font-size: 0.85rem;
+	font-size: var(--hb-fs-sm);
 	font-weight: 600;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
@@ -263,7 +300,7 @@ img {
 }
 
 .hb-button--small {
-	font-size: 0.72rem;
+	font-size: var(--hb-fs-xs);
 	padding: 0.6em 1.2em;
 }
 
@@ -285,7 +322,7 @@ img {
 	text-align: center;
 }
 .hb-section-heading__text {
-	font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+	font-size: var(--hb-fs-display-sm);
 	margin: 0;
 	color: inherit;
 }
@@ -336,7 +373,7 @@ img {
 	justify-content: center;
 	gap: 1rem;
 	font-family: var(--hb-font-display);
-	font-size: 0.72rem;
+	font-size: var(--hb-fs-2xs);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	text-align: center;
@@ -388,12 +425,12 @@ img {
 	line-height: 1.1;
 }
 .hb-header__wordmark {
-	font-size: 1.5rem;
+	font-size: var(--hb-fs-lg);
 	font-weight: 700;
 	color: var(--hb-text);
 }
 .hb-header__tagline {
-	font-size: 0.62rem;
+	font-size: var(--hb-fs-2xs);
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
 	color: var(--hb-green);
@@ -419,7 +456,7 @@ img {
 	display: inline-block;
 	padding: 0.5em 0;
 	font-family: var(--hb-font-display);
-	font-size: 0.85rem;
+	font-size: var(--hb-fs-sm);
 	font-weight: 600;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
@@ -457,7 +494,7 @@ img {
 	display: block;
 	padding: 0.5em 1.25em;
 	font-family: var(--hb-font-body);
-	font-size: 1rem;
+	font-size: var(--hb-fs-base);
 	text-transform: none;
 	letter-spacing: normal;
 	color: var(--hb-text);
@@ -513,7 +550,7 @@ img {
 	background: var(--hb-rust);
 	color: var(--hb-cream-lighter);
 	font-family: var(--hb-font-body);
-	font-size: 0.65rem;
+	font-size: var(--hb-fs-2xs);
 	line-height: 18px;
 	text-align: center;
 }
@@ -588,14 +625,14 @@ img {
 	.hb-section-heading__ornament { width: 3.25rem; height: 1.2rem; }
 }
 .hb-hero__heading {
-	font-size: clamp(2.2rem, 4vw, 3.2rem);
+	font-size: var(--hb-fs-display-md);
 	line-height: 1.15;
 	margin: 0 0 1rem;
 	color: var(--hb-cream-lighter);
 }
 .hb-hero__subheading {
 	max-width: 34em;
-	font-size: 1.15rem;
+	font-size: var(--hb-fs-md);
 	color: var(--hb-text-on-green);
 	opacity: 0.9;
 	margin: 0 0 2rem;
@@ -652,10 +689,10 @@ img {
 	font-weight: 600;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	font-size: 0.9rem;
+	font-size: var(--hb-fs-sm);
 }
 .hb-category__cta {
-	font-size: 0.8rem;
+	font-size: var(--hb-fs-xs);
 	color: var(--hb-rust);
 }
 
@@ -698,7 +735,7 @@ img {
 	object-fit: cover;
 }
 .hb-product-card__name {
-	font-size: 1.05rem;
+	font-size: var(--hb-fs-base);
 	margin: 1rem 1rem 0.4rem;
 }
 .hb-product-card__name a {
@@ -719,7 +756,7 @@ img {
 	display: inline-flex;
 	align-items: center;
 	font-family: var(--hb-font-display);
-	font-size: 0.78rem;
+	font-size: var(--hb-fs-xs);
 	font-weight: 600;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
@@ -783,13 +820,13 @@ img {
 }
 .hb-about-feature__label {
 	font-family: var(--hb-font-display);
-	font-size: 0.82rem;
+	font-size: var(--hb-fs-xs);
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 }
 .hb-about-feature__sub {
-	font-size: 0.8rem;
+	font-size: var(--hb-fs-xs);
 	color: var(--hb-green);
 }
 
@@ -807,7 +844,7 @@ img {
 	align-items: center;
 }
 .hb-events__heading {
-	font-size: clamp(1.6rem, 2.5vw, 2rem);
+	font-size: var(--hb-fs-display-sm);
 	margin: 0 0 1rem;
 }
 .hb-events__grid {
@@ -847,14 +884,14 @@ img {
 	background: var(--hb-green-dark);
 	color: var(--hb-cream-lighter);
 	font-family: var(--hb-font-display);
-	font-size: 0.7rem;
+	font-size: var(--hb-fs-2xs);
 	letter-spacing: 0.06em;
 	padding: 0.35em 0.7em;
 	border-radius: 3px;
 }
 .hb-event-card__name {
 	font-family: var(--hb-font-display);
-	font-size: 1.4rem;
+	font-size: var(--hb-fs-lg);
 	letter-spacing: 0.02em;
 	color: var(--hb-green-dark);
 	margin: 0 0 0.4rem;
@@ -868,7 +905,7 @@ img {
 	white-space: nowrap;
 }
 .hb-event-card__location {
-	font-size: 1.1rem;
+	font-size: var(--hb-fs-base);
 	font-weight: 600;
 	font-style: italic;
 	letter-spacing: 0.03em;
@@ -894,7 +931,7 @@ img {
 }
 .hb-events-page__heading {
 	font-family: var(--hb-font-display);
-	font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+	font-size: var(--hb-fs-display-md);
 	color: var(--hb-cream-lighter);
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -909,7 +946,7 @@ img {
 }
 .hb-events-page__section-heading {
 	font-family: var(--hb-font-display);
-	font-size: clamp(1.5rem, 2.6vw, 2rem);
+	font-size: var(--hb-fs-display-sm);
 	color: var(--hb-cream-lighter);
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -946,13 +983,13 @@ img {
 	margin-bottom: 0;
 }
 .hb-events-page__name {
-	font-size: 1.85rem;
+	font-size: var(--hb-fs-xl);
 	margin: 0 0 0.4rem;
 }
 .hb-events-page__description {
 	margin-top: 1rem;
 	font-family: var(--hb-font-body);
-	font-size: 1.2rem;
+	font-size: var(--hb-fs-md);
 	line-height: 1.65;
 	color: var(--hb-text);
 }
@@ -961,7 +998,7 @@ img {
 }
 .hb-events-page__empty {
 	text-align: center;
-	font-size: 1.1rem;
+	font-size: var(--hb-fs-base);
 	color: var(--hb-cream-lighter);
 	padding: 3rem 0;
 }
@@ -987,7 +1024,7 @@ img {
 	justify-content: center;
 }
 .hb-testimonials__heading {
-	font-size: 1.4rem;
+	font-size: var(--hb-fs-lg);
 	margin: 0 0 1.5rem;
 	color: var(--hb-cream-lighter);
 }
@@ -999,7 +1036,7 @@ img {
 	display: block;
 }
 .hb-testimonial-slide__quote {
-	font-size: 1.2rem;
+	font-size: var(--hb-fs-md);
 	font-style: italic;
 	margin: 0 0 1rem;
 }
@@ -1010,7 +1047,7 @@ img {
 	margin-bottom: 0.5rem;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
-	font-size: 0.85rem;
+	font-size: var(--hb-fs-sm);
 }
 .hb-stars {
 	display: inline-flex;
@@ -1058,7 +1095,7 @@ img {
 	justify-content: center;
 }
 .hb-newsletter__heading {
-	font-size: 1.4rem;
+	font-size: var(--hb-fs-lg);
 	margin: 0 0 1rem;
 }
 .hb-newsletter__form {
@@ -1073,7 +1110,7 @@ img {
 	border: 1px solid rgba(42, 35, 24, 0.25);
 	border-radius: var(--hb-radius);
 	font-family: var(--hb-font-body);
-	font-size: 1rem;
+	font-size: var(--hb-fs-base);
 	background: var(--hb-cream-lighter);
 	color: var(--hb-text);
 }
@@ -1107,12 +1144,12 @@ img {
 	object-fit: cover;
 }
 .hb-footer__wordmark {
-	font-size: 1.2rem;
+	font-size: var(--hb-fs-md);
 	font-weight: 700;
 	color: var(--hb-cream-lighter);
 }
 .hb-footer__blurb {
-	font-size: 0.95rem;
+	font-size: var(--hb-fs-sm);
 	opacity: 0.85;
 	margin: 0 0 1.25rem;
 }
@@ -1135,7 +1172,7 @@ img {
 	height: 15px;
 }
 .hb-footer__heading {
-	font-size: 0.85rem;
+	font-size: var(--hb-fs-sm);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--hb-gold);
@@ -1152,7 +1189,7 @@ img {
 .hb-footer__menu a {
 	color: var(--hb-text-on-green);
 	text-decoration: none;
-	font-size: 0.92rem;
+	font-size: var(--hb-fs-sm);
 	opacity: 0.85;
 }
 .hb-footer__menu a:hover {
@@ -1160,7 +1197,7 @@ img {
 	color: var(--hb-gold);
 }
 .hb-footer__col p {
-	font-size: 0.92rem;
+	font-size: var(--hb-fs-sm);
 	margin: 0 0 0.6rem;
 	opacity: 0.85;
 }
@@ -1177,7 +1214,7 @@ img {
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 1rem;
-	font-size: 0.82rem;
+	font-size: var(--hb-fs-xs);
 	opacity: 0.8;
 }
 .hb-footer__bottom p {
@@ -1220,7 +1257,7 @@ img {
 }
 .primary-sidebar .hb-shop-filter-widget__title {
 	font-family: var(--hb-font-display);
-	font-size: 1.3rem;
+	font-size: var(--hb-fs-lg);
 	font-weight: 700;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
@@ -1248,7 +1285,7 @@ img {
 	color: var(--hb-green);
 	text-decoration: none !important;
 	border-bottom: none !important;
-	font-size: 1.2rem;
+	font-size: var(--hb-fs-md);
 	font-weight: 700;
 }
 .primary-sidebar .product-categories a:hover {
@@ -1270,13 +1307,13 @@ img {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	font-size: 1.1rem;
+	font-size: var(--hb-fs-base);
 	font-weight: 700;
 	color: var(--hb-green);
 }
 .primary-sidebar .price_slider_amount .button {
 	font-family: var(--hb-font-display);
-	font-size: 0.7rem;
+	font-size: var(--hb-fs-2xs);
 	font-weight: 600;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
@@ -1375,7 +1412,7 @@ body.tax-product_cat ul.products li.product .woocommerce-loop-product__title {
 	margin: 0.2rem 0.65rem 0.85rem;
 	color: #2b2116 !important;
 	font-family: var(--hb-font-display);
-	font-size: clamp(1.05rem, 1.45vw, 1.32rem);
+	font-size: var(--hb-fs-card-title);
 	font-weight: 700;
 	letter-spacing: 0.03em;
 	line-height: 1.15;
@@ -1419,7 +1456,7 @@ body.tax-product_cat ul.products li.product .price {
 	margin: auto 0.8rem 0.15rem;
 	color: #2b2116 !important;
 	font-family: var(--hb-font-body);
-	font-size: 1.55rem;
+	font-size: var(--hb-fs-card-price);
 	font-weight: 800;
 	line-height: 1.1;
 	text-align: center;
@@ -1547,7 +1584,7 @@ body.single-product .woocommerce-tabs ul.tabs li.reviews_tab a {
 /* Description tab content: bigger, bolder, higher-contrast text for
    easier reading. */
 body.single-product #tab-description {
-	font-size: 1.15rem;
+	font-size: var(--hb-fs-md);
 	font-weight: 600;
 	line-height: 1.6;
 	color: var(--hb-text);
@@ -1573,7 +1610,7 @@ body.woocommerce-cart .wp-block-woocommerce-cart {
 	   is set via this preset variable rather than a fixed font-size, so
 	   overriding it here bumps nearly everything at once. */
 	--wp--preset--font-size--small: 16px;
-	font-size: 1.05rem;
+	font-size: var(--hb-fs-base);
 }
 body.woocommerce-cart article.entry {
 	background-color: transparent;
@@ -1660,7 +1697,7 @@ body.woocommerce-cart .wc-block-components-notices__snackbar:has(> div:empty:onl
 /* Breadcrumbs: bigger and bolder than Kadence's default (85% size, normal
    weight), black instead of the muted grey. */
 .kadence-breadcrumbs {
-	font-size: 1.3rem;
+	font-size: var(--hb-fs-lg);
 	font-weight: 900;
 	color: #000;
 }
@@ -1844,8 +1881,6 @@ body.woocommerce-cart .wc-block-components-notices__snackbar:has(> div:empty:onl
 		multiply,
 		multiply,
 		soft-light;
-
-	font-size: 1.3rem;
 }
 /* WooCommerce "Coming soon" page — reuses the homepage's fabric/shadow
    background (see .hb-body above) instead of Kadence's default cream
@@ -1957,13 +1992,13 @@ body.hb-coming-soon-page {
 }
 
 .hb-announcement { padding-block: .35em; }
-.hb-announcement__inner { font-size: .8rem; letter-spacing: .035em; text-transform: none; }
+.hb-announcement__inner { font-size: var(--hb-fs-xs); letter-spacing: .035em; text-transform: none; }
 .hb-header { box-shadow: 0 2px 10px rgba(25,20,12,.22); }
 .hb-header__inner { padding-block: .65rem; }
-.hb-header__wordmark { font-size: 2rem; letter-spacing: -.035em; }
-.hb-header__tagline { font-size: .58rem; }
+.hb-header__wordmark { font-size: var(--hb-fs-xl); letter-spacing: -.035em; }
+.hb-header__tagline { font-size: var(--hb-fs-2xs); }
 .hb-nav-menu { gap: 2.4rem; }
-.hb-nav-menu > li > a { font-size: .75rem; }
+.hb-nav-menu > li > a { font-size: var(--hb-fs-xs); }
 .hb-hero__inner { padding: 0; grid-template-columns: 1fr; gap: 0; }
 .hb-hero__content { padding: 0; }
 /* Fixed size (matching the original banner's 1536x659) so hero height stays
@@ -1973,21 +2008,21 @@ body.hb-coming-soon-page {
    proportions don't match exactly. */
 .hb-hero__banner-image { display: block; width: 100%; aspect-ratio: 1536 / 659; object-fit: contain; }
 .hb-hero__cta { position: absolute; right: 2rem; bottom: 2rem; z-index: 2; }
-.hb-hero__heading { max-width: 100%; font-size: clamp(2.2rem, 3.2vw, 3.6rem); line-height: 1.1; text-transform: uppercase; overflow-wrap: break-word; }
+.hb-hero__heading { max-width: 100%; font-size: var(--hb-fs-display-md); line-height: 1.1; text-transform: uppercase; overflow-wrap: break-word; }
 .hb-hero__media, .hb-hero__media img { height: 100%; }
 .hb-hero__media img { min-height: 440px; border-radius: 0; aspect-ratio: 1.65 / 1; }
 .hb-categories__inner { padding-block: 2.4rem 3rem; }
 .hb-section-heading { margin-bottom: 1.6rem; }
 .hb-categories__grid { gap: 1.4rem; }
 .hb-category__image { width: min(170px, 100%); height: auto; aspect-ratio: 1; margin-bottom: .6rem; border: 2px solid rgba(65,48,25,.25); box-shadow: inset 0 0 0 3px rgba(240,223,186,.18); }
-.hb-category__name { font-size: .95rem; }
+.hb-category__name { font-size: var(--hb-fs-sm); }
 .hb-products__inner { padding-block: 2.4rem 3rem; }
 .hb-products__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .85rem; }
 .hb-product-card { padding-bottom: .75rem; background: rgba(232,212,172,.08); color: var(--hb-text-on-green); border: 1px solid rgba(201,162,39,.58); }
-.hb-product-card__name { font-size: .85rem; line-height: 1.2; margin: .7rem .45rem .2rem; }
+.hb-product-card__name { font-size: var(--hb-fs-xs); line-height: 1.2; margin: .7rem .45rem .2rem; }
 .hb-product-card__name a, .hb-product-card__price { color: var(--hb-text-on-green); }
-.hb-product-card__price { font-size: .85rem; margin-bottom: .45rem; }
-.hb-product-card .add_to_cart_button, .hb-product-card .ajax_add_to_cart, .hb-product-card .hb-button { font-size: .62rem; padding: .55em .8em; }
+.hb-product-card__price { font-size: var(--hb-fs-xs); margin-bottom: .45rem; }
+.hb-product-card .add_to_cart_button, .hb-product-card .ajax_add_to_cart, .hb-product-card .hb-button { font-size: var(--hb-fs-2xs); padding: .55em .8em; }
 .hb-about__inner { padding-block: 3rem; grid-template-columns: 46% 54%; gap: 2.5rem; }
 .hb-about__media img { aspect-ratio: 1.35 / 1; border-radius: 0; object-fit: contain; }
 
@@ -2070,7 +2105,7 @@ body.hb-coming-soon-page {
 .hb-announcement__inner {
 	gap: .85rem;
 	font-family: var(--hb-font-body);
-	font-size: 1.05rem;
+	font-size: var(--hb-fs-base);
 	font-weight: 700;
 	line-height: 1.1;
 	letter-spacing: .045em;
@@ -2078,7 +2113,7 @@ body.hb-coming-soon-page {
 }
 .hb-announcement__inner p { text-transform: none !important; }
 .hb-announcement__ornament { font-size: 0; color: var(--hb-gold); }
-.hb-announcement__ornament::before { content: '\2726'; font-size: .7rem; }
+.hb-announcement__ornament::before { content: '\2726'; font-size: var(--hb-fs-2xs); }
 .hb-header {
 	background-color: #cfad73 !important;
 	background-image:
@@ -2098,7 +2133,7 @@ body.hb-coming-soon-page {
 .hb-header__icon-link,
 .hb-nav-menu > li > a { color: #281e12; }
 @media (max-width: 782px) {
-	.hb-announcement__inner { font-size: .92rem; }
+	.hb-announcement__inner { font-size: var(--hb-fs-sm); }
 	.hb-header__inner { min-height: 78px; }
 }
 
@@ -2325,7 +2360,7 @@ body.hb-coming-soon-page {
 
 .hb-nav-menu > li > a {
 	padding-block: .28em;
-	font-size: .72rem;
+	font-size: var(--hb-fs-2xs);
 }
 
 .hb-header__icon-link .hb-icon {
@@ -2360,7 +2395,7 @@ body.hb-coming-soon-page {
 
 .hb-nav-menu > li > a {
 	padding-block: .18em;
-	font-size: 1rem;
+	font-size: var(--hb-fs-base);
 }
 
 .hb-header__icons {
@@ -2429,7 +2464,7 @@ body.hb-coming-soon-page {
 	height: 3.25rem;
 	margin: 0.2rem 0.65rem 0.85rem;
 	font-family: var(--hb-font-display);
-	font-size: clamp(1.05rem, 1.45vw, 1.32rem);
+	font-size: var(--hb-fs-card-title);
 	font-weight: 700;
 	letter-spacing: 0.03em;
 	line-height: 1.15;
@@ -2468,7 +2503,7 @@ body.hb-coming-soon-page {
 	order: 3;
 	margin: auto 0.8rem 0.15rem;
 	font-family: var(--hb-font-body);
-	font-size: 1.55rem;
+	font-size: var(--hb-fs-card-price);
 	font-weight: 800;
 	line-height: 1.1;
 	text-align: center;
