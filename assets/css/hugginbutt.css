@@ -1189,22 +1189,31 @@ img {
    ========================================================================== */
 
 .primary-sidebar .hb-shop-filter-widget {
-	background: var(--hb-cream);
-	border: 1px solid rgba(42, 35, 24, 0.12);
+	position: relative;
+	background-color: #e3c78f;
+	background-image:
+		linear-gradient(90deg, rgba(111, 69, 27, .08), transparent 8%, transparent 92%, rgba(111, 69, 27, .08)),
+		url("../images/decor/parchment-fill.webp");
+	background-repeat: no-repeat, repeat;
+	background-size: 100% 100%, 480px 480px;
+	background-blend-mode: multiply, normal;
+	box-shadow:
+		inset 0 1px rgba(255, 247, 218, .36),
+		inset 0 -1px rgba(92, 55, 21, .14);
 	border-radius: var(--hb-radius);
 	padding: 1.5rem;
 	margin-bottom: 1.5rem;
 }
 .primary-sidebar .hb-shop-filter-widget__title {
 	font-family: var(--hb-font-display);
-	font-size: 1rem;
-	font-weight: 600;
+	font-size: 1.3rem;
+	font-weight: 700;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
 	color: var(--hb-green);
 	margin: 0 0 1rem;
 	padding-bottom: 0.6rem;
-	border-bottom: 1px solid rgba(42, 35, 24, 0.15);
+	border-bottom: 2px solid var(--hb-green);
 }
 
 .primary-sidebar .product-categories {
@@ -1213,23 +1222,31 @@ img {
 	padding: 0;
 }
 .primary-sidebar .product-categories li {
-	margin-bottom: 0.5rem;
+	margin-bottom: 0;
+	padding: 0.55rem 0;
+	border-bottom: 1px solid var(--hb-green);
 }
-.primary-sidebar .product-categories a {
-	color: var(--hb-text);
-	text-decoration: none;
-	font-size: 0.98rem;
+.primary-sidebar .product-categories li:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+.primary-sidebar.widget-area .product-categories a {
+	color: var(--hb-green);
+	text-decoration: none !important;
+	border-bottom: none !important;
+	font-size: 1.2rem;
+	font-weight: 700;
 }
 .primary-sidebar .product-categories a:hover {
 	color: var(--hb-rust);
 }
 .primary-sidebar .product-categories .count {
-	color: var(--hb-green);
-	font-size: 0.85rem;
+	display: none !important;
 }
-.primary-sidebar .product-categories .current-cat > a {
+.primary-sidebar .product-categories .current-cat > a,
+.primary-sidebar .product-categories a.hb-cat-active {
 	color: var(--hb-rust);
-	font-weight: 600;
+	font-weight: 700;
 }
 
 .primary-sidebar .price_slider {
@@ -1239,7 +1256,9 @@ img {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	font-size: 0.85rem;
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: var(--hb-green);
 }
 .primary-sidebar .price_slider_amount .button {
 	font-family: var(--hb-font-display);
@@ -1282,6 +1301,70 @@ img {
 	border-radius: 50%;
 	cursor: pointer;
 	outline: none;
+}
+
+/* Shop page main content column: same parchment surface as the filter
+   widgets, scoped to the shop archive only (other pages keep the site-wide
+   green fabric backdrop on .hb-main). */
+body.woocommerce-shop .site-main {
+	position: relative;
+	background-color: #e3c78f;
+	background-image:
+		linear-gradient(90deg, rgba(111, 69, 27, .08), transparent 8%, transparent 92%, rgba(111, 69, 27, .08)),
+		url("../images/decor/parchment-fill.webp");
+	background-repeat: no-repeat, repeat;
+	background-size: 100% 100%, 480px 480px;
+	background-blend-mode: multiply, normal;
+	box-shadow:
+		inset 0 1px rgba(255, 247, 218, .36),
+		inset 0 -1px rgba(92, 55, 21, .14);
+	border-radius: var(--hb-radius);
+	padding: 1.5rem;
+}
+
+.woocommerce ul.products li.product .price {
+	font-size: 1.15em;
+	font-weight: 700;
+}
+
+/* Experiment: oak-slab texture behind each whole product card on the shop
+   grid, with cream text over it for contrast. */
+body.woocommerce-shop ul.products li.product {
+	background-image: url("../images/decor/oak-slab.webp");
+	background-size: cover;
+	background-position: center;
+}
+body.woocommerce-shop ul.products li.product .entry-content-wrap {
+	background-image: url("../images/decor/oak-slab.webp");
+	background-size: cover;
+	background-position: center;
+	color: var(--hb-cream-lighter);
+	margin-left: 0;
+	margin-right: 0;
+}
+body.woocommerce-shop ul.products li.product .woocommerce-loop-product__title,
+body.woocommerce-shop ul.products li.product .price {
+	color: var(--hb-cream-lighter) !important;
+	font-weight: 800;
+	text-shadow:
+		-1px -1px 0 var(--hb-text),
+		 1px -1px 0 var(--hb-text),
+		-1px  1px 0 var(--hb-text),
+		 1px  1px 0 var(--hb-text);
+}
+
+/* Widens just the shop page's content column (sidebar + product grid),
+   which otherwise shares the site's global 1290px container width with
+   every other page - cramped once a sidebar is taking a chunk of it. */
+body.woocommerce-shop .content-container.site-container {
+	max-width: 1600px;
+}
+
+/* Narrows the filter sidebar itself, giving the product grid the rest of
+   the widened container instead of the sidebar keeping its normal-width
+   proportion. */
+body.woocommerce-shop.has-sidebar.has-left-sidebar .content-container {
+	grid-template-columns: 220px 1fr;
 }
 
 /* ==========================================================================

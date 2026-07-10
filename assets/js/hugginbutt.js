@@ -9,7 +9,110 @@
 		initMobileNav();
 		initCategoryCarousels();
 		initTestimonialCarousel();
+		initShopFilterHighlight();
+		initShopAjaxFilters();
 	} );
+
+	/**
+	 * Marks the active category link in the Shop Filters sidebar. The
+	 * category widget has no way to know product_cat is a query param on
+	 * the Shop page rather than a separate archive, so it never applies
+	 * its own "current-cat" class here - this fills that in from the URL.
+	 * Re-run after each AJAX filter swap, so stale highlighting is cleared
+	 * first.
+	 */
+	function initShopFilterHighlight() {
+		var links = document.querySelectorAll( '.primary-sidebar .product-categories a' );
+		if ( ! links.length ) { return; }
+
+		links.forEach( function ( link ) {
+			link.classList.remove( 'hb-cat-active' );
+			if ( link.parentElement ) {
+				link.parentElement.classList.remove( 'current-cat' );
+			}
+		} );
+
+		var activeSlug = new URLSearchParams( window.location.search ).get( 'product_cat' );
+
+		links.forEach( function ( link ) {
+			var linkParams = new URL( link.href, window.location.origin ).searchParams;
+			var isAll = link.closest( '.cat-item-all' );
+			var matches = activeSlug ? linkParams.get( 'product_cat' ) === activeSlug : !! isAll;
+
+			if ( matches ) {
+				link.classList.add( 'hb-cat-active' );
+				if ( link.parentElement ) {
+					link.parentElement.classList.add( 'current-cat' );
+				}
+			}
+		} );
+	}
+
+	/**
+	 * Lets shoppers filter the Shop page (by category or price) without a
+	 * full page reload: intercepts the sidebar's category links and the
+	 * price filter form, fetches the same filtered Shop URL in the
+	 * background, and swaps in just the new .site-main content. Falls back
+	 * to a normal navigation if anything about the fetch goes wrong.
+	 */
+	function initShopAjaxFilters() {
+		var main = document.querySelector( 'body.woocommerce-shop .site-main' );
+		if ( ! main || ! window.fetch || ! window.DOMParser ) { return; }
+
+		document.addEventListener( 'click', function ( event ) {
+			var link = event.target.closest( '.primary-sidebar .product-categories a' );
+			if ( ! link ) { return; }
+
+			event.preventDefault();
+			loadShopResults( link.href, true );
+		} );
+
+		document.addEventListener( 'submit', function ( event ) {
+			var form = event.target;
+			if ( ! form.matches( '.primary-sidebar .price_slider_wrapper form' ) ) { return; }
+
+			event.preventDefault();
+			var params = new URLSearchParams( new FormData( form ) ).toString();
+			var action = form.getAttribute( 'action' ) || window.location.href;
+			var url    = action + ( action.indexOf( '?' ) > -1 ? '&' : '?' ) + params;
+			loadShopResults( url, true );
+		} );
+
+		window.addEventListener( 'popstate', function () {
+			loadShopResults( window.location.href, false );
+		} );
+	}
+
+	function loadShopResults( url, pushState ) {
+		var main = document.querySelector( 'body.woocommerce-shop .site-main' );
+		if ( ! main ) { window.location.href = url; return; }
+
+		main.setAttribute( 'aria-busy', 'true' );
+
+		window.fetch( url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } } )
+			.then( function ( response ) {
+				if ( ! response.ok ) { throw new Error( 'Shop filter request failed' ); }
+				return response.text();
+			} )
+			.then( function ( html ) {
+				var newMain = new window.DOMParser().parseFromString( html, 'text/html' )
+					.querySelector( 'body.woocommerce-shop .site-main' );
+
+				if ( ! newMain ) { throw new Error( 'No .site-main found in response' ); }
+
+				main.innerHTML = newMain.innerHTML;
+				main.removeAttribute( 'aria-busy' );
+
+				if ( pushState ) {
+					window.history.pushState( {}, '', url );
+				}
+
+				initShopFilterHighlight();
+			} )
+			.catch( function () {
+				window.location.href = url;
+			} );
+	}
 
 	function initCategoryCarousels() {
 		document.querySelectorAll( '[data-hb-category-carousel]' ).forEach( function ( carousel ) {

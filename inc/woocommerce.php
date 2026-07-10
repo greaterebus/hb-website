@@ -45,10 +45,7 @@ function hugginbutt_get_shop_categories() {
 			continue;
 		}
 
-		$link = get_term_link( $term );
-		if ( is_wp_error( $link ) ) {
-			continue;
-		}
+		$link = add_query_arg( 'product_cat', $term->slug, wc_get_page_permalink( 'shop' ) );
 
 		$thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
 
@@ -174,3 +171,28 @@ function hugginbutt_cart_count_fragment( $fragments ) {
  * every cart change.
  */
 add_filter( 'woocommerce_persistent_cart_enabled', '__return_false' );
+
+add_filter( 'kadence_post_layout', 'hugginbutt_hide_shop_archive_hero' );
+
+/**
+ * Removes Kadence's "product-archive-hero-section" banner (the entry-hero
+ * with the "Shop" title) from the main Shop page, which duplicated the
+ * page's own header content.
+ */
+function hugginbutt_hide_shop_archive_hero( $layout ) {
+	if ( function_exists( 'is_shop' ) && is_shop() && ! is_search() ) {
+		$layout['title'] = 'hide';
+	}
+
+	return $layout;
+}
+
+/**
+ * Shows 3 products per row on the shop/category/tag archives, instead of
+ * Kadence's default of 4.
+ */
+add_filter( 'loop_shop_columns', 'hugginbutt_shop_columns' );
+
+function hugginbutt_shop_columns() {
+	return 3;
+}
