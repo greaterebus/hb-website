@@ -1434,16 +1434,85 @@ body.single-product .content-container.site-container {
 	color: var(--hb-green);
 }
 
-/* Description / Reviews tab nav buttons: dark green with cream text,
-   matching the green-fabric sections used elsewhere on the site. */
+/* Description / Reviews tab nav buttons, not-selected state: tan (a
+   touch darker than the page's cream card) with green text. Darkens
+   further on hover so it's clear the tab is interactive. */
 body.single-product .woocommerce-tabs ul.tabs li.description_tab,
 body.single-product .woocommerce-tabs ul.tabs li.reviews_tab {
-	background: var(--hb-green);
+	background: color-mix(in srgb, var(--hb-cream) 80%, #000);
 	border-radius: var(--hb-radius);
+	transition: background 150ms ease;
+}
+body.single-product .woocommerce-tabs ul.tabs li.description_tab:not(.active):hover,
+body.single-product .woocommerce-tabs ul.tabs li.reviews_tab:not(.active):hover {
+	background: color-mix(in srgb, var(--hb-cream) 65%, #000) !important;
 }
 body.single-product .woocommerce-tabs ul.tabs li.description_tab a,
 body.single-product .woocommerce-tabs ul.tabs li.reviews_tab a {
-	color: var(--hb-cream-lighter);
+	color: var(--hb-green);
+}
+/* Selected tab: dark green with cream text, instead of Kadence's default
+   white-with-green-text active state. Kadence's own rule here is the
+   same 4-class ".woocommerce div.product .woocommerce-tabs ul.tabs li.active"
+   chain that beat our ::before override above, hence !important again. */
+body.single-product .woocommerce-tabs ul.tabs li.active {
+	background: var(--hb-green) !important;
+	border-color: var(--hb-green) !important;
+	border-bottom-color: var(--hb-green) !important;
+}
+body.single-product .woocommerce-tabs ul.tabs li.active a {
+	color: var(--hb-cream-lighter) !important;
+}
+/* The line under the tab row (::before) and each tab's own 1px edge
+   both default to Kadence's grey (--global-gray-400). Kadence's actual
+   selector here is ".woocommerce div.product .woocommerce-tabs ul.tabs::before"
+   (4 classes) - higher specificity than ours, so it was winning outright;
+   !important to be sure regardless of exact selector chains. */
+body.single-product .woocommerce-tabs ul.tabs::before {
+	border-bottom-color: var(--hb-green) !important;
+}
+body.single-product .woocommerce-tabs ul.tabs li.description_tab,
+body.single-product .woocommerce-tabs ul.tabs li.reviews_tab {
+	border-color: var(--hb-green);
+}
+/* Kadence wraps the whole tabs component (nav + panel) in its own grey
+   border below the 719px breakpoint. */
+body.single-product .woocommerce-tabs {
+	border-color: var(--hb-green);
+}
+
+/* Add to Cart button: Kadence's generic button hover switches to the
+   site's gold accent (--global-palette-btn-bg-hover: var(--global-palette2)),
+   which reads as an unrelated yellow flash rather than a hover state. Just
+   darken its own rust background instead, matching .hb-button--primary's
+   hover treatment elsewhere on the site. */
+body.single-product .single_add_to_cart_button:hover {
+	background-color: var(--hb-rust-dark) !important;
+	color: var(--hb-cream-lighter) !important;
+}
+
+/* Reviews tab content: Kadence's default styling for the comment box,
+   avatar ring, and empty star fill all use a washed-out grey
+   (--global-gray-400) that reads as a stray white/grey border against
+   our cream card - swap it for the site's dark green throughout. */
+body.single-product #reviews #comments ol.commentlist li .comment-text {
+	border-color: var(--hb-green);
+	background: var(--hb-cream-lighter);
+}
+body.single-product #reviews #comments ol.commentlist li img.avatar {
+	border: 3px solid var(--hb-green);
+	box-shadow: none;
+}
+body.single-product #reviews .star-rating::before {
+	color: var(--hb-green);
+}
+body.single-product #reviews .star-rating {
+	color: var(--hb-gold);
+}
+body.single-product #reviews #respond textarea,
+body.single-product #reviews #respond input[type="text"],
+body.single-product #reviews #respond input[type="email"] {
+	border-color: var(--hb-green);
 }
 
 /* Description tab content: bigger, bolder, higher-contrast text for
