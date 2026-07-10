@@ -1299,7 +1299,7 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	color: var(--hb-green);
 	text-decoration: none !important;
 	border-bottom: none !important;
-	font-size: var(--hb-fs-md);
+	font-size: var(--hb-fs-sm);
 	font-weight: 700;
 }
 .primary-sidebar .product-categories a:hover {
@@ -1533,6 +1533,22 @@ body.woocommerce-cart .wc-block-components-notices__snackbar:has(> div:empty:onl
 }
 .kadence-breadcrumbs a {
 	color: #000;
+}
+
+/* Smaller on the product page specifically - the site-wide size above
+   reads too large next to the product title/gallery. */
+body.single-product .kadence-breadcrumbs {
+	font-size: var(--hb-fs-xs);
+}
+
+/* Bigger cards on the shop page: same .hb-products__grid the homepage
+   uses, but fewer columns so each card gets more room (the homepage's 6
+   columns are fine for a curated showcase strip, too cramped for browsing
+   the full catalog). */
+body.woocommerce-shop .hb-products__grid,
+body.tax-product_cat .hb-products__grid {
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.5rem;
 }
 
 /* ==========================================================================
