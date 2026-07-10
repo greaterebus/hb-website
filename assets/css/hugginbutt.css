@@ -94,9 +94,9 @@
  * Deliberately targets only .hb-body (not "p, li" too): color/font-size are
  * inheritable, so descendants pick them up automatically. Adding "p"/"li" to
  * this selector would raise its specificity to (class+type), which then
- * beats single-class overrides like .hb-hero__subheading or
- * .hb-footer__blurb further down this file — exactly the bug that made
- * body copy in the dark-green sections unreadable.
+ * beats single-class overrides like .hb-hero__subheading further down
+ * this file — exactly the bug that made body copy in the dark-green
+ * sections unreadable.
  */
 .hb-body {
 	font-family: var(--hb-font-body);
@@ -110,10 +110,9 @@
    specificity beyond the bare element (h1 etc.) - a component class like
    .hb-product-card__name must always be able to override it outright
    rather than fight it on specificity (same bug the comment above warns
-   about for .hb-hero__subheading/.hb-footer__blurb). Components with a
-   good reason to differ (hero heading, section headings, card titles,
-   etc.) still override below - this just gives everything else a
-   sane default. */
+   about for .hb-hero__subheading). Components with a good reason to
+   differ (hero heading, section headings, card titles, etc.) still
+   override below - this just gives everything else a sane default. */
 :where(.hb-body) h1 { font-size: var(--hb-fs-3xl); }
 :where(.hb-body) h2 { font-size: var(--hb-fs-2xl); }
 :where(.hb-body) h3 { font-size: var(--hb-fs-xl); }
@@ -127,8 +126,7 @@
 .hb-body h4,
 .hb-body h5,
 .hb-body h6,
-.hb-body .hb-header__wordmark,
-.hb-body .hb-footer__wordmark {
+.hb-body .hb-header__wordmark {
 	font-family: var(--hb-font-display);
 	letter-spacing: 0.02em;
 }
@@ -1223,44 +1221,35 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	background: rgba(0, 0, 0, 0.5);
 	color: var(--hb-text-on-green);
 }
-.hb-footer__inner {
+.hb-footer__top {
 	max-width: var(--hb-container);
 	margin: 0 auto;
-	padding: 4rem 1.5rem 2.5rem;
+	padding: 3rem 1.5rem 1rem;
 	display: grid;
-	grid-template-columns: 1.4fr 1fr 1fr 1fr 1.2fr;
-	gap: 2rem;
-}
-.hb-footer__logo {
-	display: flex;
+	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
-	gap: 0.6rem;
-	margin-bottom: 1rem;
+	gap: 1rem;
 }
-.hb-footer__logo img {
-	width: 40px;
-	height: 40px;
-	border-radius: var(--hb-radius-full);
-	object-fit: cover;
+.hb-footer__mascot {
+	grid-column: 2;
+	display: flex;
+	justify-content: center;
 }
-.hb-footer__wordmark {
-	font-size: var(--hb-fs-md);
-	font-weight: 700;
-	color: var(--hb-cream-lighter);
-}
-.hb-footer__blurb {
-	font-size: var(--hb-fs-sm);
-	opacity: 0.85;
-	margin: 0 0 1.25rem;
+.hb-footer__mascot img {
+	display: block;
+	width: 220px;
+	height: auto;
 }
 .hb-footer__social {
+	grid-column: 3;
 	display: flex;
+	justify-content: flex-end;
 	gap: 0.75rem;
 }
 .hb-footer__social-link {
 	display: inline-flex;
-	width: 30px;
-	height: 30px;
+	width: 68px;
+	height: 68px;
 	align-items: center;
 	justify-content: center;
 	border-radius: var(--hb-radius-full);
@@ -1268,41 +1257,20 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	color: var(--hb-text-on-green);
 }
 .hb-footer__social-link .hb-icon {
-	width: 15px;
-	height: 15px;
+	width: 34px;
+	height: 34px;
 }
-.hb-footer__heading {
-	font-size: var(--hb-fs-sm);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--hb-gold);
-	margin: 0 0 1rem;
-}
-.hb-footer__menu {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.hb-footer__menu li {
-	margin-bottom: 0.6rem;
-}
-.hb-footer__menu a {
-	color: var(--hb-text-on-green);
-	text-decoration: none;
-	font-size: var(--hb-fs-sm);
-	opacity: 0.85;
-}
-.hb-footer__menu a:hover {
-	opacity: 1;
-	color: var(--hb-gold);
-}
-.hb-footer__col p {
-	font-size: var(--hb-fs-sm);
-	margin: 0 0 0.6rem;
-	opacity: 0.85;
-}
-.hb-footer__col a {
-	color: var(--hb-cream-lighter);
+@media (max-width: 600px) {
+	.hb-footer__top {
+		grid-template-columns: 1fr;
+		justify-items: center;
+		gap: 1.25rem;
+	}
+	.hb-footer__mascot,
+	.hb-footer__social {
+		grid-column: 1;
+		justify-content: center;
+	}
 }
 .hb-footer__bottom {
 	border-top: 1px solid rgba(241, 232, 208, 0.15);
@@ -1985,9 +1953,6 @@ body.woocommerce-cart .hb-products__grid {
 	.hb-events__grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
-	.hb-footer__inner {
-		grid-template-columns: repeat(2, 1fr);
-	}
 	.hb-split-band {
 		grid-template-columns: 1fr;
 	}
@@ -2053,9 +2018,6 @@ body.woocommerce-cart .hb-products__grid {
 	}
 	.hb-about__features {
 		grid-template-columns: repeat(2, 1fr);
-	}
-	.hb-footer__inner {
-		grid-template-columns: 1fr;
 	}
 }
 
@@ -2324,7 +2286,7 @@ body.hb-coming-soon-page {
 .hb-split-band { grid-template-columns: 1fr 1fr; }
 .hb-testimonials, .hb-newsletter { padding-block: 2.5rem; }
 
-.hb-footer__inner { padding-block: 2.5rem 1.5rem; }
+.hb-footer__top { padding-block: 2.5rem 1.5rem; }
 @media (max-width: 1180px) {
 	.hb-products__grid { grid-template-columns: repeat(3, 1fr); }
 	.hb-header__wordmark { font-size: 1.65rem; }
