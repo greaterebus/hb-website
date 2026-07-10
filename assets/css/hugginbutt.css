@@ -1578,6 +1578,24 @@ body.woocommerce-cart article.entry {
 	box-shadow: none;
 }
 
+/* Checkout page: same cream card treatment as the Cart page. */
+body.woocommerce-checkout .content-wrap {
+	background-color: var(--hb-cream-light);
+	padding: clamp(1.5rem, 3vw, 3rem);
+	border-radius: 18px;
+	box-shadow:
+		0 2px 5px rgba(20, 12, 4, .38),
+		0 10px 20px rgba(20, 12, 4, .35),
+		0 28px 48px rgba(20, 12, 4, .45);
+}
+/* Keeps the cream showing through .content-wrap's own padding/inner
+   layers too, same fix as the Cart page's article.entry - no radius/shadow
+   here so we don't get a nested double-card look. */
+body.woocommerce-checkout .entry-content-wrap,
+body.woocommerce-checkout article.entry {
+	background-color: var(--hb-cream-light);
+}
+
 /* The Cart block's notice/snackbar placeholders (coupon errors, "item
    removed", etc.) render a styled white bar even when empty. Let them
    blend into the cream background when there's nothing in them; an active

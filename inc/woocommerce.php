@@ -176,8 +176,9 @@ add_filter( 'kadence_post_layout', 'hugginbutt_hide_shop_archive_hero' );
 
 /**
  * Removes Kadence's entry-hero banner (the "Shop" title on the Shop page's
- * product-archive-hero-section, and the "Cart" title on the Cart page's
- * page-hero-section), which duplicated the page's own header content.
+ * product-archive-hero-section, the "Cart" title on the Cart page's
+ * page-hero-section, and the "Checkout" title on the Checkout page), which
+ * duplicated the page's own header content.
  */
 function hugginbutt_hide_shop_archive_hero( $layout ) {
 	if ( function_exists( 'is_shop' ) && is_shop() && ! is_search() ) {
@@ -185,6 +186,10 @@ function hugginbutt_hide_shop_archive_hero( $layout ) {
 	}
 
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
+		$layout['title'] = 'hide';
+	}
+
+	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
 		$layout['title'] = 'hide';
 	}
 
