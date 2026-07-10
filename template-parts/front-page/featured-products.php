@@ -26,9 +26,9 @@ $shop_url = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : ho
 						<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="hb-product-card__media">
 							<?php echo $product->get_image( 'hugginbutt-product' ); // phpcs:ignore WordPress.Security.EscapeOutput -- WC-escaped image markup. ?>
 						</a>
-						<h3 class="hb-product-card__name">
+						<h6 class="hb-product-card__name">
 							<a href="<?php echo esc_url( $product->get_permalink() ); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
-						</h3>
+						</h6>
 						<div class="hb-product-card__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
 						<div class="hb-product-card__cta">
 							<?php
@@ -44,7 +44,7 @@ $shop_url = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : ho
 						<span class="hb-product-card__media">
 							<?php hugginbutt_placeholder_image( 'product-' . ( ( $i - 1 ) % 3 + 1 ), __( 'Coming soon', 'hugginbutt-child' ) ); ?>
 						</span>
-						<h3 class="hb-product-card__name"><?php esc_html_e( 'Coming Soon', 'hugginbutt-child' ); ?></h3>
+						<h6 class="hb-product-card__name"><?php esc_html_e( 'Coming Soon', 'hugginbutt-child' ); ?></h6>
 						<a href="<?php echo esc_url( $shop_url ); ?>" class="hb-button hb-button--small"><?php esc_html_e( 'Visit Shop', 'hugginbutt-child' ); ?></a>
 					</div>
 				<?php endfor; ?>

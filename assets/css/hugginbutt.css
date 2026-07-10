@@ -66,7 +66,7 @@
 	/* Product card tiles (shop grid + homepage featured products) reuse
 	   these two exact sizes in more than one place, so they get their own
 	   tokens instead of snapping to the general scale above. */
-	--hb-fs-card-title: clamp(1.05rem, 1.45vw, 1.32rem);
+	--hb-fs-card-title: clamp(0.7rem, 0.85vw, 0.9rem);
 	--hb-fs-card-price: 1.55rem;
 }
 
@@ -90,15 +90,20 @@
 }
 
 /* Base heading scale, so individual components can inherit a size instead
-   of inventing their own. Components with a good reason to differ (hero
-   heading, section headings, card titles, etc.) still override below -
-   this just gives everything else a sane default. */
-.hb-body h1 { font-size: var(--hb-fs-3xl); }
-.hb-body h2 { font-size: var(--hb-fs-2xl); }
-.hb-body h3 { font-size: var(--hb-fs-xl); }
-.hb-body h4 { font-size: var(--hb-fs-lg); }
-.hb-body h5 { font-size: var(--hb-fs-md); }
-.hb-body h6 { font-size: var(--hb-fs-base); font-weight: 700; }
+   of inventing their own. Wrapped in :where() so this carries zero extra
+   specificity beyond the bare element (h1 etc.) - a component class like
+   .hb-product-card__name must always be able to override it outright
+   rather than fight it on specificity (same bug the comment above warns
+   about for .hb-hero__subheading/.hb-footer__blurb). Components with a
+   good reason to differ (hero heading, section headings, card titles,
+   etc.) still override below - this just gives everything else a
+   sane default. */
+:where(.hb-body) h1 { font-size: var(--hb-fs-3xl); }
+:where(.hb-body) h2 { font-size: var(--hb-fs-2xl); }
+:where(.hb-body) h3 { font-size: var(--hb-fs-xl); }
+:where(.hb-body) h4 { font-size: var(--hb-fs-lg); }
+:where(.hb-body) h5 { font-size: var(--hb-fs-md); }
+:where(.hb-body) h6 { font-size: var(--hb-fs-base); font-weight: 700; }
 
 .hb-body h1,
 .hb-body h2,
@@ -1377,7 +1382,7 @@ body.tax-product_cat ul.products li.product {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
-	padding: clamp(1.15rem, 2vw, 1.55rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
+	padding: clamp(0.7rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
 	background-color: transparent !important;
 	background-image: url("../images/decor/tarot-card.webp") !important;
 	background-repeat: no-repeat !important;
@@ -1408,7 +1413,7 @@ body.tax-product_cat ul.products li.product .woocommerce-loop-product__title {
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
-	height: 3.25rem;
+	height: 2.85rem;
 	margin: 0.2rem 0.65rem 0.85rem;
 	color: #2b2116 !important;
 	font-family: var(--hb-font-display);
@@ -2444,7 +2449,7 @@ body.hb-coming-soon-page {
 	background-repeat: no-repeat !important;
 	background-size: 100% 100% !important;
 	background-position: center !important;
-	padding: clamp(1.15rem, 2vw, 1.55rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
+	padding: clamp(0.7rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.35rem) clamp(1.05rem, 1.7vw, 1.35rem);
 	border: 0;
 	border-radius: 4px;
 	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
@@ -2461,7 +2466,7 @@ body.hb-coming-soon-page {
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
-	height: 3.25rem;
+	height: 2.85rem;
 	margin: 0.2rem 0.65rem 0.85rem;
 	font-family: var(--hb-font-display);
 	font-size: var(--hb-fs-card-title);
