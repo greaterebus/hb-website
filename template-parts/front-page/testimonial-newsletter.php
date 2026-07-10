@@ -9,9 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$testimonials    = hugginbutt_get_testimonials();
-$testimonial_img = hugginbutt_get_content( 'hb_testimonial_image' );
-$form_action     = hugginbutt_get_content( 'hb_newsletter_form_action' );
+$testimonials = hugginbutt_get_testimonials();
+$form_action  = hugginbutt_get_content( 'hb_newsletter_form_action' );
 ?>
 <section class="hb-split-band hb-paper hb-torn-top">
 
@@ -37,14 +36,6 @@ $form_action     = hugginbutt_get_content( 'hb_newsletter_form_action' );
 				</div>
 			<?php endif; ?>
 		</div>
-	</div>
-
-	<div class="hb-split-band__mascot">
-		<?php if ( $testimonial_img ) : ?>
-			<img src="<?php echo esc_url( $testimonial_img ); ?>" alt="" />
-		<?php else : ?>
-			<?php hugginbutt_placeholder_image( 'testimonial', '' ); ?>
-		<?php endif; ?>
 	</div>
 
 	<div class="hb-newsletter">
