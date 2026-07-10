@@ -1054,24 +1054,29 @@ body.single-product .hb-related-products .hb-section-heading__text {
 	flex-direction: column;
 	gap: 2.5rem;
 }
-/* Flat cream background instead of the .hb-paper texture added via markup,
-   with a rounder shape and layered shadow (soft ambient + tighter contact
-   shadow) for a raised, 3D card feel. */
+/* Event-note artwork background instead of a flat cream card or the
+   .hb-paper texture. */
 .hb-events-page__item {
 	display: grid;
 	grid-template-columns: 320px 1fr;
 	gap: 2rem;
 	align-items: start;
-	background-color: var(--hb-cream);
-	background-image: none;
-	border-radius: var(--hb-radius-lg);
-	box-shadow:
-		inset 0 1px rgba(255, 247, 218, .36),
-		inset 0 -1px rgba(92, 55, 21, .14),
-		0 2px 5px rgba(20, 12, 4, .38),
-		0 10px 20px rgba(20, 12, 4, .35),
-		0 28px 48px rgba(20, 12, 4, .45);
-	padding: 1.5rem;
+	background-color: transparent;
+	background-image: url("../images/generated/event-note-wide.webp");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	border-radius: var(--hb-radius-none);
+	box-shadow: none;
+	box-sizing: content-box;
+	/* CSS % padding is always relative to the container's width, even for
+	   padding-top/bottom - so a flat 20% on every side reads lopsided
+	   against event-note-wide.webp's own proportions (1617x851, roughly
+	   1.9:1). Scaling padding-block down by that same ratio keeps the
+	   visual margin around the note consistent on all four sides. */
+	padding-inline: 12%;
+	padding-top: 12%;
+	padding-bottom: 8.4%;
 }
 .hb-events-page__media {
 	margin-bottom: 0;
@@ -1099,6 +1104,15 @@ body.single-product .hb-related-products .hb-section-heading__text {
 @media (max-width: 700px) {
 	.hb-events-page__item {
 		grid-template-columns: 1fr;
+		/* event-note-wide.webp is a short, wide banner shape (1617x851) -
+		   once the layout stacks to a single column it reads too short and
+		   squashed, so swap to the taller event-note-small.webp (912x1040)
+		   used on the homepage cards, rescaling padding-block to match its
+		   very different aspect ratio. */
+		background-image: url("../images/generated/event-note-small.webp");
+		padding-inline: 12%;
+		padding-top: 27%;
+		padding-bottom: 20%;
 	}
 }
 

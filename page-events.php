@@ -24,14 +24,14 @@ if ( ! function_exists( 'hugginbutt_render_event_list' ) ) {
 		<div class="hb-events-page__list">
 			<?php foreach ( $events as $event ) : ?>
 				<article class="hb-events-page__item hb-paper">
-					<span class="hb-event-card__media hb-events-page__media">
+					<a href="<?php echo esc_url( $event['permalink'] ); ?>" class="hb-event-card__media hb-events-page__media">
 						<?php if ( ! empty( $event['image_url'] ) ) : ?>
 							<img src="<?php echo esc_url( $event['image_url'] ); ?>" alt="<?php echo esc_attr( $event['name'] ); ?>" />
 						<?php else : ?>
 							<?php hugginbutt_placeholder_image( $event['image'], $event['name'] ); ?>
 						<?php endif; ?>
 						<span class="hb-event-card__date"><?php echo esc_html( strtoupper( $event['date_range'] ) ); ?></span>
-					</span>
+					</a>
 					<div class="hb-events-page__details">
 						<h3 class="hb-event-card__name hb-events-page__name"><?php echo esc_html( $event['name'] ); ?><?php if ( ! empty( $event['date_long'] ) ) : ?> <span class="hb-event-card__date-long">- <?php echo esc_html( $event['date_long'] ); ?></span><?php endif; ?></h3>
 						<p class="hb-event-card__location"><?php echo esc_html( $event['location'] ); ?></p>
