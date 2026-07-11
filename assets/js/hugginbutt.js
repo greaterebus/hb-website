@@ -12,7 +12,31 @@
 		initShopFilterHighlight();
 		initShopAjaxFilters();
 		initAddToCartToast();
+		initShopFilterToggle();
 	} );
+
+	/**
+	 * Collapsible "Filter & Sort" toggle for the shop sidebar on mobile
+	 * (see .hb-shop-filter-toggle in hugginbutt.css and the dynamic_sidebar_before/
+	 * after hooks in inc/shop-sidebar.php that wrap the widgets in
+	 * #hb-shop-filter-wrap). Collapsed by default; the button and wrapper
+	 * are both CSS-hidden/inert above the 900px breakpoint where the
+	 * sidebar sits beside the grid instead of above it.
+	 */
+	function initShopFilterToggle() {
+		var toggle = document.querySelector( '.hb-shop-filter-toggle' );
+		var wrap = document.getElementById( 'hb-shop-filter-wrap' );
+
+		if ( ! toggle || ! wrap ) {
+			return;
+		}
+
+		toggle.addEventListener( 'click', function () {
+			var isOpen = toggle.getAttribute( 'aria-expanded' ) === 'true';
+			toggle.setAttribute( 'aria-expanded', isOpen ? 'false' : 'true' );
+			wrap.classList.toggle( 'is-open', ! isOpen );
+		} );
+	}
 
 	/**
 	 * Parchment-styled toast confirming an item was added to the cart.

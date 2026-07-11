@@ -1444,6 +1444,57 @@ body.woocommerce-shop.has-sidebar.has-left-sidebar .content-container {
 	grid-template-columns: 220px 1fr;
 }
 
+/* Below 900px the 220px sidebar column gets too cramped alongside the
+   product grid, so stack the sidebar above the grid instead and make its
+   widget content collapsible (hb-shop-filter-toggle) instead of always
+   taking up vertical space above the products. */
+.hb-shop-filter-toggle {
+	display: none;
+}
+@media (max-width: 900px) {
+	body.woocommerce-shop.has-sidebar .content-container,
+	body.tax-product_cat.has-sidebar .content-container,
+	body.tax-product_tag.has-sidebar .content-container {
+		display: flex !important;
+		flex-direction: column;
+		padding-inline: 1.5rem;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+	.content-container .primary-sidebar {
+		order: -1 !important;
+		margin-bottom: 1.5rem;
+	}
+	.hb-shop-filter-toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		width: 100%;
+		background: var(--hb-green);
+		color: var(--hb-cream-lighter);
+		font-family: var(--hb-font-display);
+		font-size: var(--hb-fs-sm);
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		border: 0;
+		border-radius: var(--hb-radius);
+		padding: 0.85em 1.1em;
+		cursor: pointer;
+	}
+	.hb-shop-filter-toggle__icon {
+		width: 18px;
+		height: 18px;
+	}
+	.hb-shop-filter-toggle-wrap {
+		display: none;
+		margin-top: 1rem;
+	}
+	.hb-shop-filter-toggle-wrap.is-open {
+		display: block;
+	}
+}
+
 /* Single product page: plain cream background behind the whole content
    column. Same rounding as the Cart/Checkout/My Account/About/Events
    "content card" pattern - this had drifted to a leftover 4px from an
@@ -1789,6 +1840,36 @@ body.woocommerce-shop .hb-products__grid,
 body.tax-product_cat .hb-products__grid {
 	grid-template-columns: repeat(4, 1fr);
 	gap: 1.5rem;
+}
+/* The shop-scoped selector above has higher specificity (body class +
+   descendant class) than the generic .hb-products__grid responsive rules
+   further down the file, so it was winning at every breakpoint and the
+   shop grid never actually dropped below 4 columns - matching specificity
+   here so these narrow the grid down as the viewport shrinks. */
+@media (max-width: 1180px) {
+	body.woocommerce-shop .hb-products__grid,
+	body.tax-product_cat .hb-products__grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (max-width: 900px) {
+	body.woocommerce-shop .hb-products__grid,
+	body.tax-product_cat .hb-products__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 560px) {
+	body.woocommerce-shop .hb-products__grid,
+	body.tax-product_cat .hb-products__grid {
+		grid-template-columns: 1fr;
+	}
+	/* Cards go full-width in the single-column layout, so the same clamped
+	   padding used everywhere else (tuned for narrower grid columns) now
+	   reads as too tight relative to the card's width. */
+	body.woocommerce-shop .hb-product-card,
+	body.tax-product_cat .hb-product-card {
+		padding: 1.75rem 2rem 2rem;
+	}
 }
 
 /* Tarot-style shuffle: when the shop grid re-filters via AJAX
