@@ -15,6 +15,7 @@ require HUGGINBUTT_DIR . '/inc/setup.php';
 require HUGGINBUTT_DIR . '/inc/enqueue.php';
 require HUGGINBUTT_DIR . '/inc/icons.php';
 require HUGGINBUTT_DIR . '/inc/customizer.php';
+require HUGGINBUTT_DIR . '/inc/typography.php';
 require HUGGINBUTT_DIR . '/inc/theme-content.php';
 require HUGGINBUTT_DIR . '/inc/events-cpt.php';
 require HUGGINBUTT_DIR . '/inc/woocommerce.php';

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="HugginButt logo placeholder">
-	<circle cx="60" cy="60" r="58" fill="#33402f"/>
-	<circle cx="60" cy="60" r="58" fill="none" stroke="#c9a227" stroke-width="2"/>
-	<path d="M40,75 Q60,20 80,75 Q65,60 60,62 Q55,60 40,75 Z" fill="#b3392c"/>
-	<rect x="45" y="75" width="30" height="10" rx="4" fill="#8a1f1a"/>
-</svg>

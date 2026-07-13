@@ -336,7 +336,7 @@ function hugginbutt_replace_empty_cart_title( $block_content, $block ) {
 	?>
 	<img
 		class="hb-empty-cart-feed-me"
-		src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/generated/empty-cart-feed-me.png' ); ?>"
+		src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/generated/empty-cart-feed-me.webp' ); ?>"
 		alt="<?php esc_attr_e( 'Your cart is empty - feed me!', 'hugginbutt-child' ); ?>"
 	/>
 	<?php

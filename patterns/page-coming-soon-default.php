@@ -25,9 +25,9 @@ $body_font_family    = $fonts['body'];
 <!-- wp:woocommerce/coming-soon {"comingSoonPatternId":"page-coming-soon-default","className":"woocommerce-coming-soon-default hb-coming-soon","style":{"color":{"background":"#303722","text":"#e8d8b4"},"elements":{"link":{"color":{"text":"#e8d8b4"}}}}} -->
 <div class="wp-block-woocommerce-coming-soon woocommerce-coming-soon-default hb-coming-soon has-text-color has-background has-link-color" style="color:#e8d8b4;background-color:#303722"><!-- wp:cover {"customOverlayColor":"transparent","isUserOverlayColor":true,"className":"coming-soon-is-vertically-aligned-center coming-soon-cover hb-coming-soon-cover","style":{"spacing":{"padding":{"top":"0px","bottom":"0px","left":"24px","right":"24px"}},"color":{"text":"inherit"},"elements":{"link":{"color":{"text":"inherit"}}}},"layout":{"type":"constrained","wideSize":"1280px"}} -->
 <div class="wp-block-cover coming-soon-is-vertically-aligned-center coming-soon-cover hb-coming-soon-cover has-text-color has-link-color" style="color:inherit;padding-top:0px;padding-right:24px;padding-bottom:0px;padding-left:24px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim" style="background-color:transparent"></span><div class="wp-block-cover__inner-container hb-coming-soon-center"><!-- wp:image {"className":"hb-coming-soon-wordmark","sizeSlug":"large"} -->
-<figure class="wp-block-image size-large hb-coming-soon-wordmark"><img src="<?php echo esc_url( HUGGINBUTT_URI . '/assets/images/generated/hugginbutt-logo-wordmark-transparent.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"/></figure>
+<figure class="wp-block-image size-large hb-coming-soon-wordmark"><img src="<?php echo esc_url( HUGGINBUTT_URI . '/assets/images/generated/hugginbutt-logo-wordmark-transparent.webp' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"/></figure>
 <!-- /wp:image --><!-- wp:image {"className":"hb-coming-soon-logo","sizeSlug":"large"} -->
-<figure class="wp-block-image size-large hb-coming-soon-logo"><img src="<?php echo esc_url( HUGGINBUTT_URI . '/assets/images/generated/coming-soon-work-in-progress.png' ); ?>" alt="<?php echo esc_attr__( 'Work in progress', 'hugginbutt' ); ?>"/></figure>
+<figure class="wp-block-image size-large hb-coming-soon-logo"><img src="<?php echo esc_url( HUGGINBUTT_URI . '/assets/images/generated/coming-soon-work-in-progress.webp' ); ?>" alt="<?php echo esc_attr__( 'Work in progress', 'hugginbutt' ); ?>"/></figure>
 <!-- /wp:image --></div></div>
 <!-- /wp:cover -->
 </div>
@@ -36,7 +36,7 @@ $body_font_family    = $fonts['body'];
 <?php $hb_coming_soon_events = hugginbutt_get_events( 'upcoming', 8 ); ?>
 <section class="hb-coming-soon-events">
 	<div class="hb-coming-soon-events__inner">
-		<img class="hb-coming-soon-events__heading-image" src="<?php echo esc_url( HUGGINBUTT_URI . '/assets/images/generated/coming-soon-upcoming-events.png' ); ?>" alt="<?php esc_attr_e( 'Upcoming Events', 'hugginbutt' ); ?>"/>
+		<img class="hb-coming-soon-events__heading-image" src="<?php echo esc_url( HUGGINBUTT_URI . '/assets/images/generated/coming-soon-upcoming-events.webp' ); ?>" alt="<?php esc_attr_e( 'Upcoming Events', 'hugginbutt' ); ?>"/>
 
 		<?php if ( $hb_coming_soon_events ) : ?>
 			<div class="hb-events__grid">

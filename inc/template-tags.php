@@ -62,8 +62,8 @@ function hugginbutt_placeholder_url( $key ) {
 		'product-3'            => 'placeholders/product-placeholder-3.svg',
 		'about'                => 'generated/about-makers-v2.webp',
 		'event'                => 'generated/ren-faire-v2.webp',
-		'testimonial'          => 'generated/testimonial-mascot.png',
-		'logo'                 => 'generated/footer-logo-cream.png',
+		'testimonial'          => 'generated/testimonial-mascot.webp',
+		'logo'                 => 'generated/footer-logo-cream.webp',
 	);
 
 	$file = isset( $known[ $key ] ) ? $known[ $key ] : ( 0 === strpos( $key, 'category-' ) ? 'placeholders/category-generic.svg' : 'placeholders/product-placeholder-1.svg' );

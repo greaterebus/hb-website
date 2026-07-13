@@ -64,26 +64,31 @@
 
 	/* Type scale - every font-size in this file should reference one of
 	   these instead of inventing a one-off value. Values sit near the
-	   median of what was previously scattered across the file. */
-	--hb-fs-2xs: 0.7rem;    /* ~11px - tiny ornaments/badges */
-	--hb-fs-xs: 0.8rem;     /* ~13px - meta text, small buttons, nav links */
-	--hb-fs-sm: 0.9rem;     /* ~14px - secondary/supporting text */
-	--hb-fs-base: 1.05rem;  /* ~17px - body copy default */
-	--hb-fs-md: 1.2rem;     /* ~19px - emphasized text, card titles */
-	--hb-fs-lg: 1.4rem;     /* ~22px - subheadings */
-	--hb-fs-xl: 1.85rem;    /* ~30px - h3-scale headings */
-	--hb-fs-2xl: 2.4rem;    /* ~38px - h2-scale headings */
-	--hb-fs-3xl: 3rem;      /* ~48px - h1-scale headings */
+	   median of what was previously scattered across the file.
+	   Every value is wrapped in calc(... * var(--hb-fs-scale, 1)) so the
+	   Typography Customizer section's Text Size control (inc/typography.php)
+	   can rescale the whole site proportionally by overriding --hb-fs-scale
+	   at :root; the ", 1" fallback keeps every value byte-identical to the
+	   un-scaled original when no override is present. */
+	--hb-fs-2xs: calc(0.7rem * var(--hb-fs-scale, 1));    /* ~11px - tiny ornaments/badges */
+	--hb-fs-xs: calc(0.8rem * var(--hb-fs-scale, 1));     /* ~13px - meta text, small buttons, nav links */
+	--hb-fs-sm: calc(0.9rem * var(--hb-fs-scale, 1));     /* ~14px - secondary/supporting text */
+	--hb-fs-base: calc(1.05rem * var(--hb-fs-scale, 1));  /* ~17px - body copy default */
+	--hb-fs-md: calc(1.2rem * var(--hb-fs-scale, 1));     /* ~19px - emphasized text, card titles */
+	--hb-fs-lg: calc(1.4rem * var(--hb-fs-scale, 1));     /* ~22px - subheadings */
+	--hb-fs-xl: calc(1.85rem * var(--hb-fs-scale, 1));    /* ~30px - h3-scale headings */
+	--hb-fs-2xl: calc(2.4rem * var(--hb-fs-scale, 1));    /* ~38px - h2-scale headings */
+	--hb-fs-3xl: calc(3rem * var(--hb-fs-scale, 1));      /* ~48px - h1-scale headings */
 
-	--hb-fs-display-sm: clamp(1.6rem, 2.5vw, 2.2rem);  /* section headings */
-	--hb-fs-display-md: clamp(2.2rem, 4vw, 3.4rem);    /* large banners */
-	--hb-fs-display-lg: clamp(2.5rem, 5vw, 4rem);      /* hero heading */
+	--hb-fs-display-sm: calc(clamp(1.6rem, 2.5vw, 2.2rem) * var(--hb-fs-scale, 1));  /* section headings */
+	--hb-fs-display-md: calc(clamp(2.2rem, 4vw, 3.4rem) * var(--hb-fs-scale, 1));    /* large banners */
+	--hb-fs-display-lg: calc(clamp(2.5rem, 5vw, 4rem) * var(--hb-fs-scale, 1));      /* hero heading */
 
 	/* Product card tiles (shop grid + homepage featured products) reuse
 	   these two exact sizes in more than one place, so they get their own
 	   tokens instead of snapping to the general scale above. */
-	--hb-fs-card-title: clamp(0.7rem, 0.85vw, 0.9rem);
-	--hb-fs-card-price: 1.55rem;
+	--hb-fs-card-title: calc(clamp(0.7rem, 0.85vw, 0.9rem) * var(--hb-fs-scale, 1));
+	--hb-fs-card-price: calc(1.55rem * var(--hb-fs-scale, 1));
 }
 
 /* ==========================================================================
@@ -368,14 +373,14 @@ img {
 	color: var(--hb-gold);
 	flex-shrink: 0;
 	opacity: .88;
-	background: url("../images/generated/ornament-leaf-sprig-v2.png") center / contain no-repeat;
+	background: url("../images/generated/ornament-leaf-sprig-v2.webp") center / contain no-repeat;
 }
 .hb-section-heading__ornament svg { display: none; }
 .hb-categories .hb-section-heading__ornament,
 .hb-about .hb-section-heading__ornament,
 .hb-events .hb-section-heading__ornament,
 .hb-newsletter .hb-section-heading__ornament {
-	background-image: url("../images/generated/ornament-leaf-sprig-green-v2.png");
+	background-image: url("../images/generated/ornament-leaf-sprig-green-v2.webp");
 	opacity: .96;
 }
 .hb-categories .hb-section-heading__text,
@@ -580,17 +585,17 @@ img {
 }
 .hb-icon--cart {
 	display: inline-block;
-	background: url("../images/icons/cart-chest.png") center / contain no-repeat;
+	background: url("../images/icons/cart-chest.webp") center / contain no-repeat;
 }
 .hb-header__cart:hover .hb-icon--cart {
-	background-image: url("../images/icons/cart-mimic.png");
+	background-image: url("../images/icons/cart-mimic.webp");
 }
 .hb-icon--account {
 	display: inline-block;
-	background: url("../images/icons/account-gnome-hat.png") center / contain no-repeat;
+	background: url("../images/icons/account-gnome-hat.webp") center / contain no-repeat;
 }
 .hb-header__account:hover .hb-icon--account {
-	background-image: url("../images/icons/account-gnome-bald.png");
+	background-image: url("../images/icons/account-gnome-bald.webp");
 }
 .hugginbutt-cart-count {
 	position: absolute;
@@ -672,7 +677,7 @@ img {
 	height: 1em;
 	opacity: .9;
 	pointer-events: none;
-	background: url("../images/generated/ornament-leaf-branch-v2.png") center / contain no-repeat;
+	background: url("../images/generated/ornament-leaf-branch-v2.webp") center / contain no-repeat;
 }
 .hb-hero__ornament--start {
 	margin-right: 0.2em;
@@ -1942,7 +1947,7 @@ body.woocommerce-cart .wp-block-separator {
 }
 .hb-empty-cart-heading .hb-section-heading__ornament {
 	align-self: center;
-	background-image: url("../images/generated/ornament-leaf-sprig-green-v2.png");
+	background-image: url("../images/generated/ornament-leaf-sprig-green-v2.webp");
 	opacity: .96;
 }
 
@@ -2646,7 +2651,7 @@ body.hb-coming-soon-page {
 	padding: 0;
 	border: 0;
 	border-radius: var(--hb-radius-none);
-	background: url("../images/generated/category-arrow-leaf.png") center / contain no-repeat;
+	background: url("../images/generated/category-arrow-leaf.webp") center / contain no-repeat;
 	box-shadow: none;
 	color: transparent;
 	transform-origin: center;
@@ -2703,11 +2708,11 @@ body.hb-coming-soon-page {
 	background-size: contain !important;
 }
 .hb-categories__arrow {
-	background-image: url("../images/generated/category-arrow-leaf.png") !important;
+	background-image: url("../images/generated/category-arrow-leaf.webp") !important;
 }
 .hb-categories__arrow:hover:not(:disabled),
 .hb-categories__arrow:focus-visible:not(:disabled) {
-	background-image: url("../images/generated/category-arrow-leaf-fall.png") !important;
+	background-image: url("../images/generated/category-arrow-leaf-fall.webp") !important;
 }
 
 /* Remove rectangular hover shadow from leaf arrow image canvas. */

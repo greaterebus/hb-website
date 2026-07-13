@@ -12,7 +12,7 @@ add_action( 'wp_enqueue_scripts', 'hugginbutt_enqueue_assets', 20 );
 function hugginbutt_enqueue_assets() {
 	wp_enqueue_style(
 		'hugginbutt-fonts',
-		'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap',
+		hugginbutt_typography_google_fonts_url(),
 		array(),
 		null
 	);
@@ -37,31 +37,21 @@ function hugginbutt_enqueue_assets() {
 	}
 }
 
-add_action( 'wp_head', 'hugginbutt_preload_fonts', 1 );
+add_action( 'wp_head', 'hugginbutt_font_preconnect', 1 );
 
 /**
- * Preloads the Latin-subset woff2 files for the Google Fonts used in
- * headings (Cinzel) and body copy (Cormorant Garamond), so the browser
- * starts fetching them immediately instead of waiting to parse the Google
- * Fonts CSS first - shrinks the fallback-font flash before they swap in.
- *
- * The hashed URLs are a snapshot of what Google Fonts currently serves for
- * this font/weight/subset combo; if Google rotates them the preload just
- * silently stops helping (no breakage) and this list would need refreshing.
+ * Preconnects to Google Fonts' two hosts so the browser opens the
+ * connection before it even parses the fonts stylesheet. Works for
+ * whatever heading/body fonts are currently selected in the Typography
+ * Customizer section (inc/typography.php), unlike preloading one font's
+ * hashed .woff2 URLs directly, which would go stale the moment the
+ * selection changes (or Google rotates the hash).
  */
-function hugginbutt_preload_fonts() {
-	$fonts = array(
-		'https://fonts.gstatic.com/s/cinzel/v26/8vIJ7ww63mVu7gt79mT7.woff2',
-		'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2',
-		'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2',
-	);
-
-	foreach ( $fonts as $font_url ) {
-		printf(
-			'<link rel="preload" as="font" type="font/woff2" href="%s" crossorigin>' . "\n",
-			esc_url( $font_url )
-		);
-	}
+function hugginbutt_font_preconnect() {
+	?>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<?php
 }
 
 /**

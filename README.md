@@ -15,6 +15,7 @@ Just the theme (`wp-content/themes/hugginbutt-child`) — not the full WordPress
   - `setup.php` — theme supports, menus, image sizes.
   - `enqueue.php` — styles/scripts.
   - `customizer.php` — Customizer options backing the editable homepage copy.
+  - `typography.php` — Customizer options for heading/body font + text size (see "Brand" below).
   - `theme-content.php` — content getters (`hugginbutt_get_events()`, testimonials, etc.).
   - `woocommerce.php` — shop category/featured product queries, cart fragment, coming-soon body class.
   - `events-cpt.php` — registers the `hb_event` custom post type used for the Upcoming Events sections.
@@ -26,7 +27,7 @@ Just the theme (`wp-content/themes/hugginbutt-child`) — not the full WordPress
 ## Brand
 
 - Palette: forest green (`--hb-green`), parchment/cream (`--hb-cream*`), rust/copper (`--hb-rust`), gold (`--hb-gold`) — defined as CSS custom properties at the top of `assets/css/hugginbutt.css`, also overriding Kadence's `--global-palette*` tokens so untouched WooCommerce pages (cart, checkout, single product) stay on-brand.
-- Fonts: Cinzel (headings/display) + Cormorant Garamond (body).
+- Fonts: admin-configurable under Appearance > Customize > Typography (`inc/typography.php`) — separate Heading Font / Body Font pickers plus a Small/Medium/Large text-size scale, each from a curated set of choices (not a free Google Fonts search). Defaults to Cinzel for both, matching the site's shipped look; add more choices by extending `hugginbutt_typography_font_catalog()`. This replaces Kadence's own Typography panel, which has no visible effect here — see the comment at the top of `inc/typography.php` for why.
 - The site-wide green fabric-texture background lives on `.hb-body`; the Coming Soon page reproduces it separately since that page renders through WordPress's block-template system rather than `header.php`/`footer.php`.
 
 ## Local setup

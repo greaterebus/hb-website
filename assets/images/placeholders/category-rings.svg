@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="Rings category placeholder">
-	<rect width="500" height="500" fill="#ece0c8"/>
-	<circle cx="250" cy="250" r="248" fill="#e2d3ae"/>
-	<g transform="translate(250,270)" fill="none" stroke="#a2582c" stroke-width="14">
-		<circle r="90"/>
-	</g>
-	<polygon points="250,120 280,165 250,205 220,165" fill="#7a3f8f" stroke="#c9a227" stroke-width="6"/>
-</svg>

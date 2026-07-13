@@ -32,6 +32,7 @@ function hugginbutt_render_guide_page() {
 	$event_new_url      = admin_url( 'post-new.php?post_type=hb_event' );
 	$event_list_url     = admin_url( 'edit.php?post_type=hb_event' );
 	$customizer_url     = admin_url( 'customize.php' );
+	$typography_url     = admin_url( 'customize.php?autofocus[section]=hb_typography' );
 	?>
 	<div class="wrap hugginbutt-guide">
 		<h1><?php esc_html_e( 'Site Guide', 'hugginbutt-child' ); ?></h1>
@@ -91,6 +92,12 @@ function hugginbutt_render_guide_page() {
 				<li><?php esc_html_e( 'Click "Publish".', 'hugginbutt-child' ); ?></li>
 			</ol>
 			<p class="description"><?php esc_html_e( 'That\'s it - new pages are automatically added to the navbar at the top of the site, no extra setup needed.', 'hugginbutt-child' ); ?></p>
+		</div>
+
+		<div class="hugginbutt-guide__card">
+			<h2><?php esc_html_e( '6. Change site fonts and text size', 'hugginbutt-child' ); ?></h2>
+			<p><?php echo wp_kses_post( sprintf( __( 'Go to %s. Pick a heading font, a body font, and a text size (Small/Medium/Large) - the preview updates live before you save.', 'hugginbutt-child' ), '<a href="' . esc_url( $typography_url ) . '">' . esc_html__( 'Appearance &rsaquo; Customize &rsaquo; Typography', 'hugginbutt-child' ) . '</a>' ) ); ?></p>
+			<p class="description"><?php esc_html_e( "Use this instead of any other font/typography settings you may see elsewhere in the Customizer - this is the one that actually controls the site.", 'hugginbutt-child' ); ?></p>
 		</div>
 	</div>
 	<?php
