@@ -1140,13 +1140,24 @@ body.single-product .hb-related-products .hb-section-heading__text {
 		grid-template-columns: 1fr;
 		/* event-note-wide.webp is a short, wide banner shape (1617x851) -
 		   once the layout stacks to a single column it reads too short and
-		   squashed, so swap to the taller event-note-small.webp (912x1040)
-		   used on the homepage cards, rescaling padding-block to match its
-		   very different aspect ratio. */
-		background-image: url("../images/generated/event-note-small.webp");
-		padding-inline: 12%;
-		padding-top: 27%;
-		padding-bottom: 20%;
+		   squashed no matter which event-note art is used, so fall back to
+		   the same repeating, aspect-ratio-independent parchment texture
+		   the homepage sections use via .hb-paper (see the shared
+		   About/My Account/Cart/single-product/homepage-event-card
+		   breakpoint above) instead of a second illustrated image, and
+		   drop the padding that was tuned to the art's own baked-in
+		   border. */
+		background-color: #e3c78f;
+		background-image:
+			linear-gradient(90deg, rgba(111, 69, 27, .08), transparent 8%, transparent 92%, rgba(111, 69, 27, .08)),
+			url("../images/decor/parchment-fill.webp");
+		background-repeat: no-repeat, repeat;
+		background-size: 100% 100%, 480px 480px;
+		background-blend-mode: multiply, normal;
+		box-shadow:
+			inset 0 1px rgba(255, 247, 218, .36),
+			inset 0 -1px rgba(92, 55, 21, .14);
+		padding: 10%;
 	}
 }
 
@@ -1822,6 +1833,36 @@ body.page-id-24 article.entry {
 }
 body.page-id-24 article.entry {
 	box-shadow: none;
+}
+
+/* Below this width, the About/My Account/Cart/single-product "paper card"
+   backgrounds above - each a single large illustrated image stretched via
+   background-size: 100% 100% to exactly fill the container - distort
+   badly, since their fixed source aspect ratio increasingly departs from
+   the container's as it narrows (min-height is fixed while width keeps
+   shrinking). Same problem for the homepage's event-note cards. Fall back
+   to the same repeating, aspect-ratio-independent parchment texture the
+   homepage sections use via .hb-paper instead of a second illustrated
+   image, since no single stretched image can stay undistorted at every
+   width. Only the background changes - padding/min-height/etc are left
+   alone. */
+@media (max-width: 782px) {
+	body.page-id-24 .content-wrap,
+	body.woocommerce-account .content-wrap,
+	body.woocommerce-cart .wp-block-woocommerce-cart,
+	body.single-product .content-container.site-container,
+	.hb-events .hb-event-card.hb-paper {
+		background-color: #e3c78f;
+		background-image:
+			linear-gradient(90deg, rgba(111, 69, 27, .08), transparent 8%, transparent 92%, rgba(111, 69, 27, .08)),
+			url("../images/decor/parchment-fill.webp");
+		background-repeat: no-repeat, repeat;
+		background-size: 100% 100%, 480px 480px;
+		background-blend-mode: multiply, normal;
+		box-shadow:
+			inset 0 1px rgba(255, 247, 218, .36),
+			inset 0 -1px rgba(92, 55, 21, .14);
+	}
 }
 
 /* The Cart block's notice/snackbar placeholders (coupon errors, "item
