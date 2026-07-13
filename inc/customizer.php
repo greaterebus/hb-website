@@ -41,7 +41,7 @@ function hugginbutt_customizer_fields() {
 			'section' => 'hb_navbar',
 			'type'    => 'image',
 			'label'   => __( 'Logo image (leave blank to use Site Identity > Logo)', 'hugginbutt-child' ),
-			'default' => content_url( '/uploads/2026/07/mascot.png' ),
+			'default' => HUGGINBUTT_URI . '/assets/images/generated/navbar-fairy.webp',
 		),
 
 		// Announcement bar.
