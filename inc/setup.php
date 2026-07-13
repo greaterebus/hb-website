@@ -88,3 +88,19 @@ function hugginbutt_ensure_primary_nav_menu() {
 		update_option( 'nav_menu_options', $nav_menu_options );
 	}
 }
+
+/**
+ * Kadence declares editor-styles support and loads its own editor
+ * stylesheet (plus Google Fonts CSS) so the block editor previews roughly
+ * match the live site. Turning that off here so Posts/Pages/Events edit
+ * on a plain, unstyled canvas instead - the site's actual dark fabric
+ * background and decorative fonts made the writing surface harder to
+ * read, not more helpful as a preview. Hooked after Kadence's own
+ * after_setup_theme registration (priority 20 vs. its default 10) so this
+ * removal runs second and wins.
+ */
+add_action( 'after_setup_theme', 'hugginbutt_disable_editor_styles', 20 );
+
+function hugginbutt_disable_editor_styles() {
+	remove_theme_support( 'editor-styles' );
+}
