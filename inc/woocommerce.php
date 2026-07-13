@@ -92,6 +92,25 @@ function hugginbutt_get_shop_categories() {
 }
 
 /**
+ * Sends every product-category link - breadcrumbs, the "Category:" line
+ * on single product pages, anywhere else core/WooCommerce builds one via
+ * get_term_link() - to the Shop page's query-param filter
+ * (?product_cat=slug) instead of the native /product-category/slug/
+ * archive, so there's one consistent way to "view a category" site-wide
+ * instead of two pages that look nothing alike. Matches the link scheme
+ * hugginbutt_get_shop_categories() above already builds by hand.
+ */
+add_filter( 'term_link', 'hugginbutt_product_category_link', 10, 3 );
+
+function hugginbutt_product_category_link( $url, $term, $taxonomy ) {
+	if ( 'product_cat' !== $taxonomy ) {
+		return $url;
+	}
+
+	return add_query_arg( 'product_cat', $term->slug, wc_get_page_permalink( 'shop' ) );
+}
+
+/**
  * Up to 6 featured products. Prefers products marked "Featured" in
  * WooCommerce; tops up with the most recently published products when
  * fewer than 6 are featured. Returns an empty array if the store has no

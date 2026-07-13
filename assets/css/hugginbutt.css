@@ -784,6 +784,30 @@ body.single-product .hb-related-products {
 body.single-product .hb-related-products .hb-section-heading__text {
 	color: var(--hb-green);
 }
+/* You May Also Like: same .hb-products__grid the homepage/shop use, but
+   scoped to fewer columns so the (at most 4) related products get
+   noticeably bigger cards instead of the homepage's 6-column density -
+   the class-scoped selector here outranks every unscoped .hb-products__grid
+   rule elsewhere in this file regardless of source order. */
+.hb-related-products .hb-products__grid {
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.75rem;
+}
+@media (max-width: 1180px) {
+	.hb-related-products .hb-products__grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (max-width: 900px) {
+	.hb-related-products .hb-products__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 560px) {
+	.hb-related-products .hb-products__grid {
+		grid-template-columns: 1fr;
+	}
+}
 .hb-products__inner {
 	max-width: var(--hb-container);
 	margin: 0 auto;
@@ -1500,18 +1524,22 @@ body.woocommerce-shop.has-sidebar.has-left-sidebar .content-container {
 	}
 }
 
-/* Single product page: plain cream background behind the whole content
-   column. Same rounding as the Cart/Checkout/My Account/About/Events
-   "content card" pattern - this had drifted to a leftover 4px from an
-   earlier iteration that used tarot-card art here (border-radius wasn't
-   updated when it switched to flat cream). */
+/* Single product page: paper-leafs artwork instead of a flat cream card,
+   same treatment as the Cart/Checkout/My Account/About/Events "content
+   card" pattern (My Account/About use the identical image on their own
+   .content-wrap - product pages route through .content-container.site-container
+   instead, per Kadence's single-product template markup). */
 body.single-product .content-container.site-container {
 	position: relative;
-	background-color: var(--hb-cream);
-	background-image: none;
-	border-radius: var(--hb-radius-lg);
-	box-shadow: 0 14px 22px rgba(13, 10, 6, 0.28);
-	padding: clamp(2.5rem, 5vw, 5rem);
+	background-color: transparent;
+	background-image: url("../images/generated/about-paper-leafs.webp");
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	border-radius: var(--hb-radius-none);
+	box-shadow: none;
+	padding: 10%;
+	min-height: 1276px;
 	color: var(--hb-green);
 }
 
