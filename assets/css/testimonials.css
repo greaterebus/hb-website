@@ -1,10 +1,11 @@
 /* Customer stories and purchased-item thumbnail gallery. Loaded after the main theme stylesheet. */
 .hb-testimonials { min-width: 0; padding-top: 4rem; }
 .hb-testimonials__heading {
-	font-size: var(--hb-fs-sm);
-	letter-spacing: .12em;
-	text-transform: uppercase;
-	margin-bottom: 1rem;
+	font-size: var(--hb-fs-xl);
+	line-height: 1.3;
+	font-weight: 500;
+	color: var(--hb-green-dark);
+	margin: 0 0 1.25rem;
 }
 .hb-testimonial-purchases {
 	margin-top: 1.5rem;
@@ -90,7 +91,14 @@
 	}
 }
 .hb-testimonials .hb-testimonial-story { margin: 0; padding: 0; border: 0; }
-.hb-testimonial-story .hb-testimonial-slide__quote { line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; }
+.hb-testimonial-story .hb-testimonial-slide__quote {
+	font-size: var(--hb-fs-md);
+	color: #2f2518;
+	font-style: italic;
+	line-height: 1.7;
+	white-space: pre-line;
+	overflow-wrap: anywhere;
+}
 .hb-testimonial-story .hb-testimonial-slide__author { margin-top: 1.25rem; overflow-wrap: anywhere; }
 .hb-testimonial-carousel__dots { gap: .15rem; }
 .hb-testimonial-carousel__dot,
@@ -107,4 +115,5 @@
 .hb-split-band--newsletter-only .hb-newsletter { width: 100%; max-width: 720px; margin-inline: auto; box-sizing: border-box; }
 @media (max-width: 480px) {
 	.hb-testimonials { padding-inline: 1.4rem; }
+	.hb-testimonials__heading { font-size: var(--hb-fs-lg); }
 }
