@@ -158,7 +158,7 @@ function hugginbutt_get_testimonials() {
 }
 
 /**
- * The four small icon+label features under the "About Us" copy.
+ * The small icon+label features under the "About Us" copy.
  * `icon` keys map to inc/icons.php.
  */
 function hugginbutt_get_about_features() {
@@ -167,11 +167,6 @@ function hugginbutt_get_about_features() {
 			'icon'  => 'feature-handmade',
 			'label' => __( 'Handmade', 'hugginbutt-child' ),
 			'sub'   => __( 'Each piece is unique', 'hugginbutt-child' ),
-		),
-		array(
-			'icon'  => 'feature-fairelife',
-			'label' => __( 'Faire Life', 'hugginbutt-child' ),
-			'sub'   => __( "You'll find us on the road", 'hugginbutt-child' ),
 		),
 		array(
 			'icon'  => 'feature-quality',

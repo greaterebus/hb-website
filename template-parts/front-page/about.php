@@ -1,7 +1,7 @@
 <?php
 /**
  * "A Little About Us" section: illustration on the left, brand story +
- * 4 feature callouts on the right.
+ * Feature callouts on the right.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
