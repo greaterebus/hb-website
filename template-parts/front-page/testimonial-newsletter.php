@@ -1,7 +1,7 @@
 <?php
 /**
- * Split band: testimonial carousel (left, parchment), mascot illustration
- * (middle), newsletter signup (right, parchment). JS-driven dot carousel
+ * Split band: purchase-first testimonial carousel and newsletter signup.
+ * JS-driven dot carousel
  * lives in assets/js/hugginbutt.js.
  */
 
@@ -12,24 +12,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 $testimonials = hugginbutt_get_testimonials();
 $form_action  = hugginbutt_get_content( 'hb_newsletter_form_action' );
 ?>
-<section class="hb-split-band hb-paper hb-torn-top">
+<section class="hb-split-band hb-paper hb-torn-top<?php echo $testimonials ? '' : ' hb-split-band--newsletter-only'; ?>">
 
+	<?php if ( $testimonials ) : ?>
 	<div class="hb-testimonials">
 		<h2 class="hb-testimonials__heading"><?php echo esc_html( hugginbutt_get_content( 'hb_testimonial_heading' ) ); ?></h2>
 
-		<div class="hb-testimonial-carousel" data-hb-carousel>
+		<div class="hb-testimonial-carousel" data-hb-carousel aria-live="polite">
 			<?php foreach ( $testimonials as $index => $testimonial ) : ?>
-				<blockquote class="hb-testimonial-slide<?php echo 0 === $index ? ' is-active' : ''; ?>">
-					<p class="hb-testimonial-slide__quote">&ldquo;<?php echo esc_html( $testimonial['quote'] ); ?>&rdquo;</p>
-					<cite class="hb-testimonial-slide__author">&mdash; <?php echo esc_html( $testimonial['author'] ); ?></cite>
-					<?php hugginbutt_star_rating( $testimonial['rating'] ); ?>
-				</blockquote>
+				<article class="hb-testimonial-slide<?php echo 0 === $index ? ' is-active' : ''; ?>">
+					<h3 class="hb-testimonial-slide__title"><?php echo esc_html( $testimonial['title'] ); ?></h3>
+					<ul class="hb-testimonial-products" aria-label="<?php esc_attr_e( 'Purchased items', 'hugginbutt-child' ); ?>">
+						<?php foreach ( $testimonial['items'] as $item ) : ?>
+							<li class="hb-testimonial-product">
+								<div class="hb-testimonial-product__photo" aria-hidden="true">
+									<?php if ( $item['image'] ) : ?>
+										<?php echo wp_kses_post( $item['image'] ); ?>
+									<?php else : ?>
+										<?php hugginbutt_the_icon( 'feature-handmade' ); ?>
+									<?php endif; ?>
+								</div>
+								<div class="hb-testimonial-product__details">
+									<span class="hb-testimonial-product__label"><?php esc_html_e( 'Purchased', 'hugginbutt-child' ); ?></span>
+									<?php if ( $item['url'] ) : ?>
+										<a class="hb-testimonial-product__name" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['name'] ); ?></a>
+									<?php else : ?>
+										<span class="hb-testimonial-product__name"><?php echo esc_html( $item['name'] ); ?></span>
+									<?php endif; ?>
+								</div>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+					<blockquote class="hb-testimonial-story">
+						<p class="hb-testimonial-slide__quote">&ldquo;<?php echo esc_html( $testimonial['quote'] ); ?>&rdquo;</p>
+						<cite class="hb-testimonial-slide__author">&mdash; <?php echo esc_html( $testimonial['author'] ); ?></cite>
+					</blockquote>
+				</article>
 			<?php endforeach; ?>
 
 			<?php if ( count( $testimonials ) > 1 ) : ?>
 				<div class="hb-testimonial-carousel__dots">
 					<?php foreach ( $testimonials as $index => $testimonial ) : ?>
-						<button type="button" class="hb-testimonial-carousel__dot<?php echo 0 === $index ? ' is-active' : ''; ?>" data-hb-slide="<?php echo esc_attr( $index ); ?>">
+						<button type="button" class="hb-testimonial-carousel__dot<?php echo 0 === $index ? ' is-active' : ''; ?>" data-hb-slide="<?php echo esc_attr( $index ); ?>" aria-pressed="<?php echo 0 === $index ? 'true' : 'false'; ?>">
 							<span class="screen-reader-text"><?php echo esc_html( sprintf( /* translators: %d: testimonial number */ __( 'Testimonial %d', 'hugginbutt-child' ), $index + 1 ) ); ?></span>
 						</button>
 					<?php endforeach; ?>
@@ -37,6 +61,7 @@ $form_action  = hugginbutt_get_content( 'hb_newsletter_form_action' );
 			<?php endif; ?>
 		</div>
 	</div>
+	<?php endif; ?>
 
 	<div class="hb-newsletter">
 		<h2 class="hb-newsletter__heading"><?php echo esc_html( hugginbutt_get_content( 'hb_newsletter_heading' ) ); ?></h2>

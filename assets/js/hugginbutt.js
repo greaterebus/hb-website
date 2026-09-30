@@ -390,6 +390,7 @@
 					} );
 					dots.forEach( function ( otherDot ) {
 						otherDot.classList.toggle( 'is-active', otherDot === dot );
+						otherDot.setAttribute( 'aria-pressed', otherDot === dot ? 'true' : 'false' );
 					} );
 				} );
 			} );

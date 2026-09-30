@@ -1,9 +1,7 @@
 <?php
 /**
- * Repeating list content with no natural home in the Customizer or
- * WooCommerce: ren-faire events, customer testimonials, and the four
- * "about us" feature callouts. Edit the arrays below directly to add,
- * remove, or change entries — each item follows the same shape.
+ * Homepage content getters. Events and testimonials are managed in WordPress;
+ * the small About features and category fallbacks are defined here.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -132,27 +130,40 @@ function hugginbutt_render_event_list( array $events, $empty_message, $link_medi
 }
 
 /**
- * Customer testimonials shown in the split band above the newsletter signup.
- * `rating` is 1-5.
+ * Published customer stories, with public catalog products or a custom item name.
  */
 function hugginbutt_get_testimonials() {
-	$testimonials = array(
-		array(
-			'quote'  => 'The craftsmanship is amazing and the designs are so unique! I always get compliments on it at the faire.',
-			'author' => 'Jessica M.',
-			'rating' => 5,
-		),
-		array(
-			'quote'  => 'Every piece feels like it has its own story. My Dragon Eye Ring is my favorite thing I own.',
-			'author' => 'Sam R.',
-			'rating' => 5,
-		),
-		array(
-			'quote'  => 'Fast shipping, gorgeous packaging, and the earrings are even prettier in person.',
-			'author' => 'Devon P.',
-			'rating' => 4,
-		),
-	);
+	$testimonials = array();
+	$posts = get_posts( array(
+		'post_type' => 'hb_testimonial',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'orderby' => array( 'menu_order' => 'ASC', 'date' => 'DESC', 'ID' => 'DESC' ),
+	) );
+	foreach ( $posts as $post ) {
+		$author = get_post_meta( $post->ID, 'hb_testimonial_author', true );
+		$title = trim( wp_strip_all_tags( $post->post_title ) );
+		$quote = trim( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ) );
+		$items = array();
+		foreach ( (array) get_post_meta( $post->ID, 'hb_testimonial_products', true ) as $product_id ) {
+			if ( 'product' !== get_post_type( $product_id ) || 'publish' !== get_post_status( $product_id ) || post_password_required( $product_id ) ) {
+				continue;
+			}
+			$items[] = array(
+				'name' => get_the_title( $product_id ),
+				'url' => get_permalink( $product_id ),
+				'image' => get_the_post_thumbnail( $product_id, 'woocommerce_thumbnail', array( 'class' => 'hb-testimonial-product__image', 'alt' => '' ) ),
+			);
+		}
+		$other_item = get_post_meta( $post->ID, 'hb_testimonial_item', true );
+		if ( $other_item ) {
+			$items[] = array( 'name' => $other_item, 'url' => '', 'image' => '' );
+		}
+		if ( ! $title || ! $quote || ! $author || ! $items ) {
+			continue;
+		}
+		$testimonials[] = array( 'title' => $title, 'quote' => $quote, 'author' => $author, 'items' => $items );
+	}
 
 	return apply_filters( 'hugginbutt_testimonials', $testimonials );
 }

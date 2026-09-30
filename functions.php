@@ -18,6 +18,7 @@ require HUGGINBUTT_DIR . '/inc/customizer.php';
 require HUGGINBUTT_DIR . '/inc/typography.php';
 require HUGGINBUTT_DIR . '/inc/theme-content.php';
 require HUGGINBUTT_DIR . '/inc/events-cpt.php';
+require HUGGINBUTT_DIR . '/inc/testimonials-cpt.php';
 require HUGGINBUTT_DIR . '/inc/woocommerce.php';
 require HUGGINBUTT_DIR . '/inc/template-tags.php';
 require HUGGINBUTT_DIR . '/inc/shop-sidebar.php';

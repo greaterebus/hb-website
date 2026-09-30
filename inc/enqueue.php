@@ -24,6 +24,10 @@ function hugginbutt_enqueue_assets() {
 		(string) filemtime( HUGGINBUTT_DIR . '/assets/css/hugginbutt.css' )
 	);
 
+	if ( is_front_page() ) {
+		wp_enqueue_style( 'hugginbutt-testimonials', HUGGINBUTT_URI . '/assets/css/testimonials.css', array( 'hugginbutt-style' ), (string) filemtime( HUGGINBUTT_DIR . '/assets/css/testimonials.css' ) );
+	}
+
 	wp_enqueue_script(
 		'hugginbutt-script',
 		HUGGINBUTT_URI . '/assets/js/hugginbutt.js',

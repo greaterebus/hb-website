@@ -99,6 +99,16 @@ function hugginbutt_render_guide_page() {
 			<p><?php echo wp_kses_post( sprintf( __( 'Go to %s. Pick a heading font, a body font, and a text size (Small/Medium/Large) - the preview updates live before you save.', 'hugginbutt-child' ), '<a href="' . esc_url( $typography_url ) . '">' . esc_html__( 'Appearance &rsaquo; Customize &rsaquo; Typography', 'hugginbutt-child' ) . '</a>' ) ); ?></p>
 			<p class="description"><?php esc_html_e( "Use this instead of any other font/typography settings you may see elsewhere in the Customizer - this is the one that actually controls the site.", 'hugginbutt-child' ); ?></p>
 		</div>
+		<div class="hugginbutt-guide__card">
+			<h2><?php esc_html_e( '7. Add a customer testimonial', 'hugginbutt-child' ); ?></h2>
+			<ol>
+				<li><a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=hb_testimonial' ) ); ?>"><?php esc_html_e( 'Open Testimonials › Add New.', 'hugginbutt-child' ); ?></a></li>
+				<li><?php esc_html_e( 'Enter a short review title and the customer’s review in the main editor.', 'hugginbutt-child' ); ?></li>
+				<li><?php esc_html_e( 'In Customer & Purchased Items, enter their display name and check the products they purchased. The homepage uses the product names and photos automatically. For older or custom items, use Other purchased item.', 'hugginbutt-child' ); ?></li>
+				<li><?php esc_html_e( 'Set Display order if needed (lower numbers appear first), then Publish. There are no star ratings.', 'hugginbutt-child' ); ?></li>
+			</ol>
+			<p><?php esc_html_e( 'Use Draft to hide a review without deleting it. The homepage hides the testimonial area until a complete review is published; the newsletter remains visible. The three previous sample quotes are saved as drafts for review. Confirm their authenticity and replace the sample titles before publishing.', 'hugginbutt-child' ); ?></p>
+		</div>
 	</div>
 	<?php
 }

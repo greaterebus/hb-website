@@ -24,6 +24,14 @@ Just the theme (`wp-content/themes/hugginbutt-child`) — not the full WordPress
 - `patterns/page-coming-soon-default.php` — override of WooCommerce's bundled "Coming Soon" block pattern, restyled to match the site (registered under the same slug so it replaces the plugin's version without editing plugin files).
 - `assets/` — CSS (`hugginbutt.css`), JS, and images (`generated/` for illustrated art assets, `decor/` for background textures, `placeholders/` for fallback SVGs, `real-products/` for photography).
 
+## Customer testimonials
+
+Manage homepage reviews under **Testimonials > Add New** in WordPress (also linked from **Site Guide**). Add a review title, review text, customer display name, and purchased products. Selected catalog products supply their current names, photos, and links. Use **Other purchased item** for custom or retired items. Lower display-order numbers appear first; ties show newest first. Publish to display a review, or save as Draft to hide it. Incomplete submissions stay as drafts.
+
+The homepage shows purchase-first stories without star ratings. If there are no complete published reviews, only the newsletter is displayed in that band. Deleted or unpublished products are omitted; a review with no remaining purchased items is hidden until an editor updates it.
+
+`inc/testimonials-cpt.php` provides the admin form; `hugginbutt_get_testimonials()` in `inc/theme-content.php` reads published entries; `assets/css/testimonials.css` styles the cards. The old hard-coded examples are preserved once as drafts when an administrator opens WordPress. They are not automatically published. Reviews live in the WordPress database and need database backups, not Git commits.
+
 ## Brand
 
 - Palette: forest green (`--hb-green`), parchment/cream (`--hb-cream*`), rust/copper (`--hb-rust`), gold (`--hb-gold`) — defined as CSS custom properties at the top of `assets/css/hugginbutt.css`, also overriding Kadence's `--global-palette*` tokens so untouched WooCommerce pages (cart, checkout, single product) stay on-brand.
