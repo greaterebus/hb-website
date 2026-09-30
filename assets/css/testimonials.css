@@ -1,4 +1,4 @@
-/* Purchase-first customer stories. Loaded after the main theme stylesheet. */
+/* Customer stories and purchased-item thumbnail gallery. Loaded after the main theme stylesheet. */
 .hb-testimonials { min-width: 0; }
 .hb-testimonials__heading {
 	font-size: var(--hb-fs-sm);
@@ -14,32 +14,89 @@
 	margin: 0 0 1.25rem;
 	overflow-wrap: anywhere;
 }
+.hb-testimonial-purchases {
+	margin-top: 1.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid rgba(98, 107, 67, .3);
+}
+.hb-testimonial-purchases__heading {
+	font-size: var(--hb-fs-sm);
+	letter-spacing: .08em;
+	color: var(--hb-green-dark);
+	margin: 0 0 .8rem;
+}
 .hb-testimonials .hb-testimonial-products {
 	list-style: none;
-	margin: 0 0 1.5rem;
-	padding: 1.1rem 0;
-	border-block: 1px solid rgba(98, 107, 67, .3);
-	display: grid;
-	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .85rem;
 }
-.hb-testimonial-product { display: flex; align-items: center; gap: 1.1rem; }
+.hb-testimonial-product { width: 88px; margin: 0; }
+.hb-testimonial-product__tile {
+	position: relative;
+	display: block;
+	color: var(--hb-cream-lighter);
+	text-decoration: none;
+	border-radius: 12px;
+}
 .hb-testimonial-product__photo {
-	width: 86px;
-	height: 100px;
-	flex: 0 0 86px;
-	border-radius: 44px 44px 8px 8px;
+	width: 88px;
+	height: 88px;
+	box-sizing: border-box;
+	border: 3px solid var(--hb-green);
+	border-radius: 12px;
 	overflow: hidden;
 	display: grid;
 	place-items: center;
 	background: var(--hb-green);
 	color: var(--hb-cream-lighter);
+	box-shadow: 0 2px 5px rgba(36, 46, 24, .15);
 }
 .hb-testimonial-product__photo .hb-testimonial-product__image { width: 100%; height: 100%; object-fit: cover; margin: 0; }
 .hb-testimonial-product__photo svg { width: 34px; height: 34px; }
-.hb-testimonial-product__details { min-width: 0; }
-.hb-testimonial-product__label { display: block; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--hb-green-dark); margin-bottom: .35rem; }
-.hb-testimonial-product__name { font-size: var(--hb-fs-md); color: var(--hb-text); overflow-wrap: anywhere; }
-a.hb-testimonial-product__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.hb-testimonial-product__name {
+	position: absolute;
+	inset-inline: 3px;
+	bottom: 3px;
+	padding: 5px 4px;
+	border-radius: 0 0 8px 8px;
+	background: var(--hb-green-dark);
+	color: var(--hb-cream-lighter);
+	font-size: 12px;
+	font-family: system-ui, sans-serif;
+	font-weight: 400;
+	text-transform: none;
+	line-height: 1.35;
+	text-align: center;
+	overflow-wrap: anywhere;
+	opacity: 0;
+	pointer-events: none;
+}
+.hb-testimonial-product__tile:hover .hb-testimonial-product__name,
+.hb-testimonial-product__tile:focus-visible .hb-testimonial-product__name { opacity: 1; }
+.hb-testimonial-product__tile:focus-visible { outline: 2px solid var(--hb-green-dark); outline-offset: 4px; }
+/* Custom items have no destination; show their names without requiring focus. */
+.hb-testimonial-product__tile--custom .hb-testimonial-product__name {
+	position: static;
+	display: block;
+	margin-top: .35rem;
+	background: transparent;
+	color: var(--hb-text);
+	opacity: 1;
+}
+/* Touch users can identify a product before following its link. */
+@media (hover: none), (pointer: coarse) {
+	.hb-testimonial-product__name {
+		position: static;
+		display: block;
+		margin-top: .35rem;
+		background: transparent;
+		color: var(--hb-text);
+		opacity: 1;
+	}
+}
 .hb-testimonials .hb-testimonial-story { margin: 0; padding: 0; border: 0; }
 .hb-testimonial-story .hb-testimonial-slide__quote { line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; }
 .hb-testimonial-story .hb-testimonial-slide__author { margin-top: 1.25rem; overflow-wrap: anywhere; }
@@ -58,6 +115,5 @@ a.hb-testimonial-product__name { text-decoration: underline; text-decoration-thi
 .hb-split-band--newsletter-only .hb-newsletter { width: 100%; max-width: 720px; margin-inline: auto; box-sizing: border-box; }
 @media (max-width: 480px) {
 	.hb-testimonials { padding-inline: 1.4rem; }
-	.hb-testimonial-product__photo { width: 70px; height: 84px; flex-basis: 70px; }
 	.hb-testimonial-slide__title { font-size: var(--hb-fs-lg); }
 }
