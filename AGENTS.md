@@ -12,6 +12,7 @@
 
 - The website is hosted on a Synology NAS using Docker. Domain traffic is routed through the Cloudflare Docker container.
 - The parent `hugginbutt/docker-compose.yml` defines WordPress and MariaDB. WordPress mounts `./wordpress` into `/var/www/html`, so edits to the mounted theme can affect the running website immediately. A Git push is not a separate deployment step for those edits.
+- Development versus production separation is TBD. Revisit the environment and deployment strategy after the site goes live; no staging environment or promotion workflow has been agreed upon yet.
 - The website is currently under construction. Use the owner-provided view-access link to inspect the storefront:
   https://hugginbutt.com/?woo-share=iwW73NSFN8EyyIVnXKGsRKhjbUpTyxF8
 - Keep the under-construction setting in place unless the owner requests a change. The preview link grants view access; it does not provide administrator access.
