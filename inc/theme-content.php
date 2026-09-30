@@ -159,7 +159,7 @@ function hugginbutt_get_testimonials() {
 		if ( $other_item ) {
 			$items[] = array( 'name' => $other_item, 'url' => '', 'image' => '' );
 		}
-		if ( ! $title || ! $quote || ! $author || ! $items ) {
+		if ( ! $quote || ! $author || ! $items ) {
 			continue;
 		}
 		$testimonials[] = array( 'title' => $title, 'quote' => $quote, 'author' => $author, 'items' => $items );

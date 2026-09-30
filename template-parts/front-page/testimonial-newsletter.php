@@ -21,7 +21,6 @@ $form_action  = hugginbutt_get_content( 'hb_newsletter_form_action' );
 		<div class="hb-testimonial-carousel" data-hb-carousel aria-live="polite">
 			<?php foreach ( $testimonials as $index => $testimonial ) : ?>
 				<article class="hb-testimonial-slide<?php echo 0 === $index ? ' is-active' : ''; ?>">
-					<h3 class="hb-testimonial-slide__title"><?php echo esc_html( $testimonial['title'] ); ?></h3>
 					<blockquote class="hb-testimonial-story">
 						<p class="hb-testimonial-slide__quote">&ldquo;<?php echo esc_html( $testimonial['quote'] ); ?>&rdquo;</p>
 						<cite class="hb-testimonial-slide__author">&mdash; <?php echo esc_html( $testimonial['author'] ); ?></cite>

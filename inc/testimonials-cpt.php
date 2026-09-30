@@ -32,7 +32,7 @@ function hugginbutt_testimonial_classic_editor( $use_block_editor, $post_type ) 
 
 add_filter( 'enter_title_here', 'hugginbutt_testimonial_title_prompt', 10, 2 );
 function hugginbutt_testimonial_title_prompt( $title, $post ) {
-	return 'hb_testimonial' === $post->post_type ? __( 'Review title (e.g. A little magic for everyday)', 'hugginbutt-child' ) : $title;
+	return 'hb_testimonial' === $post->post_type ? __( 'Internal label (optional, not shown on the website)', 'hugginbutt-child' ) : $title;
 }
 
 add_action( 'add_meta_boxes', 'hugginbutt_testimonial_meta_box' );
@@ -45,7 +45,7 @@ function hugginbutt_render_testimonial_fields( $post ) {
 	$selected = array_map( 'absint', (array) get_post_meta( $post->ID, 'hb_testimonial_products', true ) );
 	$products = get_posts( array( 'post_type' => 'product', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC' ) );
 	?>
-	<p><?php esc_html_e( 'Write the customer’s review in the main editor. Add a review title, customer name, and at least one purchased item before publishing. Only published testimonials appear on the homepage.', 'hugginbutt-child' ); ?></p>
+	<p><?php esc_html_e( 'Write the customer’s review in the main editor. Add a customer name and at least one purchased item before publishing. The optional title is only an internal label. Only published testimonials appear on the homepage.', 'hugginbutt-child' ); ?></p>
 	<p><label for="hb_testimonial_author"><strong><?php esc_html_e( 'Customer display name', 'hugginbutt-child' ); ?></strong></label><br>
 	<input class="widefat" id="hb_testimonial_author" name="hb_testimonial_author" value="<?php echo esc_attr( get_post_meta( $post->ID, 'hb_testimonial_author', true ) ); ?>" placeholder="Jessica M." /></p>
 	<p><strong><?php esc_html_e( 'Purchased products', 'hugginbutt-child' ); ?></strong><br><?php esc_html_e( 'Check each item mentioned in the review. Its current name and photo will appear automatically.', 'hugginbutt-child' ); ?></p>
@@ -83,7 +83,7 @@ function hugginbutt_save_testimonial( $post_id ) {
 	} ) );
 	update_post_meta( $post_id, 'hb_testimonial_products', $ids );
 	$post = get_post( $post_id );
-	$complete = trim( wp_strip_all_tags( $post->post_title ) ) && trim( wp_strip_all_tags( $post->post_content ) ) && get_post_meta( $post_id, 'hb_testimonial_author', true ) && ( $ids || get_post_meta( $post_id, 'hb_testimonial_item', true ) );
+	$complete = trim( wp_strip_all_tags( $post->post_content ) ) && get_post_meta( $post_id, 'hb_testimonial_author', true ) && ( $ids || get_post_meta( $post_id, 'hb_testimonial_item', true ) );
 	$update = array( 'ID' => $post_id, 'menu_order' => isset( $_POST['hb_testimonial_order'] ) && is_scalar( $_POST['hb_testimonial_order'] ) ? absint( $_POST['hb_testimonial_order'] ) : 0 );
 	if ( ! $complete && in_array( $post->post_status, array( 'publish', 'future' ), true ) ) {
 		$update['post_status'] = 'draft';
@@ -102,7 +102,7 @@ add_action( 'admin_notices', 'hugginbutt_testimonial_notice' );
 function hugginbutt_testimonial_notice() {
 	$screen = get_current_screen();
 	if ( $screen && 'hb_testimonial' === $screen->post_type && isset( $_GET['hb_testimonial_incomplete'] ) ) {
-		echo '<div class="notice notice-warning"><p>' . esc_html__( 'Saved as a draft. Add a review title, review text, customer name, and a purchased product or item name before publishing.', 'hugginbutt-child' ) . '</p></div>';
+		echo '<div class="notice notice-warning"><p>' . esc_html__( 'Saved as a draft. Add review text, customer name, and a purchased product or item name before publishing.', 'hugginbutt-child' ) . '</p></div>';
 	}
 }
 

@@ -146,7 +146,7 @@ function hugginbutt_customizer_fields() {
 			'section' => 'hb_testimonial',
 			'type'    => 'text',
 			'label'   => __( 'Heading', 'hugginbutt-child' ),
-			'default' => 'What Our Customers Say',
+			'default' => 'Reviews',
 		),
 		array(
 			'id'      => 'hb_testimonial_image',

@@ -1,18 +1,10 @@
 /* Customer stories and purchased-item thumbnail gallery. Loaded after the main theme stylesheet. */
-.hb-testimonials { min-width: 0; }
+.hb-testimonials { min-width: 0; padding-top: 4rem; }
 .hb-testimonials__heading {
 	font-size: var(--hb-fs-sm);
 	letter-spacing: .12em;
 	text-transform: uppercase;
 	margin-bottom: 1rem;
-}
-.hb-testimonial-slide__title {
-	font-size: var(--hb-fs-xl);
-	line-height: 1.3;
-	font-weight: 500;
-	color: var(--hb-green-dark);
-	margin: 0 0 1.25rem;
-	overflow-wrap: anywhere;
 }
 .hb-testimonial-purchases {
 	margin-top: 1.5rem;
@@ -115,5 +107,4 @@
 .hb-split-band--newsletter-only .hb-newsletter { width: 100%; max-width: 720px; margin-inline: auto; box-sizing: border-box; }
 @media (max-width: 480px) {
 	.hb-testimonials { padding-inline: 1.4rem; }
-	.hb-testimonial-slide__title { font-size: var(--hb-fs-lg); }
 }
